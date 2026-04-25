@@ -11,6 +11,8 @@ import {
   XAxis, YAxis, CartesianGrid, 
   Tooltip, ResponsiveContainer, AreaChart, Area 
 } from 'recharts';
+import { MapContainer, TileLayer, CircleMarker, Popup } from 'react-leaflet';
+import 'leaflet/dist/leaflet.css';
 import styles from './Overview.module.scss';
 
 const ridershipData = [
@@ -30,6 +32,14 @@ const systemLogs = [
   { id: 3, type: 'success', msg: 'Toplu ödəniş sinxronizasiyası: 12,402 əməliyyat emal edildi', time: '13:00' },
   { id: 4, type: 'error', msg: 'Kritik: Verilənlər bazası 3-cü qovşaq bağlantısı kəsildi', time: '12:45' },
   { id: 5, type: 'info', msg: 'Donanmaya yeni SIM keçid protokolu tətbiq edildi', time: '10:30' },
+];
+
+const mapCenter = [40.4093, 49.8671];
+const mockBuses = [
+  { id: 1, pos: [40.41, 49.86], name: '#5 Nərimanov' },
+  { id: 2, pos: [40.39, 49.88], name: '#88 Dərnəgül' },
+  { id: 3, pos: [40.42, 49.85], name: '#18 Koroğlu' },
+  { id: 4, pos: [40.38, 49.87], name: '#65 Azadlıq' },
 ];
 
 export default function Dashboard() {
@@ -167,14 +177,27 @@ export default function Dashboard() {
             </div>
           </div>
 
-          <div className={styles.mapSection}>
-            <div className={styles.mapPlaceholder}>
-              <div className={styles.busDot} style={{ top: '35%', left: '45%' }}></div>
-              <div className={styles.busDot} style={{ top: '55%', left: '65%' }}></div>
-              <div className={styles.busDot} style={{ top: '25%', left: '15%' }}></div>
-              <div className={styles.busDot} style={{ top: '75%', left: '30%' }}></div>
-            </div>
-            <div className={styles.mapOverlay}>
+          <div className={styles.mapSection} style={{ overflow: 'hidden', position: 'relative' }}>
+            <MapContainer center={mapCenter} zoom={12} style={{ height: '300px', width: '100%', borderRadius: '16px' }} zoomControl={false}>
+              <TileLayer
+                url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
+                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+              />
+              {mockBuses.map(bus => (
+                <CircleMarker 
+                  key={bus.id} 
+                  center={bus.pos} 
+                  radius={8} 
+                  fillColor="#9FC73C" 
+                  color="#111" 
+                  weight={2} 
+                  fillOpacity={1}
+                >
+                  <Popup>{bus.name}</Popup>
+                </CircleMarker>
+              ))}
+            </MapContainer>
+            <div className={styles.mapOverlay} style={{ pointerEvents: 'none' }}>
               <div className={styles.statusBadge}>
                 <span className={styles.liveDot}></span> Canlı Sistem Baxışı
               </div>
