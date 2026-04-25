@@ -3,22 +3,22 @@ import styles from './Pricing.module.scss';
 
 const tiers = [
   {
-    name: 'Standard',
+    name: 'Standart',
     minFare: '₼0.20',
     maxFare: '₼1.50',
     rate: '₼0.10 / km',
     discount: '0%',
     color: '#627d98',
     featured: true,
-    features: ['GPS & SIM tracking', 'Digital card access', 'Negative balance allowed', 'Family linking'],
+    features: ['GPS və SIM izləmə', 'Rəqəmsal karta giriş', 'Mənfi balansa icazə', 'Ailə hesabları'],
   },
   {
-    name: 'Senior',
+    name: 'Yaşlı',
     minFare: '₼0.10',
     maxFare: '₼0.75',
     rate: '₼0.05 / km',
     discount: '50%',
-    features: ['50% discount on all rides', 'Priority support', 'Negative balance allowed', 'Physical card free'],
+    features: ['Bütün gedişlərə 50% endirim', 'Prioritet dəstək', 'Mənfi balansa icazə', 'Pulsuz fiziki kart'],
   },
 ];
 
@@ -27,13 +27,13 @@ export default function Pricing() {
     <section className={styles.pricing} id="pricing">
       <div className={styles.container}>
         <div className={styles.header}>
-          <span className={styles.badge}><FiTag /> Pricing</span>
+          <span className={styles.badge}><FiTag /> Qiymətlər</span>
           <h2 className={styles.title}>
-            Transparent, <span className={styles.highlight}>Distance-Based</span> Fares
+            Şəffaf, <span className={styles.highlight}>Məsafəyə Əsaslanan</span> Tariflər
           </h2>
           <p className={styles.subtitle}>
-            No hidden fees. Pay based on how far you travel, with special discounts 
-            for seniors and frequent riders.
+            Gizli ödənişlər yoxdur. Səyahət etdiyiniz məsafəyə görə ödəyin. 
+            Yaşlılar və daimi sərnişinlər üçün xüsusi endirimlər mövcuddur.
           </p>
         </div>
 
@@ -44,14 +44,14 @@ export default function Pricing() {
               className={`${styles.card} ${tier.featured ? styles.featured : ''}`}
               style={{ animationDelay: `${i * 0.1}s` }}
             >
-              {tier.featured && <div className={styles.popularTag}><FiStar /> Most Popular</div>}
+              {tier.featured && <div className={styles.popularTag}><FiStar /> Ən Populyar</div>}
               <h3 className={styles.tierName} style={tier.color ? { color: tier.color } : {}}>{tier.name}</h3>
               <div className={styles.rate}>{tier.rate}</div>
               <div className={styles.fareRange}>
                 <span>Min: <strong>{tier.minFare}</strong></span>
-                <span>Max: <strong>{tier.maxFare}</strong></span>
+                <span>Maks: <strong>{tier.maxFare}</strong></span>
               </div>
-              <div className={styles.discountBadge}>{tier.discount} discount</div>
+              <div className={styles.discountBadge}>{tier.discount} endirim</div>
               <ul className={styles.featureList}>
                 {tier.features.map((f, j) => (
                   <li key={j}><FiCheckCircle /> {f}</li>
@@ -64,8 +64,8 @@ export default function Pricing() {
         <div className={styles.touristNote}>
           <div className={styles.noteIcon}><FiGlobe /></div>
           <div>
-            <strong>Tourist Card</strong> — Pre-paid only. Zero balance = entry denied. 
-            Available at all metro stations and airport kiosks. Standard rates apply.
+            <strong>Turist Kartı</strong> — Yalnız öncədən ödənişli. Sıfır balans = giriş imtinası. 
+            Bütün metro stansiyalarında və hava limanı köşklərində əldə etmək olar. Standart tariflər keçərlidir.
           </div>
         </div>
       </div>

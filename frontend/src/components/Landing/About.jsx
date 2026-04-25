@@ -5,33 +5,33 @@ import styles from './About.module.scss';
 const features = [
   {
     icon: <FiMap />,
-    title: 'Pay Per Kilometer',
-    desc: "Fair pricing based on actual distance traveled. Short ride? Pay less. It's that simple.",
+    title: 'Kilometrə görə ödəniş',
+    desc: "Həqiqi qət edilən məsafəyə əsaslanan ədalətli qiymət. Qısa gediş? Daha az ödəyin. Bu qədər sadə.",
   },
   {
     icon: <FiActivity />,
-    title: 'GPS Tracking',
-    desc: 'Real-time vehicle tracking with sub-meter accuracy to calculate the exact route distance.',
+    title: 'GPS İzləmə',
+    desc: 'Dəqiq marşrut məsafəsini hesablamaq üçün metr səviyyəsində dəqiqliklə real vaxtda nəqliyyat vasitəsinin izlənilməsi.',
   },
   {
     icon: <RiSimCardLine />,
-    title: 'SIM Signal Fallback',
-    desc: 'When GPS drops in tunnels or underground, our SIM-based triangulation kicks in seamlessly.',
+    title: 'SIM Siqnal Dəstəyi',
+    desc: 'Tunellərdə və ya yeraltı ərazilərdə GPS siqnalı itdiyi zaman, SIM-əsaslı trianqulyasiya sistemimiz problemsiz işə düşür.',
   },
   {
     icon: <FiShield />,
-    title: 'Auto Tap-Out',
-    desc: 'No need to swipe when exiting. Signal deviation from vehicle trajectory triggers automatic checkout.',
+    title: 'Avtomatik Çıxış',
+    desc: 'Çıxarkən kartı oxutmağa ehtiyac yoxdur. Siqnalın nəqliyyat vasitəsinin trayektoriyasından uzaqlaşması avtomatik ödənişi sonlandırır.',
   },
   {
     icon: <FiTrendingUp />,
-    title: 'Dynamic Discounts',
-    desc: 'Frequent short-distance travelers earn "Next Ride Free" vouchers. The more you ride, the more you save.',
+    title: 'Dinamik Endirimlər',
+    desc: 'Tez-tez qısa məsafəyə səyahət edənlər "Növbəti Gediş Pulsuz" vauçerləri qazanırlar. Nə qədər çox istifadə etsəniz, o qədər çox qənaət edərsiniz.',
   },
   {
     icon: <FiSmartphone />,
-    title: 'Digital-First Cards',
-    desc: 'Manage your B.A.K.U card from your phone. Top up, view history, link family accounts — all digitally.',
+    title: 'Rəqəmsal Kartlar',
+    desc: 'B.A.K.U kartınızı telefonunuzdan idarə edin. Balans artırın, tarixçəyə baxın, ailə hesablarını birləşdirin — hamısı rəqəmsal.',
   },
 ];
 
@@ -40,15 +40,15 @@ export default function About() {
     <section className={styles.about} id="about">
       <div className={styles.container}>
         <div className={styles.header}>
-          <span className={styles.badge}>Why B.A.K.U?</span>
+          <span className={styles.badge}>Niyə B.A.K.U?</span>
           <h2 className={styles.title}>
-            From <span className={styles.old}>Fixed Fares</span> to{' '}
-            <span className={styles.highlight}>Smart Pricing</span>
+            Sabit Tariflərdən <span className={styles.old}>Ağıllı</span>{' '}
+            <span className={styles.highlight}>Qiymətlərə</span>
           </h2>
           <p className={styles.subtitle}>
-            Traditional transit systems charge the same price regardless of distance. 
-            B.A.K.U changes the game with intelligent, distance-based fare calculation 
-            powered by dual GPS/SIM signal technology.
+            Ənənəvi nəqliyyat sistemləri məsafədən asılı olmayaraq eyni qiyməti tələb edir. 
+            B.A.K.U ikili GPS/SIM siqnal texnologiyası ilə işləyən intellektual, 
+            məsafəyə əsaslanan gediş haqqı hesablaması ilə oyunu dəyişir.
           </p>
         </div>
 

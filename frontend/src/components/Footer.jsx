@@ -15,8 +15,8 @@ export default function Footer() {
               <span>B.<span className={styles.accent}>A</span>.K.<span className={styles.accent}>U</span></span>
             </Link>
             <p className={styles.desc}>
-              Based on Accurate Kilometer Usage. 
-              The future of distance-based public transit payment.
+              Dəqiq Kilometr İstifadəsinə Əsaslanır. 
+              Məsafəyə əsaslanan ictimai nəqliyyat ödənişlərinin gələcəyi.
             </p>
             <div className={styles.socials}>
               <a href="#twitter" aria-label="Twitter"><FiTwitter /></a>
@@ -27,34 +27,25 @@ export default function Footer() {
 
           <div className={styles.grid}>
             <div className={styles.col}>
-              <h4>Product</h4>
+              <h4>Məhsul</h4>
               <ul>
-                <li><a href="#about">How it works</a></li>
-                <li><a href="#pricing">Pricing</a></li>
-                <li><a href="#baku-card">B.A.K.U Card</a></li>
+                <li><a href="#about">Necə işləyir</a></li>
+                <li><a href="#pricing">Qiymətlər</a></li>
+                <li><a href="#baku-card">B.A.K.U Kart</a></li>
               </ul>
             </div>
             <div className={styles.col}>
-              <h4>Company</h4>
+              <h4>Şirkət</h4>
               <ul>
-                <li><a href="#about">About Us</a></li>
-                <li><a href="#careers">Careers</a></li>
-                <li><a href="#news">Newsroom</a></li>
-              </ul>
-            </div>
-            <div className={styles.col}>
-              <h4>Legal</h4>
-              <ul>
-                <li><a href="#privacy">Privacy Policy</a></li>
-                <li><a href="#terms">Terms of Service</a></li>
-                <li><a href="#cookies">Cookie Policy</a></li>
+                <li><a href="#about">Haqqımızda</a></li>
+                <li><a href="#faq">FAQ</a></li>
               </ul>
             </div>
           </div>
         </div>
 
         <div className={styles.bottom}>
-          <p>© {currentYear} B.A.K.U Transit Systems. All rights reserved.</p>
+          <p>© {currentYear} B.A.K.U Nəqliyyat Sistemləri. Bütün hüquqlar qorunur.</p>
           <div className={styles.contact}>
             <FiMail /> support@baku-transit.com
           </div>

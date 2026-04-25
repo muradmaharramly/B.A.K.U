@@ -3,23 +3,23 @@ import { FiTruck, FiMapPin, FiActivity, FiSearch } from 'react-icons/fi';
 import styles from './Fleet.module.scss';
 
 const fleetData = [
-  { id: 'BUS-101', route: 'R78', status: 'In Transit', load: '65%', location: 'Nizami St.', health: 'Optimal' },
-  { id: 'BUS-102', route: 'R140', status: 'Maintenance', load: '0%', location: 'Depot A', health: 'Warning' },
-  { id: 'BUS-103', route: 'M2', status: 'In Transit', load: '40%', location: 'Xətai', health: 'Optimal' },
-  { id: 'BUS-104', route: 'R78', status: 'Delayed', load: '85%', location: 'Azneft Sq.', health: 'Critical' },
-  { id: 'BUS-105', route: 'R140', status: 'In Transit', load: '20%', location: '8km', health: 'Optimal' },
+  { id: 'BUS-101', route: 'R78', status: 'In Transit', statusLabel: 'Yoldadır', load: '65%', location: 'Nizami küç.', health: 'Optimal', healthLabel: 'Optimal' },
+  { id: 'BUS-102', route: 'R140', status: 'Maintenance', statusLabel: 'Texniki Baxış', load: '0%', location: 'Depo A', health: 'Warning', healthLabel: 'Xəbərdarlıq' },
+  { id: 'BUS-103', route: 'M2', status: 'In Transit', statusLabel: 'Yoldadır', load: '40%', location: 'Xətai', health: 'Optimal', healthLabel: 'Optimal' },
+  { id: 'BUS-104', route: 'R78', status: 'Delayed', statusLabel: 'Gecikir', load: '85%', location: 'Azneft meyd.', health: 'Critical', healthLabel: 'Kritik' },
+  { id: 'BUS-105', route: 'R140', status: 'In Transit', statusLabel: 'Yoldadır', load: '20%', location: '8km', health: 'Optimal', healthLabel: 'Optimal' },
 ];
 
 export default function Fleet() {
   return (
-    <DashboardLayout title="Fleet Management">
+    <DashboardLayout title="Donanma İdarəetmə">
       <div className={styles.pageHeader}>
         <div className={styles.searchBox}>
           <FiSearch />
-          <input type="text" placeholder="Filter by Unit ID or Route..." />
+          <input type="text" placeholder="Blok ID və ya Marşrut üzrə filtr..." />
         </div>
         <div className={styles.actions}>
-          <button className={styles.btnPrimary}>Deploy New Unit</button>
+          <button className={styles.btnPrimary}>Yeni Blok Yerləşdir</button>
         </div>
       </div>
 
@@ -27,13 +27,13 @@ export default function Fleet() {
         <table className={styles.table}>
           <thead>
             <tr>
-              <th>Unit ID</th>
-              <th>Route</th>
+              <th>Blok ID</th>
+              <th>Marşrut</th>
               <th>Status</th>
-              <th>Load</th>
-              <th>Current Location</th>
-              <th>Health</th>
-              <th>Action</th>
+              <th>Yük</th>
+              <th>Cari Məkan</th>
+              <th>Vəziyyət</th>
+              <th>Əməliyyat</th>
             </tr>
           </thead>
           <tbody>
@@ -43,7 +43,7 @@ export default function Fleet() {
                 <td>{unit.route}</td>
                 <td>
                   <span className={`${styles.statusBadge} ${styles[unit.status.toLowerCase().replace(' ', '')]}`}>
-                    {unit.status}
+                    {unit.statusLabel}
                   </span>
                 </td>
                 <td>
@@ -55,7 +55,7 @@ export default function Fleet() {
                 <td>{unit.location}</td>
                 <td>
                   <span className={`${styles.healthText} ${styles[unit.health.toLowerCase()]}`}>
-                    {unit.health}
+                    {unit.healthLabel}
                   </span>
                 </td>
                 <td>

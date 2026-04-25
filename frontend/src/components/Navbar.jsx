@@ -16,12 +16,12 @@ export default function Navbar() {
   }, []);
 
   const navLinks = isDashboard
-    ? [{ label: '← Landing', href: '/' }]
+    ? [{ label: '← Əsas Səhifə', href: '/' }]
     : [
-        { label: 'About', href: '#about' },
-        { label: 'How It Works', href: '#how-it-works' },
-        { label: 'Pricing', href: '#pricing' },
-        { label: 'FAQ', href: '#faq' },
+        { label: 'Haqqımızda', href: '#about' },
+        { label: 'Necə İşləyir', href: '#how-it-works' },
+        { label: 'Qiymətlər', href: '#pricing' },
+        { label: 'Sual-Cavab', href: '#faq' },
       ];
 
   return (
@@ -42,7 +42,7 @@ export default function Navbar() {
 
         <div className={styles.actions}>
           {!isDashboard && (
-            <Link to="/dashboard" className={styles.dashBtn}>Dashboard</Link>
+            <Link to="/login" className={styles.dashBtn}>Giriş</Link>
           )}
           <button className={styles.menuToggle} onClick={() => setMenuOpen(!menuOpen)} aria-label="Toggle menu">
             {menuOpen ? <FaTimes /> : <FaBars />}

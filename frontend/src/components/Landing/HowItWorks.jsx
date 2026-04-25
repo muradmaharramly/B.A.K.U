@@ -5,23 +5,23 @@ import styles from './HowItWorks.module.scss';
 const steps = [
   {
     icon: <FiSmartphone />,
-    title: 'Link Your SIM',
-    desc: 'Connect your mobile number to the B.A.K.U network to enable precise signal-based location tracking.'
+    title: 'SIM Kartınızı Bağlayın',
+    desc: 'Dəqiq siqnal əsaslı yer təyini üçün mobil nömrənizi B.A.K.U şəbəkəsinə qoşun.'
   },
   {
     icon: <FiCompass />,
-    title: 'Board Transport',
-    desc: 'Simply enter any bus or metro. Our system automatically detects your entry point via proximity sensors.'
+    title: 'Nəqliyyata Minin',
+    desc: 'Sadəcə istənilən avtobusa və ya metroya daxil olun. Sistemimiz giriş nöqtənizi yaxınlıq sensorları vasitəsilə avtomatik aşkar edir.'
   },
   {
     icon: <RiSignalTowerLine />,
-    title: 'Real-time Tracking',
-    desc: 'B.A.K.U calculates the exact distance traveled using high-precision GPS and cellular triangulation.'
+    title: 'Real Vaxtda İzləmə',
+    desc: 'B.A.K.U yüksək dəqiqlikli GPS və hüceyrə trianqulyasiyasından istifadə edərək qət edilən dəqiq məsafəni hesablayır.'
   },
   {
     icon: <FiCheckCircle />,
-    title: 'Automatic Payment',
-    desc: 'Exit the vehicle and pay only for the kilometers used. Your balance is updated instantly.'
+    title: 'Avtomatik Ödəniş',
+    desc: 'Nəqliyyat vasitəsindən çıxın və yalnız istifadə olunan kilometrlər üçün ödəyin. Balansınız dərhal yenilənir.'
   }
 ];
 
@@ -30,11 +30,11 @@ export default function HowItWorks() {
     <section className={styles.section} id="how-it-works">
       <div className={styles.container}>
         <div className={styles.header}>
-          <span className={styles.badge}>System Flow</span>
-          <h2 className={styles.title}>How It <span className={styles.highlight}>Works</span></h2>
+          <span className={styles.badge}>Sistem İşleyişi</span>
+          <h2 className={styles.title}>Necə <span className={styles.highlight}>İşləyir?</span></h2>
           <p className={styles.subtitle}>
-            A seamless experience powered by advanced signal intelligence. 
-            No more flat-rate tickets.
+            Qabaqcıl siqnal intellekti ilə təmin edilən qüsursuz təcrübə. 
+            Sabit tarifli biletlərə son.
           </p>
         </div>
 

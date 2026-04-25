@@ -5,6 +5,7 @@ import DashboardLayout from '../components/Dashboard/DashboardLayout';
 import { 
   FiTruck, FiActivity, FiUsers, FiTrendingUp, FiServer, FiCheckCircle, FiAlertTriangle
 } from 'react-icons/fi';
+import { FaBusSimple } from "react-icons/fa6";
 import { 
   XAxis, YAxis, CartesianGrid, 
   Tooltip, ResponsiveContainer, AreaChart, Area 
@@ -23,11 +24,11 @@ const ridershipData = [
 ];
 
 const systemLogs = [
-  { id: 1, type: 'info', msg: 'Sector 4: Route frequency optimized for rush hour', time: '14:23' },
-  { id: 2, type: 'warning', msg: 'Maintenance Alert: Unit #B-201 sensor drift', time: '14:15' },
-  { id: 3, type: 'success', msg: 'Batch billing sync: 12,402 transactions processed', time: '13:00' },
-  { id: 4, type: 'error', msg: 'Critical: Database node 3 connection timeout', time: '12:45' },
-  { id: 5, type: 'info', msg: 'New SIM Handover protocol deployed to fleet', time: '10:30' },
+  { id: 1, type: 'info', msg: 'Sektor 4: Marşrut tezliyi pik saat üçün optimallaşdırıldı', time: '14:23' },
+  { id: 2, type: 'warning', msg: 'Texniki Baxış Xəbərdarlığı: B-201 bloku sensor sapması', time: '14:15' },
+  { id: 3, type: 'success', msg: 'Toplu ödəniş sinxronizasiyası: 12,402 əməliyyat emal edildi', time: '13:00' },
+  { id: 4, type: 'error', msg: 'Kritik: Verilənlər bazası 3-cü qovşaq bağlantısı kəsildi', time: '12:45' },
+  { id: 5, type: 'info', msg: 'Donanmaya yeni SIM keçid protokolu tətbiq edildi', time: '10:30' },
 ];
 
 export default function Dashboard() {
@@ -57,33 +58,33 @@ export default function Dashboard() {
     return () => clearInterval(interval);
   }, []);
   return (
-    <DashboardLayout title="System Performance Overview">
+    <DashboardLayout title="Sistem Performansına Ümumi Baxış">
       <div className={styles.statsGrid}>
         <div className={styles.statItem}>
-          <div className={styles.statIcon}><FiTruck /></div>
+          <div className={styles.statIcon}><FaBusSimple /></div>
           <div className={styles.statData}>
-            <span className={styles.label}>Live Fleet</span>
+            <span className={styles.label}>Canlı Donanma</span>
             <span className={styles.value}>{stats.active_trips} / 150</span>
           </div>
         </div>
         <div className={styles.statItem}>
           <div className={styles.statIcon}><FiUsers /></div>
           <div className={styles.statData}>
-            <span className={styles.label}>Total Riders (Daily)</span>
+            <span className={styles.label}>Cəmi Sərnişin (Gündəlik)</span>
             <span className={styles.value}>{stats.daily_passengers.toLocaleString()}</span>
           </div>
         </div>
         <div className={styles.statItem}>
           <div className={styles.statIcon}><FiActivity /></div>
           <div className={styles.statData}>
-            <span className={styles.label}>Net Revenue (Today)</span>
+            <span className={styles.label}>Xalis Gəlir (Bugün)</span>
             <span className={styles.value}>₼{stats.daily_revenue.toFixed(2)}</span>
           </div>
         </div>
         <div className={styles.statItem}>
           <div className={styles.statIcon}><FiServer /></div>
           <div className={styles.statData}>
-            <span className={styles.label}>Total Users</span>
+            <span className={styles.label}>Cəmi İstifadəçi</span>
             <span className={styles.value}>{stats.total_users}</span>
           </div>
         </div>
@@ -93,7 +94,7 @@ export default function Dashboard() {
         <div className={styles.leftCol}>
           <div className={styles.chartSection}>
             <div className={styles.sectionHeader}>
-              <h3>Network Ridership Flow</h3>
+              <h3>Şəbəkə Sərnişin Axını</h3>
             </div>
             <div className={styles.chartWrapper}>
               <ResponsiveContainer width="100%" height={300}>
@@ -126,7 +127,7 @@ export default function Dashboard() {
             </div>
             <div className={styles.mapOverlay}>
               <div className={styles.statusBadge}>
-                <span className={styles.liveDot}></span> Live System View
+                <span className={styles.liveDot}></span> Canlı Sistem Baxışı
               </div>
             </div>
           </div>
@@ -134,26 +135,26 @@ export default function Dashboard() {
 
         <div className={styles.rightCol}>
           <div className={styles.systemHealth}>
-            <h3>Node Status</h3>
+            <h3>Qovşaq Statusu</h3>
             <div className={styles.healthList}>
               <div className={styles.healthItem}>
-                <span>GPS Alpha</span>
-                <span className={styles.status}>Active</span>
+                <span>GPS Alfa</span>
+                <span className={styles.status}>Aktiv</span>
               </div>
               <div className={styles.healthItem}>
-                <span>Payment Relays</span>
-                <span className={styles.status}>Active</span>
+                <span>Ödəniş Releləri</span>
+                <span className={styles.status}>Aktiv</span>
               </div>
               <div className={styles.healthItem}>
-                <span>Sector 4 Analytics</span>
-                <span className={styles.status}>Active</span>
+                <span>Sektor 4 Analitikası</span>
+                <span className={styles.status}>Aktiv</span>
               </div>
             </div>
           </div>
 
           <div className={styles.logsSection}>
             <div className={styles.sectionHeader}>
-              <h3>Recent Activity Logs</h3>
+              <h3>Son Fəaliyyət Jurnalları</h3>
             </div>
             <div className={styles.logList}>
               {systemLogs.map((log) => (

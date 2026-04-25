@@ -13,7 +13,7 @@ const ProtectedRoute = ({ children }) => {
         alignItems: 'center', 
         justifyContent: 'center',
         color: '#9FC73C',
-        fontFamily: 'Outfit'
+        fontFamily: 'Montserrat, sans-serif'
       }}>
         Verifying Administrative Access...
       </div>

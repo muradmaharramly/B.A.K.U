@@ -6,12 +6,12 @@ export default function Sidebar() {
   const location = useLocation();
 
   const menuItems = [
-    { icon: <FiGrid />, label: 'Overview', path: '/dashboard' },
-    { icon: <FiCompass />, label: 'Fleet Management', path: '/dashboard/fleet' },
-    { icon: <FiActivity />, label: 'Analytics', path: '/dashboard/analytics' },
-    { icon: <FiClock />, label: 'System Logs', path: '/dashboard/logs' },
-    { icon: <FiServer />, label: 'Nodes', path: '/dashboard/nodes' },
-    { icon: <FiSettings />, label: 'Settings', path: '/dashboard/settings' },
+    { icon: <FiGrid />, label: 'Ümumi Baxış', path: '/dashboard' },
+    { icon: <FiCompass />, label: 'Donanma İdarəetmə', path: '/dashboard/fleet' },
+    { icon: <FiActivity />, label: 'Analitika', path: '/dashboard/analytics' },
+    { icon: <FiClock />, label: 'Sistem Jurnalları', path: '/dashboard/logs' },
+    { icon: <FiServer />, label: 'Qovşaqlar', path: '/dashboard/nodes' },
+    { icon: <FiSettings />, label: 'Tənzimləmələr', path: '/dashboard/settings' },
   ];
 
   return (
@@ -39,7 +39,7 @@ export default function Sidebar() {
       <div className={styles.footer}>
         <div className={styles.systemBadge}>
           <span className={styles.pulse}></span>
-          System Live
+          Sistem Aktivdir
         </div>
       </div>
     </aside>

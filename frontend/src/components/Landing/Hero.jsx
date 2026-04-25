@@ -15,39 +15,39 @@ export default function Hero() {
       <div className={styles.grid}>
         <div className={styles.content}>
           <h1 className={styles.title}>
-            The Future of
+            Nəqliyyatın
             <br />
-            <span className={styles.highlight}>Transit Payment</span>
+            <span className={styles.highlight}>Gələcəyi</span>
             <br />
-            is Here.
+            Artıq Buradadır.
           </h1>
 
           <p className={styles.subtitle}>
-            Pay only for the distance you travel. B.A.K.U uses GPS & SIM signal
-            intelligence to track your exact ride — no more flat fares.
+            Yalnız qət etdiyiniz məsafə üçün ödəyin. B.A.K.U dəqiq gedişinizi izləmək 
+            üçün GPS və SIM siqnal intellektindən istifadə edir — sabit tariflərə son.
           </p>
 
           <div className={styles.ctas}>
             <Link to="/dashboard" className={styles.btnPrimary}>
-              <FiMapPin /> Explore Dashboard
+              <FiMapPin /> Paneli Kəşf Et
             </Link>
             <a href="#how-it-works" className={styles.btnGlass}>
-              Learn How It Works <FiArrowRight />
+              Necə İşləyir? <FiArrowRight />
             </a>
           </div>
 
           <div className={styles.stats}>
             <div className={styles.stat}>
               <div className={styles.num}>2.4M+</div>
-              <div className={styles.label}>Daily Riders</div>
+              <div className={styles.label}>Gündəlik Sərnişin</div>
             </div>
             <div className={styles.stat}>
               <div className={styles.num}>89</div>
-              <div className={styles.label}>Bus Routes</div>
+              <div className={styles.label}>Avtobus Xətti</div>
             </div>
             <div className={styles.stat}>
               <div className={styles.num}>19</div>
-              <div className={styles.label}>Metro Stations</div>
+              <div className={styles.label}>Metro Stansiyası</div>
             </div>
           </div>
         </div>

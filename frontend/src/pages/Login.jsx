@@ -31,7 +31,7 @@ export default function Login() {
             <FiShield />
           </div>
           <h1>B.A.K.U</h1>
-          <p>Administrative Access Gateway</p>
+          <p>Administrativ Giriş Qapısı</p>
         </div>
 
         {error && <div className={styles.errorMsg}>{error}</div>}
@@ -41,7 +41,7 @@ export default function Login() {
             <FiUser className={styles.icon} />
             <input 
               type="text" 
-              placeholder="Username" 
+              placeholder="İstifadəçi adı" 
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               required
@@ -52,7 +52,7 @@ export default function Login() {
             <FiLock className={styles.icon} />
             <input 
               type="password" 
-              placeholder="Security Key" 
+              placeholder="Təhlükəsizlik Açarı" 
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
@@ -60,13 +60,13 @@ export default function Login() {
           </div>
 
           <button type="submit" className={styles.loginBtn} disabled={loading}>
-            {loading ? 'Authorizing...' : 'Authorize Access'}
+            {loading ? 'Avtorizasiya edilir...' : 'Girişi Təsdiqlə'}
             {!loading && <FiArrowRight />}
           </button>
         </form>
 
         <div className={styles.cardFooter}>
-          <span>Secured by BAKU OS v1.0.4</span>
+          <span>BAKU OS v1.0.4 tərəfindən qorunur</span>
         </div>
       </div>
     </div>

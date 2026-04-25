@@ -4,20 +4,20 @@ import styles from './FAQ.module.scss';
 
 const faqs = [
   {
-    question: 'How accurate is the distance tracking?',
-    answer: 'B.A.K.U uses a combination of GPS, cellular triangulation (SIM signal), and proximity sensors at vehicle entrances. Our precision is within ±5 meters, ensuring you pay only for exactly what you travel.'
+    question: 'Məsafə izləmə nə dərəcədə dəqiqdir?',
+    answer: 'B.A.K.U GPS, hüceyrə trianqulyasiyası (SIM siqnalı) və nəqliyyat girişlərindəki yaxınlıq sensorlarının kombinasiyasından istifadə edir. Dəqiqliyimiz ±5 metr daxilindədir, bu da yalnız qət etdiyiniz məsafəyə görə ödəniş etməyinizi təmin edir.'
   },
   {
-    question: 'What happens if my phone dies during a trip?',
-    answer: 'Our proximity sensors record your entry. If your signal is lost, the system assumes the maximum possible distance for that route as a security measure. However, you can appeal this through the dashboard with trip logs.'
+    question: 'Gediş zamanı telefonum sönərsə nə baş verir?',
+    answer: 'Yaxınlıq sensorlarımız girişinizi qeydə alır. Siqnal itərsə, təhlükəsizlik tədbiri olaraq sistem həmin marşrut üçün mümkün olan maksimum məsafəni hesablayır. Lakin siz gediş qeydləri ilə paneldən buna etiraz edə bilərsiniz.'
   },
   {
-    question: 'Are my location data and privacy secure?',
-    answer: 'We prioritize privacy. All location data is encrypted and anonymized after the transaction is completed. We only store the total distance and fare history, not your specific route paths.'
+    question: 'Məkan məlumatlarım və məxfiliyim qorunurmu?',
+    answer: 'Biz məxfiliyə üstünlük veririk. Bütün məkan məlumatları əməliyyat başa çatdıqdan sonra şifrələnir və anonimləşdirilir. Biz spesifik marşrut trayektoriyalarınızı deyil, yalnız ümumi məsafəni və ödəniş tarixçəsini saxlayırıq.'
   },
   {
-    question: 'Can I use a physical B.A.K.U card?',
-    answer: 'Yes! While our system is optimized for mobile/SIM tracking, physical B.A.K.U cards are available at all metro stations and include an embedded chip for distance-based tracking.'
+    question: 'Fiziki B.A.K.U kartından istifadə edə bilərəmmi?',
+    answer: 'Bəli! Sistemimiz mobil/SIM izləmə üçün optimallaşdırılsa da, fiziki B.A.K.U kartları bütün metro stansiyalarında mövcuddur və məsafəyə əsaslanan izləmə üçün daxili çiplə təmin olunub.'
   }
 ];
 
@@ -32,16 +32,16 @@ export default function FAQ() {
     <section className={styles.section} id="faq">
       <div className={styles.container}>
         <div className={styles.header}>
-          <h2 className={styles.title}>Frequently Asked <span className={styles.highlight}>Questions</span></h2>
-          <p className={styles.subtitle}>Everything you need to know about the B.A.K.U distance-based transit network.</p>
+          <h2 className={styles.title}>Tez-tez Verilən <span className={styles.highlight}>Suallar</span></h2>
+          <p className={styles.subtitle}>B.A.K.U məsafəyə əsaslanan nəqliyyat şəbəkəsi haqqında bilməli olduğunuz hər şey.</p>
         </div>
 
         <div className={styles.layout}>
           <div className={styles.decorativeCol}>
             <div className={styles.blurCard}>
               <div className={styles.cardContent}>
-                <h3>Find Answers</h3>
-                <p>Support & Help</p>
+                <h3>Cavabları Tap</h3>
+                <p>Dəstək və Yardım</p>
               </div>
               <span className={styles.qMark} style={{ fontSize: '80px', top: '10%', left: '15%', opacity: 0.15 }}>?</span>
               <span className={styles.qMark} style={{ fontSize: '40px', bottom: '20%', right: '10%', opacity: 0.15 }}>?</span>

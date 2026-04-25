@@ -21,7 +21,7 @@ function App() {
           position="bottom-right"
           autoClose={3000}
           theme="dark"
-          toastStyle={{ fontFamily: 'Inter, sans-serif' }}
+          toastStyle={{ fontFamily: 'Open Sans, sans-serif' }}
         />
         <Routes>
           <Route path="/" element={<LandingPage />} />

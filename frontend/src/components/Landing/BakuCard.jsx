@@ -4,11 +4,11 @@ import { FiCompass, FiRefreshCw, FiZap, FiShield, FiCpu } from 'react-icons/fi';
 import styles from './BakuCard.module.scss';
 
 const mockTransactions = [
-  { id: 1, route: 'Bus 78', distance: '4.2 km', fare: '₼0.50', time: '14:23', type: 'fare' },
+  { id: 1, route: 'Avtobus 78', distance: '4.2 km', fare: '₼0.50', time: '14:23', type: 'fare' },
   { id: 2, route: 'Metro — 28 May → Koroğlu', distance: '6.8 km', fare: '₼0.80', time: '11:05', type: 'fare' },
-  { id: 3, route: 'Top-Up', distance: '—', fare: '+₼10.00', time: '09:30', type: 'topup' },
-  { id: 4, route: 'Bus 140', distance: '2.1 km', fare: '₼0.30', time: 'Yesterday', type: 'fare' },
-  { id: 5, route: 'Voucher Used', distance: '—', fare: '₼0.00', time: 'Apr 22', type: 'voucher' },
+  { id: 3, route: 'Balans Artımı', distance: '—', fare: '+₼10.00', time: '09:30', type: 'topup' },
+  { id: 4, route: 'Avtobus 140', distance: '2.1 km', fare: '₼0.30', time: 'Dünən', type: 'fare' },
+  { id: 5, route: 'Vauçer İstifadəsi', distance: '—', fare: '₼0.00', time: '22 Apr', type: 'voucher' },
 ];
 
 export default function BakuCard() {
@@ -27,12 +27,12 @@ export default function BakuCard() {
     <section className={styles.section} id="baku-card">
       <div className={styles.container}>
         <div className={styles.header}>
-          <span className={styles.badge}><FiCompass /> B.A.K.U Ecosystem</span>
+          <span className={styles.badge}><FiCompass /> B.A.K.U Ekosistemi</span>
           <h2 className={styles.title}>
-            Smart <span className={styles.highlight}>Digital ID</span>
+            Ağıllı <span className={styles.highlight}>Rəqəmsal ID</span>
           </h2>
           <p className={styles.subtitle}>
-            One ID for all transit. Seamless, secure, and distance-accurate.
+            Bütün nəqliyyat üçün vahid ID. Qüsursuz, təhlükəsiz və dəqiq məsafə izləmə.
           </p>
         </div>
 
@@ -41,13 +41,13 @@ export default function BakuCard() {
           <div className={`${styles.floatingElement} ${styles.left}`}>
             <div className={styles.floatCard}>
               <FiZap />
-              <span>Instant Sync</span>
+              <span>Sinxronizasiya</span>
             </div>
           </div>
           <div className={`${styles.floatingElement} ${styles.right}`}>
             <div className={styles.floatCard}>
               <FiShield />
-              <span>Secure ID</span>
+              <span>Təhlükəsiz ID</span>
             </div>
           </div>
 
@@ -80,13 +80,11 @@ export default function BakuCard() {
 
                 <div className={styles.mainInfo}>
                   <div className={styles.infoGroup}>
-                   
                     <span className={styles.value}>ƏLİ MƏMMƏDOV</span>
                   </div>
                   
                   <div className={styles.infoGroup}>
-                   
-                    <span className={styles.tierValue}>CITIZEN — STANDARD</span>
+                    <span className={styles.tierValue}>VƏTƏNDAŞ — STANDART</span>
                   </div>
                 </div>
 
@@ -101,7 +99,7 @@ export default function BakuCard() {
               {/* Back */}
               <div className={styles.back}>
                 <div className={styles.backHeader}>
-                  <h4>Recent Transactions</h4>
+                  <h4>Son Əməliyyatlar</h4>
                 </div>
                 <ul className={styles.txList}>
                   {mockTransactions.map((tx) => (
@@ -125,7 +123,7 @@ export default function BakuCard() {
           </div>
           
           <div className={styles.flipInstruction}>
-            <FiRefreshCw /> Click card to flip
+            <FiRefreshCw /> Çevirmək üçün karta klikləyin
           </div>
         </div>
       </div>

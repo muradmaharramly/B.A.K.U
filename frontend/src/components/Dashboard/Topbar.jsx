@@ -6,29 +6,29 @@ export default function Topbar({ title }) {
   return (
     <header className={styles.topbar}>
       <div className={styles.left}>
-        <h2>{title || 'Dashboard Overview'}</h2>
+        <h2>{title || 'Paneli Baxış'}</h2>
       </div>
 
       <div className={styles.right}>
         <div className={styles.search}>
           <FiSearch />
-          <input type="text" placeholder="Search system logs..." />
+          <input type="text" placeholder="Sistem jurnallarında axtar..." />
         </div>
 
         <div className={styles.actions}>
-          <button className={styles.iconBtn} aria-label="Notifications">
+          <button className={styles.iconBtn} aria-label="Bildirişlər">
             <FiBell />
             <span className={styles.badge}></span>
           </button>
           
           <div className={styles.profile}>
             <div className={styles.userInfo}>
-              <span className={styles.role}>System Overseer</span>
+              <span className={styles.role}>Sistem Nəzarətçisi</span>
             </div>
             <PiUserCircleFill className={styles.avatar} />
           </div>
 
-          <button className={styles.logoutBtn} aria-label="Logout">
+          <button className={styles.logoutBtn} aria-label="Çıxış">
             <FiLogOut />
           </button>
         </div>

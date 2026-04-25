@@ -15,43 +15,43 @@ export default function Settings() {
         return (
           <div className={styles.settingsView}>
             <div className={styles.card}>
-              <h3>Administrator Profile</h3>
-              <p className={styles.cardDesc}>Manage your public and private system identity.</p>
+              <h3>Administrator Profili</h3>
+              <p className={styles.cardDesc}>İctimai və şəxsi sistem kimliyinizi idarə edin.</p>
               <div className={styles.formGrid}>
                 <div className={styles.formGroup}>
-                  <label>Full Name</label>
-                  <input type="text" defaultValue="Admin Access" className={styles.input} />
+                  <label>Tam Ad</label>
+                  <input type="text" defaultValue="Admin Girişi" className={styles.input} />
                 </div>
                 <div className={styles.formGroup}>
-                  <label>Designation</label>
-                  <input type="text" defaultValue="System Overseer" className={styles.input} />
+                  <label>Vəzifə</label>
+                  <input type="text" defaultValue="Sistem Nəzarətçisi" className={styles.input} />
                 </div>
                 <div className={styles.formGroup}>
-                  <label>Contact Email</label>
+                  <label>Əlaqə E-poçtu</label>
                   <input type="email" defaultValue="admin@baku-transit.com" className={styles.input} />
                 </div>
                 <div className={styles.formGroup}>
-                  <label>Phone Number</label>
+                  <label>Telefon Nömrəsi</label>
                   <input type="text" defaultValue="+994 50 123 45 67" className={styles.input} />
                 </div>
               </div>
-              <button className={styles.btnPrimary}><FiSave /> Save Profile</button>
+              <button className={styles.btnPrimary}><FiSave /> Profili Saxla</button>
             </div>
             
             <div className={styles.card}>
-              <h3>Regional Settings</h3>
+              <h3>Regional Tənzimləmələr</h3>
               <div className={styles.formGroup}>
-                <label>Default Currency</label>
+                <label>Standart Valyuta</label>
                 <select className={styles.input}>
-                  <option>Azerbaijani Manat (₼)</option>
-                  <option>US Dollar ($)</option>
+                  <option>Azərbaycan Manatı (₼)</option>
+                  <option>ABŞ Dolları ($)</option>
                 </select>
               </div>
               <div className={styles.formGroup}>
-                <label>System Language</label>
+                <label>Sistem Dili</label>
                 <select className={styles.input}>
-                  <option>Azerbaijani</option>
-                  <option>English</option>
+                  <option>Azərbaycan dili</option>
+                  <option>İngilis dili</option>
                 </select>
               </div>
             </div>
@@ -62,27 +62,27 @@ export default function Settings() {
         return (
           <div className={styles.settingsView}>
             <div className={styles.card}>
-              <h3>System Alerts</h3>
-              <p className={styles.cardDesc}>Configure how you receive critical system updates.</p>
+              <h3>Sistem Xəbərdarlıqları</h3>
+              <p className={styles.cardDesc}>Kritik sistem yeniləmələrini necə alacağınızı tənzimləyin.</p>
               <div className={styles.toggleList}>
                 <div className={styles.toggleItem}>
                   <div>
-                    <h4>Critical Errors</h4>
-                    <p>Notify on database or node failures.</p>
+                    <h4>Kritik Xətalar</h4>
+                    <p>Verilənlər bazası və ya qovşaq xətaları zamanı bildiriş göndər.</p>
                   </div>
                   <input type="checkbox" defaultChecked />
                 </div>
                 <div className={styles.toggleItem}>
                   <div>
-                    <h4>Fleet Maintenance</h4>
-                    <p>Alert when units require sensor calibration.</p>
+                    <h4>Donanma Texniki Baxışı</h4>
+                    <p>Bloklar sensor kalibrlənməsi tələb etdikdə xəbərdar et.</p>
                   </div>
                   <input type="checkbox" defaultChecked />
                 </div>
                 <div className={styles.toggleItem}>
                   <div>
-                    <h4>Revenue Milestones</h4>
-                    <p>Notify when daily revenue targets are hit.</p>
+                    <h4>Gəlir Məqsədləri</h4>
+                    <p>Gündəlik gəlir hədəflərinə çatdıqda bildiriş göndər.</p>
                   </div>
                   <input type="checkbox" />
                 </div>
@@ -95,26 +95,26 @@ export default function Settings() {
         return (
           <div className={styles.settingsView}>
             <div className={styles.card}>
-              <h3>Authentication</h3>
+              <h3>Autentifikasiya</h3>
               <div className={styles.formGroup}>
-                <label>Current Password</label>
+                <label>Cari Şifrə</label>
                 <input type="password" placeholder="••••••••" className={styles.input} />
               </div>
               <div className={styles.formGroup}>
-                <label>New Password</label>
-                <input type="password" placeholder="Min. 12 characters" className={styles.input} />
+                <label>Yeni Şifrə</label>
+                <input type="password" placeholder="Min. 12 simvol" className={styles.input} />
               </div>
-              <button className={styles.btnPrimary}><FiShield /> Update Password</button>
+              <button className={styles.btnPrimary}><FiShield /> Şifrəni Yenilə</button>
             </div>
             
             <div className={styles.card}>
-              <h3>Security Protocols</h3>
+              <h3>Təhlükəsizlik Protokolları</h3>
               <div className={styles.toggleItem}>
                 <div>
-                  <h4>Two-Factor Authentication</h4>
-                  <p>Require SMS code for admin access.</p>
+                  <h4>İki-Mərhələli Autentifikasiya</h4>
+                  <p>Admin girişi üçün SMS kodu tələb et.</p>
                 </div>
-                <button className={styles.btnGlass}>Enable 2FA</button>
+                <button className={styles.btnGlass}>2FA-nı Aktiv Et</button>
               </div>
             </div>
           </div>
@@ -124,37 +124,37 @@ export default function Settings() {
         return (
           <div className={styles.settingsView}>
             <div className={styles.card}>
-              <h3>Fare Configuration</h3>
-              <p className={styles.cardDesc}>Master controls for distance-based billing logic.</p>
+              <h3>Tarif Tənzimləmələri</h3>
+              <p className={styles.cardDesc}>Məsafəyə əsaslanan ödəniş məntiqi üçün əsas idarəetmə.</p>
               <div className={styles.formGrid}>
                 <div className={styles.formGroup}>
-                  <label>Base KM Rate (₼)</label>
+                  <label>Baza KM Tarifi (₼)</label>
                   <input type="number" defaultValue="0.10" step="0.01" className={styles.input} />
                 </div>
                 <div className={styles.formGroup}>
-                  <label>Flat Entry Fee (₼)</label>
+                  <label>Sabit Giriş Haqqı (₼)</label>
                   <input type="number" defaultValue="0.20" step="0.01" className={styles.input} />
                 </div>
                 <div className={styles.formGroup}>
-                  <label>Student Discount (%)</label>
+                  <label>Tələbə Endirimi (%)</label>
                   <input type="number" defaultValue="50" className={styles.input} />
                 </div>
                 <div className={styles.formGroup}>
-                  <label>Peak Hour Multiplier</label>
+                  <label>Pik Saat Əmsalı</label>
                   <input type="number" defaultValue="1.2" step="0.1" className={styles.input} />
                 </div>
               </div>
-              <button className={styles.btnPrimary}><FiSave /> Apply New Rates</button>
+              <button className={styles.btnPrimary}><FiSave /> Yeni Tarifləri Tətbiq Et</button>
             </div>
 
             <div className={styles.card}>
-              <h3>Data Retention</h3>
+              <h3>Məlumatların Saxlanılması</h3>
               <div className={styles.formGroup}>
-                <label>Log Retention Period</label>
+                <label>Jurnal Saxlama Müddəti</label>
                 <select className={styles.input}>
-                  <option>30 Days</option>
-                  <option>90 Days</option>
-                  <option>1 Year</option>
+                  <option>30 Gün</option>
+                  <option>90 Gün</option>
+                  <option>1 İl</option>
                 </select>
               </div>
             </div>
@@ -165,20 +165,20 @@ export default function Settings() {
         return (
           <div className={styles.settingsView}>
             <div className={styles.card}>
-              <h3>Edge Device Sync</h3>
-              <p className={styles.cardDesc}>Manage API keys and protocols for on-bus validator units.</p>
+              <h3>Cihaz Sinxronizasiyası</h3>
+              <p className={styles.cardDesc}>Nəqliyyat daxili validatorlar üçün API açarlarını və protokolları idarə edin.</p>
               <div className={styles.keyBox}>
                 <div className={styles.keyInfo}>
-                  <label>Primary System API Key</label>
+                  <label>Əsas Sistem API Açarı</label>
                   <code>BK_LIVE_••••••••••••••••••••3a2f</code>
                 </div>
-                <button className={styles.btnGlass}>Regenerate</button>
+                <button className={styles.btnGlass}>Yenidən Yaradın</button>
               </div>
               <div className={styles.formGroup}>
-                <label>Sync Interval (Seconds)</label>
+                <label>Sinxronizasiya İntervalı (Saniyə)</label>
                 <input type="number" defaultValue="5" className={styles.input} />
               </div>
-              <button className={styles.btnPrimary}><FiSmartphone /> Force Sync All Units</button>
+              <button className={styles.btnPrimary}><FiSmartphone /> Bütün Blokları Məcburi Sinxron Et</button>
             </div>
           </div>
         );
@@ -189,38 +189,38 @@ export default function Settings() {
   };
 
   return (
-    <DashboardLayout title="System Settings">
+    <DashboardLayout title="Sistem Tənzimləmələri">
       <div className={styles.settingsContainer}>
         <div className={styles.settingsNav}>
           <button 
             className={`${styles.sNavItem} ${activeTab === 'account' ? styles.active : ''}`}
             onClick={() => setActiveTab('account')}
           >
-            <FiUser /> Account
+            <FiUser /> Hesab
           </button>
           <button 
             className={`${styles.sNavItem} ${activeTab === 'notifications' ? styles.active : ''}`}
             onClick={() => setActiveTab('notifications')}
           >
-            <FiBell /> Notifications
+            <FiBell /> Bildirişlər
           </button>
           <button 
             className={`${styles.sNavItem} ${activeTab === 'security' ? styles.active : ''}`}
             onClick={() => setActiveTab('security')}
           >
-            <FiLock /> Security
+            <FiLock /> Təhlükəsizlik
           </button>
           <button 
             className={`${styles.sNavItem} ${activeTab === 'database' ? styles.active : ''}`}
             onClick={() => setActiveTab('database')}
           >
-            <FiDatabase /> Fare & Data
+            <FiDatabase /> Tarif və Məlumat
           </button>
           <button 
             className={`${styles.sNavItem} ${activeTab === 'sync' ? styles.active : ''}`}
             onClick={() => setActiveTab('sync')}
           >
-            <FiSmartphone /> Device Sync
+            <FiSmartphone /> Cihaz Sinxronizasiyası
           </button>
         </div>
 
