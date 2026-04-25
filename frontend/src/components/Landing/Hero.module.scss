@@ -1,0 +1,263 @@
+@import '../../styles/variables';
+
+.hero {
+  position: relative;
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  background: #0d1525;
+  padding: 80px 0 60px;
+}
+
+.grid {
+  position: relative;
+  z-index: 1;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 $space-6;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: $space-8;
+}
+
+.content { animation: fadeInLeft 0.8s ease both; }
+
+.title {
+  font-family: 'Outfit', sans-serif;
+  font-size: clamp(2.8rem, 6vw, 4.5rem);
+  font-weight: 900;
+  line-height: 1.05;
+  margin-bottom: $space-6;
+  letter-spacing: -1px;
+
+  .highlight {
+    background: linear-gradient(135deg, $primary, $primary-light);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+}
+
+.subtitle {
+  font-size: $font-size-lg;
+  color: $gray-300;
+  line-height: 1.7;
+  text-align: center;
+  margin-bottom: $space-8;
+
+  @media (max-width: 900px) { margin: 0 auto $space-8; }
+}
+
+.ctas {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  gap: $space-4;
+  flex-wrap: nowrap;
+
+  @media (max-width: 900px) { justify-content: center; }
+}
+
+.btnPrimary {
+  display: inline-flex;
+  align-items: center;
+  gap: $space-2;
+  padding: $space-3 $space-6;
+  background: $gradient-primary;
+  color: $secondary-dark;
+  font-weight: 700;
+  font-size: $font-size-sm;
+  border-radius: $radius-full;
+  border: none;
+  cursor: pointer;
+  transition: $transition-base;
+  box-shadow: $shadow-glow-primary;
+  text-decoration: none;
+
+  &:hover {
+    transform: translateY(-2px);
+    background: $primary-light;
+  }
+}
+
+.btnGlass {
+  display: inline-flex;
+  align-items: center;
+  gap: $space-2;
+  padding: $space-3 $space-6;
+  @include glass(16px, 0.1, 0.2);
+  color: $white;
+  font-weight: 600;
+  font-size: $font-size-sm;
+  border-radius: $radius-full;
+  cursor: pointer;
+  transition: $transition-base;
+  text-decoration: none;
+
+  &:hover {
+    background: rgba(255,255,255,0.16);
+    transform: translateY(-3px);
+  }
+}
+
+.stats {
+  display: flex;
+  justify-content: center;
+  gap: $space-12;
+  margin-top: $space-12;
+  padding-top: $space-8;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  width: 100%;
+
+  .stat {
+    .num {
+      font-size: $font-size-2xl;
+      font-weight: 800;
+      color: $primary;
+      font-family: 'Outfit', sans-serif;
+    }
+    .label {
+      font-size: $font-size-xs;
+      color: $gray-500;
+      font-weight: 500;
+    }
+  }
+}
+
+.visual {
+  display: none;
+}
+
+.content {
+  position: relative;
+  width: 100%;
+  max-width: 800px;
+  z-index: 2;
+  animation: fadeInUp 0.8s ease both;
+}
+
+.cardWrapper {
+  position: relative;
+  z-index: 1;
+}
+
+.transitCard {
+  width: 340px;
+  height: 200px;
+  background: #05080f; // High contrast black
+  border-radius: $radius-lg;
+  border: 1px solid rgba($primary, 0.4); // More contrast
+  padding: $space-6;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 200px; height: 200px;
+    background: radial-gradient(circle, rgba($primary, 0.25), transparent 70%);
+    border-radius: 50%;
+  }
+
+  .cardChip {
+    width: 42px; height: 32px;
+    background: linear-gradient(135deg, #f5c842, #e8a900);
+    border-radius: $radius-sm;
+    margin-bottom: $space-6;
+    position: relative;
+    z-index: 1;
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: 50%; left: 0; right: 0;
+      height: 1px;
+      background: rgba(0,0,0,0.2);
+    }
+  }
+
+  .cardNumber {
+    font-size: $font-size-lg;
+    letter-spacing: 3px;
+    font-weight: 600;
+    color: rgba($white, 0.9);
+    margin-bottom: $space-3;
+    position: relative; z-index: 1;
+  }
+
+  .cardMeta {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    position: relative; z-index: 1;
+
+    .cardName { font-size: $font-size-sm; color: rgba($white, 0.6); }
+    .cardBalance {
+      font-size: $font-size-xl;
+      font-weight: 800;
+      color: $primary;
+      font-family: 'Outfit', sans-serif;
+    }
+  }
+
+  .cardLogo {
+    position: absolute;
+    top: $space-4; right: $space-4;
+    font-size: $font-size-xl;
+    font-weight: 900;
+    color: rgba($primary, 0.5);
+    font-family: 'Outfit', sans-serif;
+    letter-spacing: 1px;
+  }
+}
+
+
+.dataStreams {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+
+  .stream {
+    position: absolute;
+    width: 150px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, $primary, transparent);
+    animation: stream-flow 3s linear infinite;
+    opacity: 0.4;
+  }
+}
+
+.glowElement {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba($primary, 0.15), transparent 70%);
+  z-index: -1;
+  pointer-events: none;
+}
+
+@keyframes stream-flow {
+  0%   { transform: translateX(-100%) translateY(0); opacity: 0; }
+  20%  { opacity: 0.4; }
+  80%  { opacity: 0.4; }
+  100% { transform: translateX(200%) translateY(20px); opacity: 0; }
+}
+
+@keyframes fadeInLeft {
+  from { opacity: 0; transform: translateX(-40px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 6px rgba($primary,0.6); }
+  50%       { box-shadow: 0 0 16px rgba($primary,0.9); }
+}

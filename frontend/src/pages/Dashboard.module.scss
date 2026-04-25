@@ -1,0 +1,198 @@
+@import '../styles/variables';
+
+.dashboardLayout {
+  display: flex;
+  min-height: 100vh;
+  background-color: $black;
+}
+
+.mainWrapper {
+  flex: 1;
+  margin-left: 260px; // Sidebar width
+  display: flex;
+  flex-direction: column;
+
+  @media (max-width: 1100px) {
+    margin-left: 0;
+  }
+}
+
+.content {
+  padding: 94px $space-8 $space-8; // 70px topbar + padding
+  display: flex;
+  flex-direction: column;
+  gap: $space-6;
+
+  @media (max-width: 600px) {
+    padding: 94px $space-4 $space-4;
+  }
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: $space-4;
+
+  @media (max-width: 900px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.statItem {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: $radius-md;
+  padding: $space-5;
+  display: flex;
+  align-items: center;
+  gap: $space-4;
+
+  .statIcon {
+    width: 44px; height: 44px;
+    background: rgba($primary, 0.1);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    color: $primary;
+    font-size: 20px;
+  }
+
+  .statData {
+    .label { font-size: 11px; color: $gray-500; text-transform: uppercase; letter-spacing: 1px; }
+    .value { font-size: $font-size-xl; font-weight: 700; color: $white; font-family: 'Outfit', sans-serif; }
+  }
+}
+
+.layoutGrid {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: $space-6;
+
+  @media (max-width: 1200px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.leftCol, .rightCol {
+  display: flex;
+  flex-direction: column;
+  gap: $space-6;
+}
+
+.card {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: $radius-md;
+  padding: $space-6;
+}
+
+.chartSection {
+  @extend .card;
+  .sectionHeader {
+    margin-bottom: $space-6;
+    h3 { font-size: $font-size-sm; color: $gray-300; text-transform: uppercase; letter-spacing: 1.5px; }
+  }
+}
+
+.mapSection {
+  @extend .card;
+  height: 400px;
+  position: relative;
+  overflow: hidden;
+  padding: 0;
+
+  .mapPlaceholder {
+    width: 100%; height: 100%;
+    background: radial-gradient(circle at center, #111d2b 0%, #0a0a0f 100%);
+    &::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: radial-gradient(rgba($primary, 0.03) 1px, transparent 1px);
+      background-size: 30px 30px;
+    }
+  }
+
+  .busDot {
+    position: absolute;
+    width: 10px; height: 10px;
+    background: $primary;
+    border-radius: 50%;
+    box-shadow: 0 0 10px $primary;
+    &::after {
+      content: '';
+      position: absolute; inset: -4px;
+      border: 1px solid $primary;
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+  }
+
+  .mapOverlay {
+    position: absolute;
+    top: $space-4; left: $space-4;
+    .statusBadge {
+      background: rgba(0,0,0,0.8);
+      padding: $space-2 $space-4;
+      border-radius: 4px;
+      font-size: 11px;
+      color: $white;
+      border: 1px solid rgba(255,255,255,0.1);
+      display: flex; align-items: center; gap: $space-2;
+      .liveDot {
+        width: 6px; height: 6px;
+        background: #ff5f5f;
+        border-radius: 50%;
+        animation: blink 1s infinite;
+      }
+    }
+  }
+}
+
+.systemHealth {
+  @extend .card;
+  h3 { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: $gray-500; margin-bottom: $space-4; }
+  .healthList {
+    display: flex; flex-direction: column; gap: $space-3;
+  }
+  .healthItem {
+    display: flex; justify-content: space-between; font-size: $font-size-sm;
+    .status { color: $primary; font-weight: 600; }
+  }
+}
+
+.logsSection {
+  @extend .card;
+  flex: 1;
+  h3 { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: $gray-500; margin-bottom: $space-4; }
+}
+
+.logList {
+  display: flex; flex-direction: column; gap: $space-4;
+}
+
+.logItem {
+  display: flex; gap: $space-3;
+  padding-bottom: $space-3;
+  border-bottom: 1px solid rgba(255,255,255,0.03);
+  &:last-child { border: none; }
+
+  .logIcon { margin-top: 3px; font-size: 14px; }
+  &.info .logIcon { color: $primary; }
+  &.warning .logIcon { color: #f39c12; }
+  &.error .logIcon { color: #e74c3c; }
+  &.success .logIcon { color: #2ecc71; }
+
+  .logContent {
+    p { font-size: 13px; line-height: 1.4; color: $gray-200; }
+    .time { font-size: 10px; color: $gray-500; }
+  }
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); opacity: 0.8; }
+  100% { transform: scale(3); opacity: 0; }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}

@@ -1,0 +1,119 @@
+@import '../../styles/variables';
+
+.topbar {
+  height: 70px;
+  background: #0d0d12;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 $space-8;
+  position: fixed;
+  top: 0; right: 0;
+  left: 260px; // Sidebar width
+  z-index: 90;
+
+  @media (max-width: 1100px) {
+    left: 0;
+    padding: 0 $space-4;
+  }
+}
+
+.left {
+  h2 {
+    font-size: $font-size-lg;
+    font-weight: 700;
+    color: $white;
+    font-family: 'Outfit', sans-serif;
+  }
+}
+
+.right {
+  display: flex;
+  align-items: center;
+  gap: $space-8;
+}
+
+.search {
+  display: flex;
+  align-items: center;
+  gap: $space-3;
+  background: rgba(255,255,255,0.03);
+  padding: $space-2 $space-4;
+  border-radius: 4px;
+  border: 1px solid rgba(255,255,255,0.06);
+  width: 300px;
+  color: $gray-500;
+
+  @media (max-width: 1300px) { display: none; }
+
+  input {
+    background: transparent;
+    border: none;
+    outline: none;
+    color: $white;
+    font-size: $font-size-sm;
+    width: 100%;
+
+    &::placeholder { color: $gray-500; }
+  }
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: $space-6;
+}
+
+.iconBtn {
+  position: relative;
+  background: transparent;
+  color: $gray-300;
+  font-size: 20px;
+  display: flex;
+  transition: $transition-base;
+
+  &:hover { color: $white; }
+
+  .badge {
+    position: absolute;
+    top: -2px; right: -2px;
+    width: 8px; height: 8px;
+    background: #ff5f5f;
+    border: 2px solid #0d0d12;
+    border-radius: 50%;
+  }
+}
+
+.profile {
+  display: flex;
+  align-items: center;
+  gap: $space-3;
+  padding-left: $space-6;
+  border-left: 1px solid rgba(255,255,255,0.05);
+
+  .userInfo {
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+
+    .name { font-size: 13px; font-weight: 600; color: $white; }
+    .role { font-size: 11px; color: $gray-500; }
+  }
+
+  .avatar {
+    font-size: 32px;
+    color: $gray-700;
+  }
+}
+
+.logoutBtn {
+  background: transparent;
+  color: #ff5f5f;
+  font-size: 18px;
+  display: flex;
+  opacity: 0.6;
+  transition: all 0.2s ease;
+
+  &:hover { opacity: 1; transform: scale(1.1); }
+}

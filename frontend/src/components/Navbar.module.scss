@@ -1,0 +1,136 @@
+@import '../styles/variables';
+
+.navbar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: $z-sticky;
+  padding: $space-4 0;
+  transition: $transition-base;
+
+  &.scrolled {
+    @include glass-dark(20px);
+    padding: $space-3 0;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 $space-6;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $space-4;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: $space-2;
+  font-size: $font-size-xl;
+  font-weight: 800;
+  font-family: 'Outfit', sans-serif;
+  letter-spacing: 1px;
+
+  .logoIcon {
+    width: 36px; height: 36px;
+    background: $gradient-primary;
+    border-radius: $radius-sm;
+    display: flex; align-items: center; justify-content: center;
+    font-size: $font-size-base;
+    color: $secondary-dark;
+  }
+
+  .accent { color: $primary; }
+}
+
+.links {
+  display: flex;
+  align-items: center;
+  gap: $space-6;
+
+  a {
+    font-size: $font-size-sm;
+    font-weight: 500;
+    color: $gray-300;
+    position: relative;
+    padding-bottom: 2px;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 0; height: 2px;
+      background: $primary;
+      transition: width 0.25s ease;
+      border-radius: $radius-full;
+    }
+
+    &:hover {
+      color: $white;
+      &::after { width: 100%; }
+    }
+  }
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: $space-3;
+}
+
+.dashBtn {
+  padding: $space-2 $space-5;
+  background: $gradient-primary;
+  color: $secondary-dark;
+  font-weight: 700;
+  font-size: $font-size-sm;
+  border-radius: $radius-full;
+  transition: $transition-base;
+
+  &:hover {
+    transform: translateY(-1px);
+    background: $primary-light;
+  }
+}
+
+.menuToggle {
+  display: none;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.12);
+  color: $white;
+  width: 38px; height: 38px;
+  border-radius: $radius-sm;
+  font-size: $font-size-lg;
+  align-items: center;
+  justify-content: center;
+  transition: $transition-base;
+
+  &:hover { background: rgba(255,255,255,0.14); }
+}
+
+@media (max-width: 768px) {
+  .links {
+    position: fixed;
+    top: 70px; left: 0; right: 0;
+    flex-direction: column;
+    background: rgba(10,10,20,0.97);
+    backdrop-filter: blur(20px);
+    padding: $space-6;
+    gap: $space-4;
+    transform: translateY(-120%);
+    opacity: 0;
+    transition: $transition-slow;
+    border-bottom: 1px solid rgba($primary, 0.2);
+
+    &.open {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    a { font-size: $font-size-lg; }
+  }
+
+  .menuToggle { display: flex; }
+}

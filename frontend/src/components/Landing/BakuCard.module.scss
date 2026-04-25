@@ -1,0 +1,288 @@
+@import '../../styles/variables';
+
+.section {
+  padding: $space-24 0;
+  background: linear-gradient(180deg, $black 0%, #060d18 100%);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 $space-6;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: $space-12;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: $space-2;
+  @include glass(12px, 0.06, 0.15);
+  padding: $space-2 $space-5;
+  border-radius: 4px;
+  font-size: $font-size-sm;
+  font-weight: 600;
+  color: $primary;
+  margin-bottom: $space-4;
+  border-color: rgba($primary, 0.25);
+}
+
+.title {
+  font-family: 'Outfit', sans-serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 800;
+  line-height: 1.15;
+  margin-bottom: $space-4;
+
+  .highlight {
+    background: linear-gradient(135deg, $primary, $primary-light);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+}
+
+.subtitle {
+  font-size: $font-size-lg;
+  color: $gray-300;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+// ─── Card Flip ────────────────────────────────────────────────────────────────
+.cardScene {
+  perspective: 1200px;
+  display: flex;
+  justify-content: center;
+}
+
+.cardBody {
+  width: 420px;
+  height: 260px;
+  position: relative;
+  cursor: pointer;
+  transform-style: preserve-3d;
+  // Transition handled by framer-motion
+
+  @media (max-width: 500px) {
+    width: 100%;
+    max-width: 360px;
+    height: 240px;
+  }
+}
+
+.front, .back {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  border-radius: $radius-md;
+  padding: $space-6;
+  overflow: hidden;
+}
+
+.front {
+  background: #05080f; // High contrast black matching hero
+  border: 1px solid rgba($primary, 0.4); // More contrast matching hero
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: inset 0 0 40px rgba(0,0,0,0.6);
+
+  .cardGlow {
+    position: absolute;
+    top: -40px; right: -40px;
+    width: 200px; height: 200px;
+    background: radial-gradient(circle, rgba($white, 0.08), transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+
+  .cardReflect {
+    position: absolute;
+    top: 0; left: 0; right: 0; height: 100%;
+    background: linear-gradient(
+      135deg,
+      rgba(255,255,255,0.05) 0%,
+      rgba(255,255,255,0) 40%,
+      rgba(255,255,255,0) 60%,
+      rgba(255,255,255,0.05) 100%
+    );
+    pointer-events: none;
+  }
+
+  .cardLogoTop {
+    position: absolute;
+    top: $space-4; right: $space-5;
+    font-size: $font-size-lg;
+    font-weight: 900;
+    color: rgba($primary, 0.5);
+    font-family: 'Outfit', sans-serif;
+    letter-spacing: 1px;
+  }
+}
+
+.chip {
+  width: 48px; height: 36px;
+  background: linear-gradient(135deg, #f5c842, #d49c00);
+  border-radius: 4px;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  padding: 0 4px;
+  box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+
+  .chipLine {
+    height: 1px;
+    background: rgba(0,0,0,0.15);
+  }
+}
+
+.number {
+  font-size: $font-size-xl;
+  letter-spacing: 3px;
+  font-weight: 600;
+  color: rgba($white, 0.9);
+  position: relative; z-index: 1;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  position: relative; z-index: 1;
+}
+
+.label {
+  font-size: $font-size-xs;
+  color: rgba($white, 0.4);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 2px;
+}
+
+.value {
+  font-size: $font-size-sm;
+  color: rgba($white, 0.85);
+  font-weight: 500;
+}
+
+.balance {
+  font-size: $font-size-2xl;
+  font-weight: 800;
+  color: $primary;
+  font-family: 'Outfit', sans-serif;
+}
+
+.tier {
+  position: absolute;
+  bottom: $space-3;
+  left: $space-6;
+  font-size: $font-size-xs;
+  color: rgba($white, 0.35);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: 600;
+}
+
+.flipHint {
+  position: absolute;
+  bottom: $space-3;
+  right: $space-5;
+  font-size: $font-size-xs;
+  color: rgba($white, 0.3);
+  display: flex;
+  align-items: center;
+  gap: $space-1;
+
+  svg { animation: spin 3s linear infinite; }
+}
+
+// Back side
+.back {
+  background: #0d1e30;
+  border: 1px solid rgba($primary, 0.2);
+  transform: rotateY(180deg);
+  display: flex;
+  flex-direction: column;
+}
+
+.backHeader {
+  margin-bottom: $space-3;
+  padding-bottom: $space-2;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+
+  h4 {
+    font-size: $font-size-sm;
+    font-weight: 700;
+    color: $primary;
+    font-family: 'Outfit', sans-serif;
+  }
+}
+
+.txList {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: $space-2;
+}
+
+.txItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: $space-2 0;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+
+.txLeft {
+  display: flex;
+  align-items: center;
+  gap: $space-2;
+}
+
+.txDot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+
+  &.fare { background: #e74c3c; }
+  &.topup { background: $primary; }
+  &.voucher { background: #f39c12; }
+}
+
+.txRoute {
+  font-size: $font-size-xs;
+  font-weight: 600;
+  color: $white;
+}
+
+.txDistance {
+  font-size: 11px;
+  color: $gray-500;
+}
+
+.txRight { text-align: right; }
+
+.txFare {
+  font-size: $font-size-sm;
+  font-weight: 700;
+  color: #e74c3c;
+
+  &.topup { color: $primary; }
+}
+
+.txTime {
+  font-size: 11px;
+  color: $gray-500;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
