@@ -4,21 +4,21 @@ import styles from './Pricing.module.scss';
 const tiers = [
   {
     name: 'Standart',
-    minFare: '₼0.20',
-    maxFare: '₼1.50',
-    rate: '₼0.10 / km',
+    minFare: '₼0.40',
+    maxFare: '₼0.80',
+    rate: '₼0.05 / km',
     discount: '0%',
     color: '#627d98',
     featured: true,
-    features: ['GPS və SIM izləmə', 'Rəqəmsal karta giriş', 'Transfer endirimi (₼0.10)', 'Ailə hesabları'],
+    features: ['GPS və SIM izləmə', 'Rəqəmsal karta giriş', 'Transfer endirimi (₼0.10)', '24/7 Dəstək xidməti'],
   },
   {
-    name: 'Yaşlı',
-    minFare: '₼0.10',
-    maxFare: '₼0.75',
-    rate: '₼0.05 / km',
-    discount: '50%',
-    features: ['Bütün gedişlərə 50% endirim', 'Transfer endirimi (₼0.05)', 'Mənfi balansa icazə', 'Pulsuz fiziki kart'],
+    name: 'Ailə Hesabı',
+    minFare: '₼0.30',
+    maxFare: '₼0.65',
+    rate: '₼0.04 / km',
+    discount: '20%',
+    features: ['Ortaq hesabla ödəniş rahatlığı', 'Ümumi balansın idarə edilməsi', 'Ailəvi gedişlərə xüsusi endirim', 'Uşaqlar üçün transfer pulsuzdur'],
   },
 ];
 
@@ -33,7 +33,7 @@ export default function Pricing() {
           </h2>
           <p className={styles.subtitle}>
             Gizli ödənişlər yoxdur. Səyahət etdiyiniz məsafəyə görə ödəyin. 
-            Yaşlılar və daimi sərnişinlər üçün xüsusi endirimlər mövcuddur.
+            Ailələr və daimi sərnişinlər üçün xüsusi endirimlər mövcuddur.
           </p>
         </div>
 
