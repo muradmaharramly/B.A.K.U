@@ -3,7 +3,7 @@ import {
   FiServer, FiCpu, FiWifi, FiActivity, FiSearch, 
   FiPlus, FiChevronRight, FiRefreshCw 
 } from 'react-icons/fi';
-import styles from './Dashboard.module.scss';
+import styles from './Nodes.module.scss';
 
 const nodes = [
   { id: 'NODE-01', name: 'Baku Central Relay', status: 'online', uptime: '142d 4h', load: '12%', type: 'Master', ip: '192.168.1.1' },

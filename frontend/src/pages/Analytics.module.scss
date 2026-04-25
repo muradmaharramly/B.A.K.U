@@ -1,0 +1,57 @@
+@import '../styles/variables';
+
+.card {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: $radius-lg;
+  padding: $space-6;
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: $space-4;
+  margin-bottom: $space-6;
+
+  @media (max-width: 900px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.statItem {
+  @extend .card;
+  display: flex;
+  align-items: center;
+  gap: $space-4;
+  padding: $space-5;
+  transition: all 0.3s ease;
+
+  .statData {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    .label { font-size: 10px; color: $gray-500; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; }
+    .value { font-size: $font-size-xl; font-weight: 800; color: $white; font-family: 'Outfit', sans-serif; line-height: 1; }
+  }
+}
+
+.layoutGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: $space-6;
+  @media (max-width: 1200px) { grid-template-columns: 1fr; }
+}
+
+.sectionTitle {
+  font-size: 11px;
+  color: $gray-500;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: 800;
+  margin-bottom: $space-8;
+}
+
+.chartWrapper {
+  height: 300px;
+  width: 100%;
+}

@@ -6,7 +6,7 @@ import {
   XAxis, YAxis, CartesianGrid, 
   Tooltip, ResponsiveContainer, AreaChart, Area 
 } from 'recharts';
-import styles from './Dashboard.module.scss';
+import styles from './Overview.module.scss';
 
 const ridershipData = [
   { time: '06:00', count: 1200 },

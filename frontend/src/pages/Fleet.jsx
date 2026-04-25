@@ -1,6 +1,6 @@
 import DashboardLayout from '../components/Dashboard/DashboardLayout';
 import { FiTruck, FiMapPin, FiActivity, FiSearch } from 'react-icons/fi';
-import styles from './Dashboard.module.scss';
+import styles from './Fleet.module.scss';
 
 const fleetData = [
   { id: 'BUS-101', route: 'R78', status: 'In Transit', load: '65%', location: 'Nizami St.', health: 'Optimal' },

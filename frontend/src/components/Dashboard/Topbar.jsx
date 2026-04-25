@@ -1,4 +1,5 @@
 import { FiSearch, FiBell, FiUser, FiLogOut } from 'react-icons/fi';
+import { PiUserCircleFill } from "react-icons/pi";
 import styles from './Topbar.module.scss';
 
 export default function Topbar({ title }) {
@@ -22,10 +23,9 @@ export default function Topbar({ title }) {
           
           <div className={styles.profile}>
             <div className={styles.userInfo}>
-              <span className={styles.name}>Admin Access</span>
               <span className={styles.role}>System Overseer</span>
             </div>
-            <FiUser className={styles.avatar} />
+            <PiUserCircleFill className={styles.avatar} />
           </div>
 
           <button className={styles.logoutBtn} aria-label="Logout">

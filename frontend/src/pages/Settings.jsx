@@ -4,7 +4,7 @@ import {
   FiUser, FiBell, FiLock, FiDatabase, FiSmartphone, 
   FiShield, FiMail, FiGlobe, FiSave, FiAlertCircle 
 } from 'react-icons/fi';
-import styles from './Dashboard.module.scss';
+import styles from './Settings.module.scss';
 
 export default function Settings() {
   const [activeTab, setActiveTab] = useState('account');

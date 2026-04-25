@@ -3,7 +3,7 @@ import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
   LineChart, Line
 } from 'recharts';
-import styles from './Dashboard.module.scss';
+import styles from './Analytics.module.scss';
 
 const data = [
   { name: 'Mon', revenue: 4000, riders: 2400 },

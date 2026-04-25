@@ -1,6 +1,6 @@
 import Sidebar from './Sidebar';
 import Topbar from './Topbar';
-import styles from '../../pages/Dashboard.module.scss';
+import styles from './DashboardLayout.module.scss';
 
 export default function DashboardLayout({ children, title }) {
   return (

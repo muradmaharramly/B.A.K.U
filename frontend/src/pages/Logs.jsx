@@ -3,7 +3,7 @@ import {
   FiFileText, FiDownload, FiTrash2, FiSearch, 
   FiFilter, FiActivity, FiCpu, FiShield, FiTruck 
 } from 'react-icons/fi';
-import styles from './Dashboard.module.scss';
+import styles from './Logs.module.scss';
 
 const logs = [
   { id: 1, timestamp: '2026-04-25 14:23:01', level: 'INFO', category: 'Fleet', message: 'Unit BUS-101 reached Nizami St. sector', source: 'GPS-ALPHA' },

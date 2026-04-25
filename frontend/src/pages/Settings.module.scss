@@ -1,0 +1,220 @@
+@import '../styles/variables';
+
+.card {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: $radius-lg;
+  padding: $space-6;
+}
+
+.cardDesc {
+  font-size: 13px;
+  color: $gray-500;
+  margin-bottom: $space-8;
+}
+
+.settingsContainer {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: $space-8;
+  
+  @media (max-width: 900px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.settingsNav {
+  display: flex;
+  flex-direction: column;
+  gap: $space-2;
+  position: sticky;
+  top: 94px;
+  height: fit-content;
+}
+
+.sNavItem {
+  background: none;
+  border: 1px solid transparent;
+  padding: $space-4 $space-5;
+  display: flex;
+  align-items: center;
+  gap: $space-4;
+  color: $gray-500;
+  font-size: 13px;
+  font-weight: 700;
+  border-radius: 12px;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  &:hover {
+    background: rgba(255, 255, 255, 0.03);
+    color: $white;
+  }
+  
+  &.active { 
+    background: rgba($primary, 0.08); 
+    color: $primary; 
+    border-color: rgba($primary, 0.15);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    
+    svg { color: $primary; }
+  }
+  
+  svg { font-size: 18px; color: $gray-700; transition: color 0.2s ease; }
+}
+
+.settingsContent {
+  display: flex;
+  flex-direction: column;
+  gap: $space-6;
+}
+
+.settingsView {
+  display: flex;
+  flex-direction: column;
+  gap: $space-6;
+  animation: fadeIn 0.4s ease;
+}
+
+// ─── Form Elements ──────────────────────────────────────────────────────────
+.formGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: $space-5;
+  margin-bottom: $space-6;
+
+  @media (max-width: 600px) { grid-template-columns: 1fr; }
+}
+
+.formGroup {
+  margin-bottom: $space-5;
+  label { 
+    display: block; font-size: 10px; color: $gray-500; margin-bottom: $space-3; 
+    text-transform: uppercase; font-weight: 800; letter-spacing: 1.2px; 
+  }
+}
+
+.input {
+  width: 100%;
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: $space-4 $space-5;
+  border-radius: 10px;
+  color: $white;
+  font-size: 14px;
+  outline: none;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+  &:focus {
+    border-color: rgba($primary, 0.5);
+    background: rgba($primary, 0.03);
+    box-shadow: 0 0 20px rgba($primary, 0.1);
+  }
+  
+  &::placeholder { color: $gray-700; }
+}
+
+// ─── Toggles & Controls ─────────────────────────────────────────────────────
+.toggleList {
+  display: flex;
+  flex-direction: column;
+  gap: $space-2;
+}
+
+.toggleItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: $space-5 $space-6;
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  margin-bottom: $space-2;
+
+  h4 { font-size: 14px; color: $white; font-weight: 700; margin-bottom: 4px; }
+  p { font-size: 12px; color: $gray-500; font-weight: 500; }
+
+  input[type="checkbox"] {
+    width: 44px; height: 22px;
+    appearance: none;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    position: relative;
+    cursor: pointer;
+    transition: all 0.4s ease;
+
+    &::before {
+      content: ''; position: absolute; left: 3px; top: 3px; width: 14px; height: 14px;
+      background: $gray-700; border-radius: 50%; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    &:checked {
+      background: rgba($primary, 0.2);
+      border-color: rgba($primary, 0.3);
+      &::before { left: 25px; background: $primary; box-shadow: 0 0 12px $primary; }
+    }
+  }
+}
+
+.keyBox {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: $space-5 $space-6;
+  background: #000;
+  border-radius: 10px;
+  margin-bottom: $space-8;
+  border: 1px solid rgba($primary, 0.15);
+
+  .keyInfo {
+    label { display: block; font-size: 10px; color: $gray-700; margin-bottom: 6px; font-weight: 800; text-transform: uppercase; }
+    code { font-family: 'Fira Code', monospace; color: $primary; font-size: 13px; letter-spacing: 1px; }
+  }
+}
+
+// ─── Buttons ───────────────────────────────────────────────────────────────
+.btnPrimary {
+  background: $gradient-primary;
+  color: $secondary-dark;
+  border: none;
+  border-radius: 10px;
+  padding: $space-4 $space-8;
+  font-weight: 900;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba($primary, 0.3);
+  }
+}
+
+.btnGlass {
+  background: rgba(255, 255, 255, 0.03);
+  color: $white;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  padding: $space-3 $space-5;
+  font-weight: 700;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  &:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.2);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
