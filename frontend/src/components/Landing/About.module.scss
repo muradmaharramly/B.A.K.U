@@ -73,6 +73,7 @@
 
 .card {
   @include glass(16px, 0.04, 0.1);
+  background-color: #08101a;
   padding: $space-6;
   border-radius: $radius-md;
   transition: $transition-base;
@@ -80,7 +81,7 @@
 
   &:hover {
     transform: translateY(-2px);
-    background: rgba(255,255,255,0.08);
+    background-color: #050e17;
     border-color: rgba($primary, 0.3);
   }
 
