@@ -87,14 +87,17 @@
   padding: $space-3 $space-4;
   background: rgba($primary, 0.05);
   border: 1px solid rgba($primary, 0.1);
-  border-radius: 4px;
+  border-radius:8px;
   font-size: 12px;
   font-weight: 600;
   color: $primary;
   text-transform: uppercase;
   letter-spacing: 1px;
-
-  .pulse {
+  -webkit-border-radius:8px;
+  -moz-border-radius:8px;
+  -ms-border-radius:8px;
+  -o-border-radius:8px;
+  .pulse{
     width: 8px; height: 8px;
     background: $primary;
     border-radius: 50%;

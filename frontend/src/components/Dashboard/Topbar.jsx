@@ -1,4 +1,4 @@
-import { FaSearch, FaBell, FaUserCircle, FaPowerOff } from 'react-icons/fa';
+import { FiSearch, FiBell, FiUser, FiLogOut } from 'react-icons/fi';
 import styles from './Topbar.module.scss';
 
 export default function Topbar({ title }) {
@@ -10,13 +10,13 @@ export default function Topbar({ title }) {
 
       <div className={styles.right}>
         <div className={styles.search}>
-          <FaSearch />
+          <FiSearch />
           <input type="text" placeholder="Search system logs..." />
         </div>
 
         <div className={styles.actions}>
           <button className={styles.iconBtn} aria-label="Notifications">
-            <FaBell />
+            <FiBell />
             <span className={styles.badge}></span>
           </button>
           
@@ -25,11 +25,11 @@ export default function Topbar({ title }) {
               <span className={styles.name}>Admin Access</span>
               <span className={styles.role}>System Overseer</span>
             </div>
-            <FaUserCircle className={styles.avatar} />
+            <FiUser className={styles.avatar} />
           </div>
 
           <button className={styles.logoutBtn} aria-label="Logout">
-            <FaPowerOff />
+            <FiLogOut />
           </button>
         </div>
       </div>

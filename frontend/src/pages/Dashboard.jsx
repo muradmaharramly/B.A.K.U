@@ -1,7 +1,7 @@
 import { 
-  FaBus, FaSignal, FaUsers, FaExclamationTriangle, 
-  FaCheckCircle, FaChartLine, FaServer, FaDatabase
-} from 'react-icons/fa';
+  FiTruck, FiActivity, FiUsers, FiAlertTriangle, 
+  FiCheckCircle, FiTrendingUp, FiServer
+} from 'react-icons/fi';
 import { 
   XAxis, YAxis, CartesianGrid, 
   Tooltip, ResponsiveContainer, AreaChart, Area 
@@ -39,28 +39,28 @@ export default function Dashboard() {
         <main className={styles.content}>
           <div className={styles.statsGrid}>
             <div className={styles.statItem}>
-              <div className={styles.statIcon}><FaBus /></div>
+              <div className={styles.statIcon}><FiTruck /></div>
               <div className={styles.statData}>
                 <span className={styles.label}>Live Fleet</span>
                 <span className={styles.value}>142 / 150</span>
               </div>
             </div>
             <div className={styles.statItem}>
-              <div className={styles.statIcon}><FaUsers /></div>
+              <div className={styles.statIcon}><FiUsers /></div>
               <div className={styles.statData}>
                 <span className={styles.label}>Total Riders (Daily)</span>
                 <span className={styles.value}>24,842</span>
               </div>
             </div>
             <div className={styles.statItem}>
-              <div className={styles.statIcon}><FaSignal /></div>
+              <div className={styles.statIcon}><FiActivity /></div>
               <div className={styles.statData}>
                 <span className={styles.label}>Net Revenue (Today)</span>
                 <span className={styles.value}>₼18,420</span>
               </div>
             </div>
             <div className={styles.statItem}>
-              <div className={styles.statIcon}><FaDatabase /></div>
+              <div className={styles.statIcon}><FiServer /></div>
               <div className={styles.statData}>
                 <span className={styles.label}>System Latency</span>
                 <span className={styles.value}>24ms</span>
@@ -138,10 +138,10 @@ export default function Dashboard() {
                   {systemLogs.map((log) => (
                     <div key={log.id} className={`${styles.logItem} ${styles[log.type]}`}>
                       <div className={styles.logIcon}>
-                        {log.type === 'info' && <FaChartLine />}
-                        {log.type === 'warning' && <FaExclamationTriangle />}
-                        {log.type === 'error' && <FaExclamationTriangle />}
-                        {log.type === 'success' && <FaCheckCircle />}
+                        {log.type === 'info' && <FiTrendingUp />}
+                        {log.type === 'warning' && <FiAlertTriangle />}
+                        {log.type === 'error' && <FiAlertTriangle />}
+                        {log.type === 'success' && <FiCheckCircle />}
                       </div>
                       <div className={styles.logContent}>
                         <p>{log.msg}</p>

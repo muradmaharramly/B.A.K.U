@@ -57,8 +57,25 @@
   }
 
   .statData {
-    .label { font-size: 11px; color: $gray-500; text-transform: uppercase; letter-spacing: 1px; }
-    .value { font-size: $font-size-xl; font-weight: 700; color: $white; font-family: 'Outfit', sans-serif; }
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2px;
+
+    .label { 
+      font-size: 10px; 
+      color: $gray-500; 
+      text-transform: uppercase; 
+      letter-spacing: 1px; 
+      font-weight: 600;
+    }
+    .value { 
+      font-size: $font-size-xl; 
+      font-weight: 800; 
+      color: $white; 
+      font-family: 'Outfit', sans-serif; 
+      line-height: 1;
+    }
   }
 }
 
@@ -132,18 +149,24 @@
     .statusBadge {
       background: rgba(0,0,0,0.8);
       padding: $space-2 $space-4;
-      border-radius: 4px;
+      border-radius: 8px;
       font-size: 11px;
       color: $white;
       border: 1px solid rgba(255,255,255,0.1);
-      display: flex; align-items: center; gap: $space-2;
+      display: flex;
+      align-items: center;
+      gap: $space-2;
+      -webkit-border-radius: 8px;
+      -moz-border-radius: 8px;
+      -ms-border-radius: 8px;
+      -o-border-radius: 8px;
       .liveDot {
         width: 6px; height: 6px;
         background: #ff5f5f;
         border-radius: 50%;
         animation: blink 1s infinite;
       }
-    }
+}
   }
 }
 

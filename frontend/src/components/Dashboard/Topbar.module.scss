@@ -40,12 +40,15 @@
   gap: $space-3;
   background: rgba(255,255,255,0.03);
   padding: $space-2 $space-4;
-  border-radius: 4px;
+  border-radius: 8px;
   border: 1px solid rgba(255,255,255,0.06);
   width: 300px;
   color: $gray-500;
-
-  @media (max-width: 1300px) { display: none; }
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  -ms-border-radius: 8px;
+  -o-border-radius: 8px;
+   @media (max-width: 1300px) { display: none; }
 
   input {
     background: transparent;
