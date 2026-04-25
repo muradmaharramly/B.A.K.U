@@ -1,4 +1,4 @@
-import { FaArrowRight, FaMapMarkerAlt } from 'react-icons/fa';
+import { FiArrowRight, FiMapPin } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 import styles from './Hero.module.scss';
 
@@ -29,10 +29,10 @@ export default function Hero() {
 
           <div className={styles.ctas}>
             <Link to="/dashboard" className={styles.btnPrimary}>
-              <FaMapMarkerAlt /> Explore Dashboard
+              <FiMapPin /> Explore Dashboard
             </Link>
             <a href="#how-it-works" className={styles.btnGlass}>
-              Learn How It Works <FaArrowRight />
+              Learn How It Works <FiArrowRight />
             </a>
           </div>
 

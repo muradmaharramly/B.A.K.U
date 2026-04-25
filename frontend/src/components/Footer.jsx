@@ -1,4 +1,4 @@
-import { FaBus, FaTwitter, FaLinkedin, FaGithub, FaEnvelope } from 'react-icons/fa';
+import { FiCompass, FiTwitter, FiLinkedin, FiGithub, FiMail } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 import styles from './Footer.module.scss';
 
@@ -11,7 +11,7 @@ export default function Footer() {
         <div className={styles.main}>
           <div className={styles.brand}>
             <Link to="/" className={styles.logo}>
-              <span className={styles.logoIcon}><FaBus /></span>
+              <span className={styles.logoIcon}><FiCompass /></span>
               <span>B.<span className={styles.accent}>A</span>.K.<span className={styles.accent}>U</span></span>
             </Link>
             <p className={styles.desc}>
@@ -19,9 +19,9 @@ export default function Footer() {
               The future of distance-based public transit payment.
             </p>
             <div className={styles.socials}>
-              <a href="#twitter" aria-label="Twitter"><FaTwitter /></a>
-              <a href="#linkedin" aria-label="LinkedIn"><FaLinkedin /></a>
-              <a href="#github" aria-label="Github"><FaGithub /></a>
+              <a href="#twitter" aria-label="Twitter"><FiTwitter /></a>
+              <a href="#linkedin" aria-label="LinkedIn"><FiLinkedin /></a>
+              <a href="#github" aria-label="Github"><FiGithub /></a>
             </div>
           </div>
 
@@ -56,7 +56,7 @@ export default function Footer() {
         <div className={styles.bottom}>
           <p>© {currentYear} B.A.K.U Transit Systems. All rights reserved.</p>
           <div className={styles.contact}>
-            <FaEnvelope /> support@baku-transit.com
+            <FiMail /> support@baku-transit.com
           </div>
         </div>
       </div>

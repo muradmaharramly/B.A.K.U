@@ -2,9 +2,9 @@
 $primary: #9FC73C;
 $primary-light: #b8dd55;
 $primary-dark: #7fa82e;
-$secondary: #1A4162;
-$secondary-light: #24588a;
-$secondary-dark: #102a40;
+$secondary: #0d2840;
+$secondary-light: #1a4162;
+$secondary-dark: #05101a;
 
 $white: #ffffff;
 $black: #0a0a0f;
@@ -82,8 +82,8 @@ $transition-slow: all 0.4s ease;
 // ─── Gradients ────────────────────────────────────────────────────────────────
 $gradient-primary: linear-gradient(135deg, $primary, $primary-dark);
 $gradient-secondary: linear-gradient(135deg, $secondary-light, $secondary-dark);
-$gradient-hero: linear-gradient(135deg, #0d1b2a 0%, #1a4162 50%, #0a1628 100%);
-$gradient-card: linear-gradient(135deg, #1a4162, #0d2840);
+$gradient-hero: linear-gradient(135deg, #050d1a 0%, #0d2840 50%, #050810 100%);
+$gradient-card: linear-gradient(135deg, #0d2840, #05101a);
 $gradient-glass: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.02));
 
 // ─── Z-Index ──────────────────────────────────────────────────────────────────

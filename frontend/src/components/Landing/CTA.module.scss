@@ -1,0 +1,90 @@
+@import '../../styles/variables';
+
+.section {
+  padding: $space-20 0;
+  background: #0a0a0f;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 $space-6;
+}
+
+.card {
+  position: relative;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: $radius-2xl;
+  padding: $space-16 $space-8;
+  text-align: center;
+  overflow: hidden;
+  box-shadow: 0 40px 100px rgba(0, 0, 0, 0.4);
+
+  @media (max-width: 600px) {
+    padding: $space-12 $space-6;
+  }
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: $space-2;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: $space-2 $space-5;
+  border-radius: $radius-full;
+  font-size: $font-size-xs;
+  color: $gray-300;
+  margin-bottom: $space-8;
+  font-weight: 500;
+}
+
+.title {
+  font-family: 'Outfit', sans-serif;
+  font-size: clamp(2.2rem, 5vw, 3.5rem);
+  font-weight: 900;
+  color: $white;
+  margin-bottom: $space-6;
+  letter-spacing: -1.5px;
+  line-height: 1.1;
+}
+
+.desc {
+  font-size: $font-size-lg;
+  color: $gray-300;
+  max-width: 700px;
+  margin: 0 auto $space-10;
+  line-height: 1.6;
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  gap: $space-3;
+  padding: $space-4 $space-10;
+  background: $gradient-primary;
+  color: $secondary-dark;
+  font-weight: 800;
+  font-size: $font-size-base;
+  border-radius: $radius-full;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 30px rgba($primary, 0.2);
+
+  &:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 15px 40px rgba($primary, 0.4);
+  }
+}
+
+.glow {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba($primary, 0.08) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}

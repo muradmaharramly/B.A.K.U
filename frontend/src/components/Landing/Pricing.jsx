@@ -1,4 +1,4 @@
-import { FaCheckCircle, FaTag, FaStar, FaGlobe } from 'react-icons/fa';
+import { FiCheckCircle, FiTag, FiStar, FiGlobe } from 'react-icons/fi';
 import styles from './Pricing.module.scss';
 
 const tiers = [
@@ -27,7 +27,7 @@ export default function Pricing() {
     <section className={styles.pricing} id="pricing">
       <div className={styles.container}>
         <div className={styles.header}>
-          <span className={styles.badge}><FaTag /> Pricing</span>
+          <span className={styles.badge}><FiTag /> Pricing</span>
           <h2 className={styles.title}>
             Transparent, <span className={styles.highlight}>Distance-Based</span> Fares
           </h2>
@@ -44,7 +44,7 @@ export default function Pricing() {
               className={`${styles.card} ${tier.featured ? styles.featured : ''}`}
               style={{ animationDelay: `${i * 0.1}s` }}
             >
-              {tier.featured && <div className={styles.popularTag}><FaStar /> Most Popular</div>}
+              {tier.featured && <div className={styles.popularTag}><FiStar /> Most Popular</div>}
               <h3 className={styles.tierName} style={tier.color ? { color: tier.color } : {}}>{tier.name}</h3>
               <div className={styles.rate}>{tier.rate}</div>
               <div className={styles.fareRange}>
@@ -54,7 +54,7 @@ export default function Pricing() {
               <div className={styles.discountBadge}>{tier.discount} discount</div>
               <ul className={styles.featureList}>
                 {tier.features.map((f, j) => (
-                  <li key={j}><FaCheckCircle /> {f}</li>
+                  <li key={j}><FiCheckCircle /> {f}</li>
                 ))}
               </ul>
             </div>
@@ -62,7 +62,7 @@ export default function Pricing() {
         </div>
 
         <div className={styles.touristNote}>
-          <div className={styles.noteIcon}><FaGlobe /></div>
+          <div className={styles.noteIcon}><FiGlobe /></div>
           <div>
             <strong>Tourist Card</strong> — Pre-paid only. Zero balance = entry denied. 
             Available at all metro stations and airport kiosks. Standard rates apply.

@@ -2,7 +2,8 @@
 
 .section {
   padding: $space-24 0;
-  background: linear-gradient(180deg, $black 0%, #060d18 100%);
+  background: #0a0a0f;
+  overflow: hidden;
 }
 
 .container {
@@ -13,7 +14,7 @@
 
 .header {
   text-align: center;
-  margin-bottom: $space-12;
+  margin-bottom: $space-16;
 }
 
 .badge {
@@ -22,7 +23,7 @@
   gap: $space-2;
   @include glass(12px, 0.06, 0.15);
   padding: $space-2 $space-5;
-  border-radius: 4px;
+  border-radius: $radius-full;
   font-size: $font-size-sm;
   font-weight: 600;
   color: $primary;
@@ -32,179 +33,200 @@
 
 .title {
   font-family: 'Outfit', sans-serif;
-  font-size: clamp(2rem, 4vw, 3rem);
-  font-weight: 800;
-  line-height: 1.15;
+  font-size: clamp(2.2rem, 5vw, 3.2rem);
+  font-weight: 900;
+  line-height: 1.1;
   margin-bottom: $space-4;
+  letter-spacing: -1px;
 
-  .highlight {
-    background: linear-gradient(135deg, $primary, $primary-light);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
+  .highlight { color: $primary; }
 }
 
 .subtitle {
-  font-size: $font-size-lg;
-  color: $gray-300;
+  font-size: $font-size-base;
+  color: $gray-500;
   max-width: 500px;
   margin: 0 auto;
 }
 
-// ─── Card Flip ────────────────────────────────────────────────────────────────
-.cardScene {
-  perspective: 1200px;
+// ─── Scene Container ──────────────────────────────────────────────────────────
+.sceneContainer {
+  position: relative;
+  max-width: 800px;
+  margin: 0 auto;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 }
 
-.cardBody {
-  width: 420px;
-  height: 260px;
-  position: relative;
-  cursor: pointer;
-  transform-style: preserve-3d;
-  // Transition handled by framer-motion
+.floatingElement {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
+
+  &.left { left: -100px; animation: floatLeft 5s ease-in-out infinite; }
+  &.right { right: -100px; animation: floatRight 5s ease-in-out infinite; }
+
+  @media (max-width: 900px) { display: none; }
+}
+
+.floatCard {
+  @include glass(20px, 0.03, 0.08);
+  padding: $space-4 $space-6;
+  border-radius: $radius-lg;
+  display: flex;
+  align-items: center;
+  gap: $space-2;
+  color: $primary;
+  font-size: 24px;
+
+  span {
+    font-size: $font-size-xs;
+    font-weight: 700;
+    color: $white;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    white-space: nowrap;
+  }
+}
+
+// ─── Card Body ───────────────────────────────────────────────────────────────
+.cardScene {
+  perspective: 1500px;
+  width: 440px;
+  height: 280px;
 
   @media (max-width: 500px) {
     width: 100%;
-    max-width: 360px;
+    max-width: 380px;
     height: 240px;
   }
+}
+
+.cardBody {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  cursor: pointer;
+  transform-style: preserve-3d;
 }
 
 .front, .back {
   position: absolute;
   inset: 0;
   backface-visibility: hidden;
-  border-radius: $radius-md;
-  padding: $space-6;
+  border-radius: 20px;
+  padding: $space-8;
   overflow: hidden;
+  box-shadow: 0 30px 60px rgba(0,0,0,0.5);
 }
 
 .front {
-  background: #05080f; // High contrast black matching hero
-  border: 1px solid rgba($primary, 0.4); // More contrast matching hero
+  background: #05080f;
+  border: 1px solid rgba($primary, 0.3);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  box-shadow: inset 0 0 40px rgba(0,0,0,0.6);
 
   .cardGlow {
     position: absolute;
-    top: -40px; right: -40px;
-    width: 200px; height: 200px;
-    background: radial-gradient(circle, rgba($white, 0.08), transparent 70%);
-    border-radius: 50%;
+    top: -50px; right: -50px;
+    width: 250px; height: 250px;
+    background: radial-gradient(circle, rgba($primary, 0.05), transparent 70%);
     pointer-events: none;
   }
 
   .cardReflect {
     position: absolute;
-    top: 0; left: 0; right: 0; height: 100%;
-    background: linear-gradient(
-      135deg,
-      rgba(255,255,255,0.05) 0%,
-      rgba(255,255,255,0) 40%,
-      rgba(255,255,255,0) 60%,
-      rgba(255,255,255,0.05) 100%
-    );
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, transparent 50%, rgba(255,255,255,0.05) 100%);
     pointer-events: none;
   }
+}
 
-  .cardLogoTop {
-    position: absolute;
-    top: $space-4; right: $space-5;
-    font-size: $font-size-lg;
-    font-weight: 900;
-    color: rgba($primary, 0.5);
-    font-family: 'Outfit', sans-serif;
-    letter-spacing: 1px;
-  }
+.topRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .chip {
-  width: 48px; height: 36px;
-  background: linear-gradient(135deg, #f5c842, #d49c00);
-  border-radius: 4px;
-  position: relative;
-  z-index: 1;
+  width: 52px; height: 40px;
+  background: linear-gradient(135deg, #2c3e50, #000);
+  border: 1px solid rgba($primary, 0.3);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: $primary;
+  font-size: 22px;
+}
+
+.cardLogo {
+  font-size: $font-size-xl;
+  font-weight: 900;
+  color: $primary;
+  font-family: 'Outfit', sans-serif;
+  letter-spacing: 2px;
+}
+
+.mainInfo {
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
-  padding: 0 4px;
-  box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
-
-  .chipLine {
-    height: 1px;
-    background: rgba(0,0,0,0.15);
-  }
+  gap: $space-4;
 }
 
-.number {
-  font-size: $font-size-xl;
-  letter-spacing: 3px;
-  font-weight: 600;
-  color: rgba($white, 0.9);
-  position: relative; z-index: 1;
-}
-
-.row {
+.infoGroup {
   display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  position: relative; z-index: 1;
+  flex-direction: column;
 }
 
 .label {
-  font-size: $font-size-xs;
-  color: rgba($white, 0.4);
+  font-size: 10px;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 2px;
+  color: rgba($white, 0.4);
+  font-weight: 600;
   margin-bottom: 2px;
 }
 
 .value {
+  font-size: $font-size-lg;
+  font-weight: 700;
+  color: $white;
+  letter-spacing: 1px;
+}
+
+.tierValue {
   font-size: $font-size-sm;
-  color: rgba($white, 0.85);
-  font-weight: 500;
+  font-weight: 700;
+  color: $primary;
+  letter-spacing: 1px;
+}
+
+.bottomRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.idValue {
+  font-size: $font-size-sm;
+  color: rgba($white, 0.7);
+  font-weight: 600;
+  font-family: monospace;
 }
 
 .balance {
   font-size: $font-size-2xl;
   font-weight: 800;
   color: $primary;
-  font-family: 'Outfit', sans-serif;
 }
 
-.tier {
-  position: absolute;
-  bottom: $space-3;
-  left: $space-6;
-  font-size: $font-size-xs;
-  color: rgba($white, 0.35);
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  font-weight: 600;
-}
-
-.flipHint {
-  position: absolute;
-  bottom: $space-3;
-  right: $space-5;
-  font-size: $font-size-xs;
-  color: rgba($white, 0.3);
-  display: flex;
-  align-items: center;
-  gap: $space-1;
-
-  svg { animation: spin 3s linear infinite; }
-}
-
-// Back side
+// ─── Back ───────────────────────────────────────────────────────────────────
 .back {
-  background: #0d1e30;
+  background: radial-gradient(circle, rgba($primary, 0.05), transparent 70%);
   border: 1px solid rgba($primary, 0.2);
   transform: rotateY(180deg);
   display: flex;
@@ -212,21 +234,18 @@
 }
 
 .backHeader {
-  margin-bottom: $space-3;
-  padding-bottom: $space-2;
-  border-bottom: 1px solid rgba(255,255,255,0.08);
-
+  margin-bottom: $space-4;
   h4 {
     font-size: $font-size-sm;
-    font-weight: 700;
     color: $primary;
-    font-family: 'Outfit', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 1px;
   }
 }
 
 .txList {
   flex: 1;
-  overflow-y: auto;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
   gap: $space-2;
@@ -235,54 +254,60 @@
 .txItem {
   display: flex;
   justify-content: space-between;
-  align-items: center;
   padding: $space-2 0;
-  border-bottom: 1px solid rgba(255,255,255,0.04);
+  border-bottom: 1px solid rgba(255,255,255,0.05);
 }
 
 .txLeft {
   display: flex;
-  align-items: center;
-  gap: $space-2;
+  gap: $space-3;
 }
 
 .txDot {
   width: 8px; height: 8px;
   border-radius: 50%;
-  flex-shrink: 0;
-
-  &.fare { background: #e74c3c; }
+  margin-top: 4px;
+  &.fare { background: #ff4757; }
   &.topup { background: $primary; }
-  &.voucher { background: #f39c12; }
+  &.voucher { background: #ffa502; }
 }
 
-.txRoute {
-  font-size: $font-size-xs;
-  font-weight: 600;
-  color: $white;
-}
-
-.txDistance {
-  font-size: 11px;
-  color: $gray-500;
-}
+.txRoute { font-size: 11px; font-weight: 700; color: $white; }
+.txDistance { font-size: 10px; color: $gray-500; }
 
 .txRight { text-align: right; }
+.txFare { font-size: $font-size-sm; font-weight: 700; color: #ff4757; &.topup { color: $primary; } }
+.txTime { font-size: 10px; color: $gray-500; }
 
-.txFare {
+// ─── Flip Instruction ───────────────────────────────────────────────────────
+.flipInstruction {
+  margin-top: $space-8;
+  display: flex;
+  align-items: center;
+  gap: $space-2;
   font-size: $font-size-sm;
-  font-weight: 700;
-  color: #e74c3c;
-
-  &.topup { color: $primary; }
-}
-
-.txTime {
-  font-size: 11px;
   color: $gray-500;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+
+  svg {
+    animation: rotateIcon 4s linear infinite;
+    color: $primary;
+  }
 }
 
-@keyframes spin {
+@keyframes rotateIcon {
   from { transform: rotate(0deg); }
-  to   { transform: rotate(360deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes floatLeft {
+  0%, 100% { transform: translateY(-50%) translateX(0); }
+  50% { transform: translateY(-60%) translateX(-10px); }
+}
+
+@keyframes floatRight {
+  0%, 100% { transform: translateY(-50%) translateX(0); }
+  50% { transform: translateY(-40%) translateX(10px); }
 }

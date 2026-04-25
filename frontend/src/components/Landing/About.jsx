@@ -1,34 +1,35 @@
-import { FaRoute, FaSimCard, FaSatelliteDish, FaShieldAlt, FaChartLine, FaWifi } from 'react-icons/fa';
+import { FiMap, FiActivity, FiShield, FiTrendingUp, FiSmartphone } from 'react-icons/fi';
+import { RiSimCardLine } from 'react-icons/ri';
 import styles from './About.module.scss';
 
 const features = [
   {
-    icon: <FaRoute />,
+    icon: <FiMap />,
     title: 'Pay Per Kilometer',
     desc: "Fair pricing based on actual distance traveled. Short ride? Pay less. It's that simple.",
   },
   {
-    icon: <FaSatelliteDish />,
+    icon: <FiActivity />,
     title: 'GPS Tracking',
     desc: 'Real-time vehicle tracking with sub-meter accuracy to calculate the exact route distance.',
   },
   {
-    icon: <FaSimCard />,
+    icon: <RiSimCardLine />,
     title: 'SIM Signal Fallback',
     desc: 'When GPS drops in tunnels or underground, our SIM-based triangulation kicks in seamlessly.',
   },
   {
-    icon: <FaShieldAlt />,
+    icon: <FiShield />,
     title: 'Auto Tap-Out',
     desc: 'No need to swipe when exiting. Signal deviation from vehicle trajectory triggers automatic checkout.',
   },
   {
-    icon: <FaChartLine />,
+    icon: <FiTrendingUp />,
     title: 'Dynamic Discounts',
     desc: 'Frequent short-distance travelers earn "Next Ride Free" vouchers. The more you ride, the more you save.',
   },
   {
-    icon: <FaWifi />,
+    icon: <FiSmartphone />,
     title: 'Digital-First Cards',
     desc: 'Manage your B.A.K.U card from your phone. Top up, view history, link family accounts — all digitally.',
   },

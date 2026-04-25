@@ -1,24 +1,25 @@
-import { FaMobileAlt, FaBus, FaSatellite, FaCheckCircle } from 'react-icons/fa';
+import { FiSmartphone, FiCheckCircle, FiCompass } from 'react-icons/fi';
+import { RiSignalTowerLine } from 'react-icons/ri';
 import styles from './HowItWorks.module.scss';
 
 const steps = [
   {
-    icon: <FaMobileAlt />,
+    icon: <FiSmartphone />,
     title: 'Link Your SIM',
     desc: 'Connect your mobile number to the B.A.K.U network to enable precise signal-based location tracking.'
   },
   {
-    icon: <FaBus />,
+    icon: <FiCompass />,
     title: 'Board Transport',
     desc: 'Simply enter any bus or metro. Our system automatically detects your entry point via proximity sensors.'
   },
   {
-    icon: <FaSatellite />,
+    icon: <RiSignalTowerLine />,
     title: 'Real-time Tracking',
     desc: 'B.A.K.U calculates the exact distance traveled using high-precision GPS and cellular triangulation.'
   },
   {
-    icon: <FaCheckCircle />,
+    icon: <FiCheckCircle />,
     title: 'Automatic Payment',
     desc: 'Exit the vehicle and pay only for the kilometers used. Your balance is updated instantly.'
   }

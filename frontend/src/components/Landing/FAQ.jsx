@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { FaPlus, FaMinus } from 'react-icons/fa';
+import { FiPlus, FiMinus } from 'react-icons/fi';
 import styles from './FAQ.module.scss';
 
 const faqs = [
@@ -61,7 +61,7 @@ export default function FAQ() {
                 <div className={styles.question}>
                   <h3>{faq.question}</h3>
                   <span className={styles.icon}>
-                    {active === i ? <FaMinus /> : <FaPlus />}
+                    {active === i ? <FiMinus /> : <FiPlus />}
                   </span>
                 </div>
                 <div className={styles.answer}>
