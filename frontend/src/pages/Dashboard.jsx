@@ -6,6 +6,7 @@ import {
   FiTruck, FiActivity, FiUsers, FiTrendingUp, FiServer, FiCheckCircle, FiAlertTriangle
 } from 'react-icons/fi';
 import { FaBusSimple } from "react-icons/fa6";
+import { MdDirectionsSubway } from "react-icons/md";
 import { 
   XAxis, YAxis, CartesianGrid, 
   Tooltip, ResponsiveContainer, AreaChart, Area 
@@ -115,6 +116,54 @@ export default function Dashboard() {
                   <Area type="monotone" dataKey={stats.peak_hours.length > 0 ? "passengers" : "count"} stroke="#9FC73C" strokeWidth={1.5} fillOpacity={1} fill="url(#colorCount)" />
                 </AreaChart>
               </ResponsiveContainer>
+            </div>
+          </div>
+
+          <div className={styles.transitSection}>
+            <div className={styles.sectionHeader}>
+              <h3>Marşrut Performansı</h3>
+            </div>
+            <div className={styles.transitGrid}>
+              <div className={styles.transitCard}>
+                <div className={styles.cardHeader}>
+                  <FiTruck />
+                  <span>Avtobus Xətləri</span>
+                </div>
+                <div className={styles.cardBody}>
+                  <div className={styles.routeItem}>
+                    <span>#5 Nərimanov</span>
+                    <span className={styles.onTime}>Dəqiq</span>
+                  </div>
+                  <div className={styles.routeItem}>
+                    <span>#88 Dərnəgül</span>
+                    <span className={styles.busy}>Yüklənib</span>
+                  </div>
+                  <div className={styles.routeItem}>
+                    <span>#18 Koroğlu</span>
+                    <span className={styles.delayed}>Gecikir</span>
+                  </div>
+                </div>
+              </div>
+              <div className={styles.transitCard}>
+                <div className={styles.cardHeader}>
+                  <MdDirectionsSubway />
+                  <span>Metro Xətləri</span>
+                </div>
+                <div className={styles.cardBody}>
+                  <div className={styles.routeItem}>
+                    <span>Qırmızı Xətt</span>
+                    <span className={styles.onTime}>Aktiv</span>
+                  </div>
+                  <div className={styles.routeItem}>
+                    <span>Yaşıl Xətt</span>
+                    <span className={styles.onTime}>Aktiv</span>
+                  </div>
+                  <div className={styles.routeItem}>
+                    <span>Bənövşəyi Xətt</span>
+                    <span className={styles.busy}>Təmir</span>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 

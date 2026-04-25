@@ -175,5 +175,58 @@
   }
 }
 
+.transitSection {
+  @extend .card;
+  .sectionHeader {
+    margin-bottom: $space-6;
+    h3 { font-size: 11px; color: $gray-500; text-transform: uppercase; letter-spacing: 2px; font-weight: 800; }
+  }
+}
+
+.transitGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: $space-6;
+  @media (max-width: 600px) { grid-template-columns: 1fr; }
+}
+
+.transitCard {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: $space-4;
+
+  .cardHeader {
+    display: flex;
+    align-items: center;
+    gap: $space-3;
+    color: $primary;
+    font-weight: 700;
+    font-size: 13px;
+    margin-bottom: $space-4;
+    padding-bottom: $space-3;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+  }
+
+  .cardBody {
+    display: flex;
+    flex-direction: column;
+    gap: $space-3;
+  }
+}
+
+.routeItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  color: $gray-300;
+  font-weight: 500;
+
+  .onTime { color: $primary; font-weight: 700; }
+  .busy { color: #ffa502; font-weight: 700; }
+  .delayed { color: #ff4757; font-weight: 700; }
+}
+
 @keyframes pulse { 0% { transform: scale(1); opacity: 1; } 100% { transform: scale(2.5); opacity: 0; } }
 @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.2; } }

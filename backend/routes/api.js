@@ -279,6 +279,53 @@ router.get('/trips', async (req, res) => {
   }
 });
 
+// GET metro lines and stations
+router.get('/metro/lines', async (req, res) => {
+  try {
+    const query = `
+      SELECT 
+        r.id as route_id, 
+        r.route_number, 
+        r.path_coordinates->>'name' as line_name,
+        r.path_coordinates->>'color' as line_color,
+        s.id as stop_id,
+        s.name as stop_name,
+        rs.stop_order
+      FROM routes r
+      JOIN route_stops rs ON r.id = rs.route_id
+      JOIN stops s ON rs.stop_id = s.id
+      WHERE r.route_type = 'metro'
+      ORDER BY r.id, rs.stop_order
+    `;
+    const { rows } = await pool.query(query);
+    
+    // Group by line
+    const lines = rows.reduce((acc, row) => {
+      let line = acc.find(l => l.id === row.route_id);
+      if (!line) {
+        line = {
+          id: row.route_id,
+          number: row.route_number,
+          name: row.line_name,
+          color: row.line_color,
+          stations: []
+        };
+        acc.push(line);
+      }
+      line.stations.push({
+        id: row.stop_id,
+        name: row.stop_name,
+        order: row.stop_order
+      });
+      return acc;
+    }, []);
+
+    res.json(lines);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 // GET metro stops
 router.get('/stops/metro', async (req, res) => {
   try {

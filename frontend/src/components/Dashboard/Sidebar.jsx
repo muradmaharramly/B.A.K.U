@@ -1,4 +1,6 @@
-import { FiGrid, FiCompass, FiActivity, FiSettings, FiClock, FiServer } from 'react-icons/fi';
+import { FiGrid, FiCompass, FiActivity, FiSettings, FiClock, FiServer, FiTruck } from 'react-icons/fi';
+import { FaBusAlt } from "react-icons/fa";
+import { MdDirectionsSubway } from 'react-icons/md';
 import { Link, useLocation } from 'react-router-dom';
 import styles from './Sidebar.module.scss';
 
@@ -7,6 +9,8 @@ export default function Sidebar() {
 
   const menuItems = [
     { icon: <FiGrid />, label: 'Ümumi Baxış', path: '/dashboard' },
+    { icon: <FaBusAlt />, label: 'Avtobuslar', path: '/dashboard/buses' },
+    { icon: <MdDirectionsSubway />, label: 'Metrolar', path: '/dashboard/metro' },
     { icon: <FiCompass />, label: 'Donanma İdarəetmə', path: '/dashboard/fleet' },
     { icon: <FiActivity />, label: 'Analitika', path: '/dashboard/analytics' },
     { icon: <FiClock />, label: 'Sistem Jurnalları', path: '/dashboard/logs' },

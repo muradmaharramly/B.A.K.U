@@ -42,11 +42,11 @@ export default function Hero() {
               <div className={styles.label}>Gündəlik Sərnişin</div>
             </div>
             <div className={styles.stat}>
-              <div className={styles.num}>89</div>
-              <div className={styles.label}>Avtobus Xətti</div>
+              <div className={styles.num}>1500+</div>
+              <div className={styles.label}>Aktiv Avtobus</div>
             </div>
             <div className={styles.stat}>
-              <div className={styles.num}>19</div>
+              <div className={styles.num}>27</div>
               <div className={styles.label}>Metro Stansiyası</div>
             </div>
           </div>

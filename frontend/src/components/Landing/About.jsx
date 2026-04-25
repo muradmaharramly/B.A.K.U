@@ -1,37 +1,38 @@
-import { FiMap, FiActivity, FiShield, FiTrendingUp, FiSmartphone } from 'react-icons/fi';
-import { RiSimCardLine } from 'react-icons/ri';
+import { FaBusSimple } from "react-icons/fa6";
+import { MdDirectionsSubway } from "react-icons/md";
+import { FiActivity, FiShield, FiTrendingUp, FiSmartphone } from 'react-icons/fi';
 import styles from './About.module.scss';
 
 const features = [
   {
-    icon: <FiMap />,
-    title: 'Kilometrə görə ödəniş',
-    desc: "Həqiqi qət edilən məsafəyə əsaslanan ədalətli qiymət. Qısa gediş? Daha az ödəyin. Bu qədər sadə.",
+    icon: <FaBusSimple />,
+    title: 'Geniş Avtobus Şəbəkəsi',
+    desc: "Bakı şəhərinin bütün avtobus xətləri ilə tam inteqrasiya. Hər bir avtobus dəqiq GPS izləmə modulu ilə təchiz olunub.",
+  },
+  {
+    icon: <MdDirectionsSubway />,
+    title: 'Metro və Yeraltı Dəstək',
+    desc: 'Metro tunellərində GPS siqnalı itdiyi zaman, SIM-əsaslı trianqulyasiya sistemimiz problemsiz ödənişi təmin edir.',
   },
   {
     icon: <FiActivity />,
-    title: 'GPS İzləmə',
-    desc: 'Dəqiq marşrut məsafəsini hesablamaq üçün metr səviyyəsində dəqiqliklə real vaxtda nəqliyyat vasitəsinin izlənilməsi.',
-  },
-  {
-    icon: <RiSimCardLine />,
-    title: 'SIM Siqnal Dəstəyi',
-    desc: 'Tunellərdə və ya yeraltı ərazilərdə GPS siqnalı itdiyi zaman, SIM-əsaslı trianqulyasiya sistemimiz problemsiz işə düşür.',
+    title: 'Məsafəyə Görə Ödəniş',
+    desc: 'Yalnız qət etdiyiniz kilometrə görə ödəyin. Sistem mindiyiniz və düşdüyünüz nöqtələri avtomatik qeydə alır.',
   },
   {
     icon: <FiShield />,
-    title: 'Avtomatik Çıxış',
-    desc: 'Çıxarkən kartı oxutmağa ehtiyac yoxdur. Siqnalın nəqliyyat vasitəsinin trayektoriyasından uzaqlaşması avtomatik ödənişi sonlandırır.',
+    title: 'Transfer Endirimləri',
+    desc: 'Avtobusdan metroya və ya əksinə keçid zamanı xüsusi transfer endirimləri avtomatik tətbiq olunur.',
   },
   {
     icon: <FiTrendingUp />,
-    title: 'Dinamik Endirimlər',
-    desc: 'Tez-tez qısa məsafəyə səyahət edənlər "Növbəti Gediş Pulsuz" vauçerləri qazanırlar. Nə qədər çox istifadə etsəniz, o qədər çox qənaət edərsiniz.',
+    title: 'Real-vaxt Analitikası',
+    desc: 'Marşrutların doluluq səviyyəsini və növbəti nəqliyyatın gəlmə vaxtını saniyələr daxilində izləyin.',
   },
   {
     icon: <FiSmartphone />,
-    title: 'Rəqəmsal Kartlar',
-    desc: 'B.A.K.U kartınızı telefonunuzdan idarə edin. Balans artırın, tarixçəyə baxın, ailə hesablarını birləşdirin — hamısı rəqəmsal.',
+    title: 'Rəqəmsal Ödəniş Sistemi',
+    desc: 'Fiziki karta ehtiyac yoxdur. Telefonunuzla avtobusa minin və ya metro keçidlərindən sürətlə keçin.',
   },
 ];
 

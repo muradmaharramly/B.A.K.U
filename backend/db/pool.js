@@ -9,6 +9,4 @@ const pool = new Pool({
   ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false
 });
 
-module.exports = {
-  query: (text, params) => pool.query(text, params),
-};
+module.exports = pool;

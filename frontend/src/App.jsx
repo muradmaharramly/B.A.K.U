@@ -5,6 +5,8 @@ import './styles/global.scss';
 import LandingPage from './pages/LandingPage';
 import Dashboard from './pages/Dashboard';
 import Fleet from './pages/Fleet';
+import Buses from './pages/Buses';
+import Metro from './pages/Metro';
 import Analytics from './pages/Analytics';
 import Logs from './pages/Logs';
 import Nodes from './pages/Nodes';
@@ -27,6 +29,8 @@ function App() {
           <Route path="/" element={<LandingPage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+          <Route path="/dashboard/buses" element={<ProtectedRoute><Buses /></ProtectedRoute>} />
+          <Route path="/dashboard/metro" element={<ProtectedRoute><Metro /></ProtectedRoute>} />
           <Route path="/dashboard/fleet" element={<ProtectedRoute><Fleet /></ProtectedRoute>} />
           <Route path="/dashboard/analytics" element={<ProtectedRoute><Analytics /></ProtectedRoute>} />
           <Route path="/dashboard/logs" element={<ProtectedRoute><Logs /></ProtectedRoute>} />

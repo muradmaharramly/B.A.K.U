@@ -10,7 +10,7 @@ const tiers = [
     discount: '0%',
     color: '#627d98',
     featured: true,
-    features: ['GPS və SIM izləmə', 'Rəqəmsal karta giriş', 'Mənfi balansa icazə', 'Ailə hesabları'],
+    features: ['GPS və SIM izləmə', 'Rəqəmsal karta giriş', 'Transfer endirimi (₼0.10)', 'Ailə hesabları'],
   },
   {
     name: 'Yaşlı',
@@ -18,7 +18,7 @@ const tiers = [
     maxFare: '₼0.75',
     rate: '₼0.05 / km',
     discount: '50%',
-    features: ['Bütün gedişlərə 50% endirim', 'Prioritet dəstək', 'Mənfi balansa icazə', 'Pulsuz fiziki kart'],
+    features: ['Bütün gedişlərə 50% endirim', 'Transfer endirimi (₼0.05)', 'Mənfi balansa icazə', 'Pulsuz fiziki kart'],
   },
 ];
 

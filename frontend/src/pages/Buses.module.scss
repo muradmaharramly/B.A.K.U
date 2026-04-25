@@ -1,0 +1,278 @@
+@import '../styles/variables';
+
+.pageHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: $space-8;
+  gap: $space-4;
+
+  @media (max-width: 700px) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+.searchBox {
+  display: flex;
+  align-items: center;
+  gap: $space-3;
+  background: rgba(255, 255, 255, 0.03);
+  padding: $space-3 $space-5;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 400px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: $gray-500;
+  transition: all 0.3s ease;
+
+  &:focus-within {
+    border-color: rgba($primary, 0.4);
+    background: rgba($primary, 0.02);
+  }
+
+  input {
+    background: none;
+    border: none;
+    color: $white;
+    width: 100%;
+    font-size: $font-size-sm;
+    outline: none;
+    font-weight: 500;
+    &::placeholder { color: $gray-700; }
+  }
+}
+
+.fleetGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: $space-6;
+}
+
+.unitCard {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: $radius-lg;
+  padding: $space-6;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.04);
+    border-color: rgba($primary, 0.3);
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+  }
+
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: $space-6;
+}
+
+.unitInfo {
+  display: flex;
+  gap: $space-4;
+  align-items: center;
+
+  .iconBox {
+    width: 48px; height: 48px;
+    background: rgba($primary, 0.05);
+    border: 1px solid rgba($primary, 0.15);
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    color: $primary;
+    font-size: 20px;
+  }
+
+  .unitId {
+    font-size: $font-size-lg;
+    font-weight: 800;
+    color: $white;
+    margin-bottom: 2px;
+    font-family: $font-title;
+  }
+
+.operatorSection {
+  margin-bottom: $space-12;
+  animation: fadeIn 0.5s ease backwards;
+}
+
+.operatorHeader {
+  display: flex;
+  flex-direction: column;
+  gap: $space-2;
+  margin-bottom: $space-10;
+  padding-left: $space-4;
+  position: relative;
+
+  .operatorIcon {
+    width: 24px; height: 24px;
+    color: $gray-300;
+    font-size: 24px;
+    margin-bottom: $space-2;
+    opacity: 0.8;
+  }
+
+  h2 {
+    font-size: 36px;
+    font-weight: 900;
+    color: $white;
+    font-family: $font-title;
+    letter-spacing: -1px;
+    line-height: 1.1;
+  }
+
+  .routeCount {
+    font-size: 22px;
+    font-weight: 700;
+    color: $gray-200;
+    opacity: 0.9;
+    font-family: $font-main;
+  }
+}
+
+
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+  .unitType {
+    font-size: 12px;
+    color: $gray-500;
+    font-weight: 600;
+  }
+}
+
+.statusBadge {
+  padding: 5px 12px;
+  border-radius: $radius-full;
+  font-size: 9px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+
+  &.normal { color: $primary; background: rgba($primary, 0.1); border: 1px solid rgba($primary, 0.2); }
+  &.busy { color: #ffa502; background: rgba(255, 165, 2, 0.1); border: 1px solid rgba(255, 165, 2, 0.2); }
+  &.delayed { color: #ff4757; background: rgba(255, 71, 87, 0.1); border: 1px solid rgba(255, 71, 87, 0.2); }
+}
+
+.metrics {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: $space-4;
+  margin-bottom: $space-6;
+  padding: $space-4;
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 12px;
+
+  .metric {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    color: $gray-300;
+    font-size: 12px;
+    font-weight: 600;
+
+    svg { color: $primary; font-size: 16px; }
+  }
+}
+
+.cardFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: $space-4;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+
+  .location {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    color: $gray-500;
+    font-weight: 600;
+    svg { color: $primary; }
+  }
+
+  .detailsBtn {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: $white;
+    padding: 6px 14px;
+    border-radius: 8px;
+    font-size: 11px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+
+    &:hover {
+      background: $primary;
+      color: $secondary-dark;
+      border-color: $primary;
+    }
+  }
+}
+
+.btnGlass {
+  @include glass(12px, 0.05, 0.15);
+  padding: $space-3 $space-6;
+  border-radius: 12px;
+  color: $white;
+  font-size: $font-size-sm;
+  font-weight: 700;
+  display: flex; align-items: center; gap: $space-2;
+  cursor: pointer;
+  transition: all 0.3s;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.12);
+    transform: translateY(-2px);
+  }
+}
+
+.filterSelect {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: $white;
+  padding: $space-3 $space-6;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.3s ease;
+  min-width: 200px;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 15px center;
+  background-size: 16px;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.06);
+    border-color: rgba($primary, 0.3);
+  }
+
+  &:focus {
+    border-color: $primary;
+    box-shadow: 0 0 15px rgba($primary, 0.1);
+  }
+
+  option {
+    background: $secondary-dark;
+    color: $white;
+    padding: 10px;
+  }
+}
+.loading {
+  padding: $space-20;
+  text-align: center;
+  color: $primary;
+  font-weight: 800;
+  font-family: $font-title;
+}
