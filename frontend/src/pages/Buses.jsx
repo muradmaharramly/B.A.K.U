@@ -68,16 +68,14 @@ export default function Buses() {
           />
         </div>
         <div className={styles.filterGroup}>
-          <select 
-            className={styles.filterSelect}
+          <CustomSelect 
+            options={[
+              { value: 'all', label: 'Bütün Operatorlar' },
+              ...Object.keys(allRoutes.reduce((acc, r) => { acc[r.operator_name] = true; return acc; }, {})).map(op => ({ value: op, label: op }))
+            ]}
             value={selectedOperator}
-            onChange={(e) => handleOperatorChange(e.target.value)}
-          >
-            <option value="all">Bütün Operatorlar</option>
-            {Object.keys(allRoutes.reduce((acc, r) => { acc[r.operator_name] = true; return acc; }, {})).map(op => (
-              <option key={op} value={op}>{op}</option>
-            ))}
-          </select>
+            onChange={handleOperatorChange}
+          />
         </div>
       </div>
 
