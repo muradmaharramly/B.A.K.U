@@ -9,26 +9,32 @@ import Analytics from './pages/Analytics';
 import Logs from './pages/Logs';
 import Nodes from './pages/Nodes';
 import Settings from './pages/Settings';
+import Login from './pages/Login';
+import ProtectedRoute from './components/ProtectedRoute';
+import { AuthProvider } from './context/AuthContext';
 
 function App() {
   return (
-    <BrowserRouter>
-      <ToastContainer
-        position="bottom-right"
-        autoClose={3000}
-        theme="dark"
-        toastStyle={{ fontFamily: 'Inter, sans-serif' }}
-      />
-      <Routes>
-        <Route path="/" element={<LandingPage />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/dashboard/fleet" element={<Fleet />} />
-        <Route path="/dashboard/analytics" element={<Analytics />} />
-        <Route path="/dashboard/logs" element={<Logs />} />
-        <Route path="/dashboard/nodes" element={<Nodes />} />
-        <Route path="/dashboard/settings" element={<Settings />} />
-      </Routes>
-    </BrowserRouter>
+    <AuthProvider>
+      <BrowserRouter>
+        <ToastContainer
+          position="bottom-right"
+          autoClose={3000}
+          theme="dark"
+          toastStyle={{ fontFamily: 'Inter, sans-serif' }}
+        />
+        <Routes>
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+          <Route path="/dashboard/fleet" element={<ProtectedRoute><Fleet /></ProtectedRoute>} />
+          <Route path="/dashboard/analytics" element={<ProtectedRoute><Analytics /></ProtectedRoute>} />
+          <Route path="/dashboard/logs" element={<ProtectedRoute><Logs /></ProtectedRoute>} />
+          <Route path="/dashboard/nodes" element={<ProtectedRoute><Nodes /></ProtectedRoute>} />
+          <Route path="/dashboard/settings" element={<ProtectedRoute><Settings /></ProtectedRoute>} />
+        </Routes>
+      </BrowserRouter>
+    </AuthProvider>
   );
 }
 

@@ -1,6 +1,12 @@
 const express = require('express');
 const router = express.Router();
 const pool = require('../db/pool');
+const authMiddleware = require('../middleware/authMiddleware');
+
+// ─── PROTECTED ROUTES ────────────────────────────────────────────────────────
+router.use('/dashboard', authMiddleware);
+router.use('/users', authMiddleware);
+router.use('/trips', authMiddleware);
 
 // ─── USERS ────────────────────────────────────────────────────────────────────
 

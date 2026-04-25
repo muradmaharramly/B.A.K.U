@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const apiRoutes = require('./routes/api');
+const authRoutes = require('./routes/auth');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -13,6 +14,7 @@ app.get('/', (req, res) => {
   res.json({ message: '🚌 B.A.K.U API is running', version: '1.0.0' });
 });
 
+app.use('/api/auth', authRoutes);
 app.use('/api', apiRoutes);
 
 app.use((err, req, res, next) => {

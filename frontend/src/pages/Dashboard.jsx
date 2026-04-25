@@ -1,3 +1,6 @@
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+import { useAuth } from '../context/AuthContext';
 import DashboardLayout from '../components/Dashboard/DashboardLayout';
 import { 
   FiTruck, FiActivity, FiUsers, FiTrendingUp, FiServer, FiCheckCircle, FiAlertTriangle
@@ -28,6 +31,31 @@ const systemLogs = [
 ];
 
 export default function Dashboard() {
+  const [stats, setStats] = useState({
+    daily_revenue: 0,
+    daily_passengers: 0,
+    active_trips: 0,
+    total_users: 0,
+    peak_hours: []
+  });
+  const { admin } = useAuth();
+
+  useEffect(() => {
+    const fetchStats = async () => {
+      try {
+        const token = localStorage.getItem('token');
+        const res = await axios.get(`${import.meta.env.VITE_API_URL}/dashboard/stats`, {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        setStats(res.data);
+      } catch (err) {
+        console.error('Error fetching dashboard stats:', err);
+      }
+    };
+    fetchStats();
+    const interval = setInterval(fetchStats, 30000); // Update every 30s
+    return () => clearInterval(interval);
+  }, []);
   return (
     <DashboardLayout title="System Performance Overview">
       <div className={styles.statsGrid}>
@@ -35,28 +63,28 @@ export default function Dashboard() {
           <div className={styles.statIcon}><FiTruck /></div>
           <div className={styles.statData}>
             <span className={styles.label}>Live Fleet</span>
-            <span className={styles.value}>142 / 150</span>
+            <span className={styles.value}>{stats.active_trips} / 150</span>
           </div>
         </div>
         <div className={styles.statItem}>
           <div className={styles.statIcon}><FiUsers /></div>
           <div className={styles.statData}>
             <span className={styles.label}>Total Riders (Daily)</span>
-            <span className={styles.value}>24,842</span>
+            <span className={styles.value}>{stats.daily_passengers.toLocaleString()}</span>
           </div>
         </div>
         <div className={styles.statItem}>
           <div className={styles.statIcon}><FiActivity /></div>
           <div className={styles.statData}>
             <span className={styles.label}>Net Revenue (Today)</span>
-            <span className={styles.value}>₼18,420</span>
+            <span className={styles.value}>₼{stats.daily_revenue.toFixed(2)}</span>
           </div>
         </div>
         <div className={styles.statItem}>
           <div className={styles.statIcon}><FiServer /></div>
           <div className={styles.statData}>
-            <span className={styles.label}>System Latency</span>
-            <span className={styles.value}>24ms</span>
+            <span className={styles.label}>Total Users</span>
+            <span className={styles.value}>{stats.total_users}</span>
           </div>
         </div>
       </div>
@@ -69,7 +97,7 @@ export default function Dashboard() {
             </div>
             <div className={styles.chartWrapper}>
               <ResponsiveContainer width="100%" height={300}>
-                <AreaChart data={ridershipData}>
+                <AreaChart data={stats.peak_hours.length > 0 ? stats.peak_hours : ridershipData}>
                   <defs>
                     <linearGradient id="colorCount" x1="0" y1="0" x2="0" y2="1">
                       <stop offset="5%" stopColor="#9FC73C" stopOpacity={0.2}/>
@@ -77,13 +105,13 @@ export default function Dashboard() {
                     </linearGradient>
                   </defs>
                   <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.03)" vertical={false} />
-                  <XAxis dataKey="time" stroke="#627d98" fontSize={11} tickLine={false} axisLine={false} />
+                  <XAxis dataKey={stats.peak_hours.length > 0 ? "hour" : "time"} stroke="#627d98" fontSize={11} tickLine={false} axisLine={false} />
                   <YAxis stroke="#627d98" fontSize={11} tickLine={false} axisLine={false} />
                   <Tooltip 
                     contentStyle={{ background: '#0a0a0f', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '8px' }}
                     itemStyle={{ color: '#9FC73C', fontSize: '12px' }}
                   />
-                  <Area type="monotone" dataKey="count" stroke="#9FC73C" strokeWidth={1.5} fillOpacity={1} fill="url(#colorCount)" />
+                  <Area type="monotone" dataKey={stats.peak_hours.length > 0 ? "passengers" : "count"} stroke="#9FC73C" strokeWidth={1.5} fillOpacity={1} fill="url(#colorCount)" />
                 </AreaChart>
               </ResponsiveContainer>
             </div>

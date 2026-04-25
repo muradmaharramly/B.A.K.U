@@ -1,5 +1,14 @@
 -- B.A.K.U Database Schema (Neon.com / PostgreSQL)
 
+-- Administrative Accounts
+CREATE TABLE IF NOT EXISTS admins (
+    id SERIAL PRIMARY KEY,
+    username VARCHAR(50) UNIQUE NOT NULL,
+    password_hash VARCHAR(255) NOT NULL,
+    full_name VARCHAR(100),
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
 -- ENUM Types
 CREATE TYPE user_tier AS ENUM ('citizen', 'tourist', 'family');
 CREATE TYPE social_category AS ENUM ('standard', 'student', 'veteran', 'senior');
@@ -198,3 +207,8 @@ INSERT INTO trips (user_id, card_id, route_id, start_time, end_time, distance_km
     (3, 3, 10, NOW() - INTERVAL '1 day', NOW() - INTERVAL '23 hours 50 min', 2.1, 0.30, 'GPS', 'completed'),
     (4, 4, 2, NOW() - INTERVAL '3 hours', NOW() - INTERVAL '2 hours 40 min', 5.5, 0.60, 'GPS', 'completed'),
     (5, 5, 8, NOW() - INTERVAL '30 min', NULL, NULL, NULL, 'GPS', 'active');
+
+-- Default Admin (admin / admin123)
+INSERT INTO admins (username, password_hash, full_name) VALUES
+    ('admin', '$2b$10$auTyixOhItVpY5RpeknBfusWJpX3Ooe9xbpDrPI0V8UA36z2CEv02', 'System Administrator')
+ON CONFLICT (username) DO NOTHING;
