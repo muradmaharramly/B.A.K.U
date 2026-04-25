@@ -97,6 +97,13 @@
     font-family: $font-title;
   }
 
+  .unitType {
+    font-size: 12px;
+    color: $gray-500;
+    font-weight: 600;
+  }
+}
+
 .operatorSection {
   margin-bottom: $space-12;
   animation: fadeIn 0.5s ease backwards;
@@ -104,36 +111,112 @@
 
 .operatorHeader {
   display: flex;
-  flex-direction: column;
-  gap: $space-2;
-  margin-bottom: $space-10;
-  padding-left: $space-4;
+  align-items: center;
+  gap: $space-6;
+  margin-bottom: $space-8;
+  padding: $space-6 $space-8;
+  background: linear-gradient(135deg, rgba(159, 199, 60, 0.07) 0%, rgba(255,255,255,0.015) 100%);
+  border: 1px solid rgba($primary, 0.18);
+  border-radius: 20px;
   position: relative;
+  overflow: hidden;
 
-  .operatorIcon {
-    width: 24px; height: 24px;
-    color: $gray-300;
-    font-size: 24px;
-    margin-bottom: $space-2;
-    opacity: 0.8;
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, $primary 40%, transparent);
+    opacity: 0.7;
   }
 
+  &::after {
+    content: '';
+    position: absolute;
+    right: -60px; top: -60px;
+    width: 180px; height: 180px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba($primary, 0.05) 0%, transparent 70%);
+    pointer-events: none;
+  }
+}
+
+.operatorIcon {
+  width: 64px;
+  height: 64px;
+  background: rgba($primary, 0.08);
+  border: 1px solid rgba($primary, 0.25);
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: $primary;
+  font-size: 28px;
+  flex-shrink: 0;
+  box-shadow: 0 0 24px rgba($primary, 0.2), inset 0 1px 0 rgba($primary, 0.1);
+}
+
+.operatorMeta {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
   h2 {
-    font-size: 36px;
+    font-size: $font-size-2xl;
     font-weight: 900;
     color: $white;
     font-family: $font-title;
-    letter-spacing: -1px;
+    letter-spacing: -0.5px;
+    margin: 0;
     line-height: 1.1;
   }
+}
 
-  .routeCount {
-    font-size: 22px;
-    font-weight: 700;
-    color: $gray-200;
-    opacity: 0.9;
-    font-family: $font-main;
+.operatorSub {
+  font-size: 12px;
+  color: $gray-500;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  &::before {
+    content: '';
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: $primary;
+    flex-shrink: 0;
+    animation: pulse 2s infinite;
+    box-shadow: 0 0 8px $primary;
   }
+}
+
+.routeCount {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+  padding-left: $space-6;
+  border-left: 1px solid rgba(255,255,255,0.06);
+}
+
+.countNum {
+  font-size: 48px;
+  font-weight: 900;
+  font-family: $font-title;
+  color: $primary;
+  line-height: 1;
+  letter-spacing: -2px;
+}
+
+.countLabel {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: $gray-500;
+  font-weight: 800;
 }
 
 
@@ -141,12 +224,7 @@
 @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
 @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-  .unitType {
-    font-size: 12px;
-    color: $gray-500;
-    font-weight: 600;
-  }
-}
+
 
 .statusBadge {
   padding: 5px 12px;

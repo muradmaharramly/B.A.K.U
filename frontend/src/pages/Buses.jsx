@@ -88,9 +88,15 @@ export default function Buses() {
         return (
           <div key={operator} className={styles.operatorSection}>
             <div className={styles.operatorHeader}>
-              <div className={styles.operatorIcon}><FiActivity /></div>
-              <h2>{operator}</h2>
-              <span className={styles.routeCount}>{filteredRoutes.length} Marşrut</span>
+              <div className={styles.operatorIcon}><FaBusAlt /></div>
+              <div className={styles.operatorMeta}>
+                <h2>{operator}</h2>
+                <span className={styles.operatorSub}>Aktiv Fəaliyyətdə · Bakı Nəqliyyat Şəbəkəsi</span>
+              </div>
+              <div className={styles.routeCount}>
+                <span className={styles.countNum}>{filteredRoutes.length}</span>
+                <span className={styles.countLabel}>Marşrut</span>
+              </div>
             </div>
             
             <div className={styles.fleetGrid}>
