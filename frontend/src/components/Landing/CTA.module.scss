@@ -15,13 +15,17 @@
   position: relative;
   background: transparent;
   border: 1px solid rgba(255, 255, 255, 0.05);
-  border-radius: $radius-2xl;
+  border-radius: 25px;
   padding: $space-16 $space-8;
   text-align: center;
   overflow: hidden;
   box-shadow: 0 40px 100px rgba(0, 0, 0, 0.4);
-
-  @media (max-width: 600px) {
+ 
+  -webkit-border-radius: 25px;
+  -moz-border-radius: 25px;
+  -ms-border-radius: 25px;
+  -o-border-radius: 25px;
+  @media(max-width: 600px) {
     padding: $space-12 $space-6;
   }
 }
@@ -82,7 +86,7 @@
   position: absolute;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 500px;
+  width: 1200px;
   height: 500px;
   background: radial-gradient(circle, rgba($primary, 0.08) 0%, transparent 70%);
   pointer-events: none;
