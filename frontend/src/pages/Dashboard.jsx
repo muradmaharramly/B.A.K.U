@@ -1,13 +1,11 @@
+import DashboardLayout from '../components/Dashboard/DashboardLayout';
 import { 
-  FiTruck, FiActivity, FiUsers, FiAlertTriangle, 
-  FiCheckCircle, FiTrendingUp, FiServer
+  FiTruck, FiActivity, FiUsers, FiTrendingUp, FiServer, FiCheckCircle, FiAlertTriangle
 } from 'react-icons/fi';
 import { 
   XAxis, YAxis, CartesianGrid, 
   Tooltip, ResponsiveContainer, AreaChart, Area 
 } from 'recharts';
-import Sidebar from '../components/Dashboard/Sidebar';
-import Topbar from '../components/Dashboard/Topbar';
 import styles from './Dashboard.module.scss';
 
 const ridershipData = [
@@ -31,130 +29,123 @@ const systemLogs = [
 
 export default function Dashboard() {
   return (
-    <div className={styles.dashboardLayout}>
-      <Sidebar />
-      <div className={styles.mainWrapper}>
-        <Topbar title="System Performance Overview" />
-        
-        <main className={styles.content}>
-          <div className={styles.statsGrid}>
-            <div className={styles.statItem}>
-              <div className={styles.statIcon}><FiTruck /></div>
-              <div className={styles.statData}>
-                <span className={styles.label}>Live Fleet</span>
-                <span className={styles.value}>142 / 150</span>
-              </div>
-            </div>
-            <div className={styles.statItem}>
-              <div className={styles.statIcon}><FiUsers /></div>
-              <div className={styles.statData}>
-                <span className={styles.label}>Total Riders (Daily)</span>
-                <span className={styles.value}>24,842</span>
-              </div>
-            </div>
-            <div className={styles.statItem}>
-              <div className={styles.statIcon}><FiActivity /></div>
-              <div className={styles.statData}>
-                <span className={styles.label}>Net Revenue (Today)</span>
-                <span className={styles.value}>₼18,420</span>
-              </div>
-            </div>
-            <div className={styles.statItem}>
-              <div className={styles.statIcon}><FiServer /></div>
-              <div className={styles.statData}>
-                <span className={styles.label}>System Latency</span>
-                <span className={styles.value}>24ms</span>
-              </div>
-            </div>
+    <DashboardLayout title="System Performance Overview">
+      <div className={styles.statsGrid}>
+        <div className={styles.statItem}>
+          <div className={styles.statIcon}><FiTruck /></div>
+          <div className={styles.statData}>
+            <span className={styles.label}>Live Fleet</span>
+            <span className={styles.value}>142 / 150</span>
           </div>
-
-          <div className={styles.layoutGrid}>
-            <div className={styles.leftCol}>
-              <div className={styles.chartSection}>
-                <div className={styles.sectionHeader}>
-                  <h3>Network Ridership Flow</h3>
-                </div>
-                <div className={styles.chartWrapper}>
-                  <ResponsiveContainer width="100%" height={300}>
-                    <AreaChart data={ridershipData}>
-                      <defs>
-                        <linearGradient id="colorCount" x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="5%" stopColor="#9FC73C" stopOpacity={0.2}/>
-                          <stop offset="95%" stopColor="#9FC73C" stopOpacity={0}/>
-                        </linearGradient>
-                      </defs>
-                      <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.03)" vertical={false} />
-                      <XAxis dataKey="time" stroke="#627d98" fontSize={11} tickLine={false} axisLine={false} />
-                      <YAxis stroke="#627d98" fontSize={11} tickLine={false} axisLine={false} />
-                      <Tooltip 
-                        contentStyle={{ background: '#0a0a0f', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '8px' }}
-                        itemStyle={{ color: '#9FC73C', fontSize: '12px' }}
-                      />
-                      <Area type="monotone" dataKey="count" stroke="#9FC73C" strokeWidth={1.5} fillOpacity={1} fill="url(#colorCount)" />
-                    </AreaChart>
-                  </ResponsiveContainer>
-                </div>
-              </div>
-
-              <div className={styles.mapSection}>
-                <div className={styles.mapPlaceholder}>
-                  <div className={styles.busDot} style={{ top: '35%', left: '45%' }}></div>
-                  <div className={styles.busDot} style={{ top: '55%', left: '65%' }}></div>
-                  <div className={styles.busDot} style={{ top: '25%', left: '15%' }}></div>
-                  <div className={styles.busDot} style={{ top: '75%', left: '30%' }}></div>
-                </div>
-                <div className={styles.mapOverlay}>
-                  <div className={styles.statusBadge}>
-                    <span className={styles.liveDot}></span> Live System View
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className={styles.rightCol}>
-              <div className={styles.systemHealth}>
-                <h3>Node Status</h3>
-                <div className={styles.healthList}>
-                  <div className={styles.healthItem}>
-                    <span>GPS Alpha</span>
-                    <span className={styles.status}>Active</span>
-                  </div>
-                  <div className={styles.healthItem}>
-                    <span>Payment Relays</span>
-                    <span className={styles.status}>Active</span>
-                  </div>
-                  <div className={styles.healthItem}>
-                    <span>Sector 4 Analytics</span>
-                    <span className={styles.status}>Active</span>
-                  </div>
-                </div>
-              </div>
-
-              <div className={styles.logsSection}>
-                <div className={styles.sectionHeader}>
-                  <h3>Recent Activity Logs</h3>
-                </div>
-                <div className={styles.logList}>
-                  {systemLogs.map((log) => (
-                    <div key={log.id} className={`${styles.logItem} ${styles[log.type]}`}>
-                      <div className={styles.logIcon}>
-                        {log.type === 'info' && <FiTrendingUp />}
-                        {log.type === 'warning' && <FiAlertTriangle />}
-                        {log.type === 'error' && <FiAlertTriangle />}
-                        {log.type === 'success' && <FiCheckCircle />}
-                      </div>
-                      <div className={styles.logContent}>
-                        <p>{log.msg}</p>
-                        <span className={styles.time}>{log.time}</span>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
+        </div>
+        <div className={styles.statItem}>
+          <div className={styles.statIcon}><FiUsers /></div>
+          <div className={styles.statData}>
+            <span className={styles.label}>Total Riders (Daily)</span>
+            <span className={styles.value}>24,842</span>
           </div>
-        </main>
+        </div>
+        <div className={styles.statItem}>
+          <div className={styles.statIcon}><FiActivity /></div>
+          <div className={styles.statData}>
+            <span className={styles.label}>Net Revenue (Today)</span>
+            <span className={styles.value}>₼18,420</span>
+          </div>
+        </div>
+        <div className={styles.statItem}>
+          <div className={styles.statIcon}><FiServer /></div>
+          <div className={styles.statData}>
+            <span className={styles.label}>System Latency</span>
+            <span className={styles.value}>24ms</span>
+          </div>
+        </div>
       </div>
-    </div>
+
+      <div className={styles.layoutGrid}>
+        <div className={styles.leftCol}>
+          <div className={styles.chartSection}>
+            <div className={styles.sectionHeader}>
+              <h3>Network Ridership Flow</h3>
+            </div>
+            <div className={styles.chartWrapper}>
+              <ResponsiveContainer width="100%" height={300}>
+                <AreaChart data={ridershipData}>
+                  <defs>
+                    <linearGradient id="colorCount" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="5%" stopColor="#9FC73C" stopOpacity={0.2}/>
+                      <stop offset="95%" stopColor="#9FC73C" stopOpacity={0}/>
+                    </linearGradient>
+                  </defs>
+                  <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.03)" vertical={false} />
+                  <XAxis dataKey="time" stroke="#627d98" fontSize={11} tickLine={false} axisLine={false} />
+                  <YAxis stroke="#627d98" fontSize={11} tickLine={false} axisLine={false} />
+                  <Tooltip 
+                    contentStyle={{ background: '#0a0a0f', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '8px' }}
+                    itemStyle={{ color: '#9FC73C', fontSize: '12px' }}
+                  />
+                  <Area type="monotone" dataKey="count" stroke="#9FC73C" strokeWidth={1.5} fillOpacity={1} fill="url(#colorCount)" />
+                </AreaChart>
+              </ResponsiveContainer>
+            </div>
+          </div>
+
+          <div className={styles.mapSection}>
+            <div className={styles.mapPlaceholder}>
+              <div className={styles.busDot} style={{ top: '35%', left: '45%' }}></div>
+              <div className={styles.busDot} style={{ top: '55%', left: '65%' }}></div>
+              <div className={styles.busDot} style={{ top: '25%', left: '15%' }}></div>
+              <div className={styles.busDot} style={{ top: '75%', left: '30%' }}></div>
+            </div>
+            <div className={styles.mapOverlay}>
+              <div className={styles.statusBadge}>
+                <span className={styles.liveDot}></span> Live System View
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className={styles.rightCol}>
+          <div className={styles.systemHealth}>
+            <h3>Node Status</h3>
+            <div className={styles.healthList}>
+              <div className={styles.healthItem}>
+                <span>GPS Alpha</span>
+                <span className={styles.status}>Active</span>
+              </div>
+              <div className={styles.healthItem}>
+                <span>Payment Relays</span>
+                <span className={styles.status}>Active</span>
+              </div>
+              <div className={styles.healthItem}>
+                <span>Sector 4 Analytics</span>
+                <span className={styles.status}>Active</span>
+              </div>
+            </div>
+          </div>
+
+          <div className={styles.logsSection}>
+            <div className={styles.sectionHeader}>
+              <h3>Recent Activity Logs</h3>
+            </div>
+            <div className={styles.logList}>
+              {systemLogs.map((log) => (
+                <div key={log.id} className={`${styles.logItem} ${styles[log.type]}`}>
+                  <div className={styles.logIcon}>
+                    {log.type === 'info' && <FiTrendingUp />}
+                    {log.type === 'warning' && <FiAlertTriangle />}
+                    {log.type === 'error' && <FiAlertTriangle />}
+                    {log.type === 'success' && <FiCheckCircle />}
+                  </div>
+                  <div className={styles.logContent}>
+                    <p>{log.msg}</p>
+                    <span className={styles.time}>{log.time}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </DashboardLayout>
   );
 }

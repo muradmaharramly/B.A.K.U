@@ -2,7 +2,7 @@
 
 .topbar {
   height: 70px;
-  background: #0d0d12;
+  background: #0A0A0F;
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
   display: flex;
   align-items: center;
@@ -38,7 +38,7 @@
   display: flex;
   align-items: center;
   gap: $space-3;
-  background: rgba(255,255,255,0.03);
+  background: transparent;
   padding: $space-2 $space-4;
   border-radius: 8px;
   border: 1px solid rgba(255,255,255,0.06);
