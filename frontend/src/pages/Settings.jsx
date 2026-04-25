@@ -4,10 +4,14 @@ import {
   FiUser, FiBell, FiLock, FiDatabase, FiSmartphone, 
   FiShield, FiMail, FiGlobe, FiSave, FiAlertCircle 
 } from 'react-icons/fi';
+import CustomSelect from '../components/Common/CustomSelect';
 import styles from './Settings.module.scss';
 
 export default function Settings() {
   const [activeTab, setActiveTab] = useState('account');
+  const [currency, setCurrency] = useState('azn');
+  const [language, setLanguage] = useState('az');
+  const [logRetention, setLogRetention] = useState('90');
 
   const renderContent = () => {
     switch (activeTab) {
@@ -42,17 +46,29 @@ export default function Settings() {
               <h3>Regional Tənzimləmələr</h3>
               <div className={styles.formGroup}>
                 <label>Standart Valyuta</label>
-                <select className={styles.input}>
-                  <option>Azərbaycan Manatı (₼)</option>
-                  <option>ABŞ Dolları ($)</option>
-                </select>
+                <div style={{ maxWidth: '300px' }}>
+                  <CustomSelect 
+                    options={[
+                      { value: 'azn', label: 'Azərbaycan Manatı (₼)' },
+                      { value: 'usd', label: 'ABŞ Dolları ($)' }
+                    ]}
+                    value={currency}
+                    onChange={setCurrency}
+                  />
+                </div>
               </div>
               <div className={styles.formGroup}>
                 <label>Sistem Dili</label>
-                <select className={styles.input}>
-                  <option>Azərbaycan dili</option>
-                  <option>İngilis dili</option>
-                </select>
+                <div style={{ maxWidth: '300px' }}>
+                  <CustomSelect 
+                    options={[
+                      { value: 'az', label: 'Azərbaycan dili' },
+                      { value: 'en', label: 'İngilis dili' }
+                    ]}
+                    value={language}
+                    onChange={setLanguage}
+                  />
+                </div>
               </div>
             </div>
           </div>
@@ -151,11 +167,17 @@ export default function Settings() {
               <h3>Məlumatların Saxlanılması</h3>
               <div className={styles.formGroup}>
                 <label>Jurnal Saxlama Müddəti</label>
-                <select className={styles.input}>
-                  <option>30 Gün</option>
-                  <option>90 Gün</option>
-                  <option>1 İl</option>
-                </select>
+                <div style={{ maxWidth: '300px' }}>
+                  <CustomSelect 
+                    options={[
+                      { value: '30', label: '30 Gün' },
+                      { value: '90', label: '90 Gün' },
+                      { value: '365', label: '1 İl' }
+                    ]}
+                    value={logRetention}
+                    onChange={setLogRetention}
+                  />
+                </div>
               </div>
             </div>
           </div>
