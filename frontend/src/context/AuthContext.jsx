@@ -11,7 +11,6 @@ export const AuthProvider = ({ children }) => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    console.log("Current API URL:", import.meta.env.VITE_API_URL);
     const token = localStorage.getItem('token');
     
     // Safety timeout: Never stay in loading for more than 10s

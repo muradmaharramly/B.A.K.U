@@ -18,11 +18,15 @@ const pricingData = {
     { min: 10, fare: 0.75 }
   ],
   bus_tiers: [
-    { range: [0, 3], fare: 0.40 },
-    { range: [4, 6], fare: 0.50 },
-    { range: [7, 10], fare: 0.60 },
-    { range: [11, 15], fare: 0.70 },
-    { min: 16, fare: 0.80 }
+    { range: [0, 1.5], fare: 0.40 },
+    { range: [1.6, 2.5], fare: 0.45 },
+    { range: [2.6, 4], fare: 0.50 },
+    { range: [4.1, 6], fare: 0.55 },
+    { range: [6.1, 8], fare: 0.60 },
+    { range: [8.1, 10], fare: 0.65 },
+    { range: [10.1, 13], fare: 0.70 },
+    { range: [13.1, 16], fare: 0.75 },
+    { min: 16.1, fare: 0.80 }
   ]
 };
 

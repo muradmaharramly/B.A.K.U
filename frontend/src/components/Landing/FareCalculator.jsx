@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { FiMapPin, FiNavigation, FiInfo, FiTrendingDown, FiActivity, FiTag } from 'react-icons/fi';
+import { FiMapPin, FiNavigation, FiInfo, FiTrendingDown, FiActivity, FiTag, FiAlertTriangle } from 'react-icons/fi';
 import { MdDirectionsBus, MdDirectionsSubway } from 'react-icons/md';
 import CustomDropdown from './CustomDropdown';
 import { busRoutes, metroRoutes } from './transportData';
@@ -23,7 +23,27 @@ export default function FareCalculator() {
         const res = await axios.get(`${import.meta.env.VITE_API_URL}/settings/pricing`);
         setPricing(res.data);
       } catch (err) {
-        console.error("Failed to fetch pricing:", err);
+        console.error("Failed to fetch pricing, using fallback:", err);
+        // Fallback data to prevent blank screen
+        setPricing({
+          plans: {
+            standard: { label: 'Standart', multiplier: 1.0 },
+            family: { label: 'Ailə', multiplier: 0.8 },
+            tourist: { label: 'Turist', multiplier: 0.9 }
+          },
+          metro_tiers: [
+            { count: 1, fare: 0.40 }, { count: 2, fare: 0.45 }, { count: 3, fare: 0.50 },
+            { count: 4, fare: 0.55 }, { count: 5, fare: 0.60 }, { range: [6, 7], fare: 0.65 },
+            { range: [8, 9], fare: 0.70 }, { min: 10, fare: 0.75 }
+          ],
+          bus_tiers: [
+            { range: [0, 1.5], fare: 0.40 }, { range: [1.6, 2.5], fare: 0.45 },
+            { range: [2.6, 4], fare: 0.50 }, { range: [4.1, 6], fare: 0.55 },
+            { range: [6.1, 8], fare: 0.60 }, { range: [8.1, 10], fare: 0.65 },
+            { range: [10.1, 13], fare: 0.70 }, { range: [13.1, 16], fare: 0.75 },
+            { min: 16.1, fare: 0.80 }
+          ]
+        });
       }
     };
     fetchPricing();
@@ -132,43 +152,87 @@ export default function FareCalculator() {
         route: foundRouteName
       });
     } else {
-      // Bus Logic
-      busRoutes.forEach(r => {
-        if (r.stops.includes(from) && r.stops.includes(to)) {
-          const dist = Math.abs(r.stops.indexOf(to) - r.stops.indexOf(from));
-          if (dist < minStations) {
-            minStations = dist;
-            foundRouteName = r.bus;
+      // Advanced Bus Logic with Transfer Support
+      const findDirectBus = (start, end) => {
+        let best = null;
+        busRoutes.forEach(r => {
+          if (r.stops.includes(start) && r.stops.includes(end)) {
+            const dist = Math.abs(r.stops.indexOf(end) - r.stops.indexOf(start));
+            if (!best || dist < best.dist) {
+              best = { dist, bus: r.bus };
+            }
           }
-        }
-      });
+        });
+        return best;
+      };
 
-      if (foundRouteName) {
-        distanceKm = minStations * 2.2; 
+      const direct = findDirectBus(from, to);
+
+      if (direct) {
+        minStations = direct.dist;
+        foundRouteName = direct.bus;
+        distanceKm = minStations * 0.65;
         
-        // Dynamic Bus Tier Logic from DB
-        let fare = 0.40; // Default
+        let baseFare = 0.40;
         if (pricing?.bus_tiers) {
           for (const tier of pricing.bus_tiers) {
-            if (tier.range && distanceKm >= tier.range[0] && distanceKm <= tier.range[1]) { fare = tier.fare; break; }
-            if (tier.min && distanceKm >= tier.min) { fare = tier.fare; break; }
+            if (tier.range && distanceKm >= tier.range[0] && distanceKm <= tier.range[1]) { baseFare = tier.fare; break; }
+            if (tier.min && distanceKm >= tier.min) { baseFare = tier.fare; break; }
           }
         }
 
         const p = currentPlans[plan];
-        const finalFare = fare * p.multiplier;
+        let finalFare = Math.max(0.40, baseFare * p.multiplier);
+        let maxLimit = plan === 'family' ? 0.65 : 0.80;
+        if (finalFare > maxLimit) finalFare = maxLimit;
 
         setResult({
           fare: finalFare.toFixed(2),
-          distance: distanceKm.toFixed(1),
+          distance: distanceKm.toFixed(2),
           stations: minStations,
           route: `Avtobus ${foundRouteName}`
         });
+      } else {
+        // Try finding a 1-transfer connection
+        let transferFound = null;
+        for (const r1 of busRoutes) {
+          if (r1.stops.includes(from)) {
+            for (const r2 of busRoutes) {
+              if (r2.stops.includes(to)) {
+                // Find intersection stop
+                const intersection = r1.stops.find(s => r2.stops.includes(s));
+                if (intersection) {
+                  const d1 = Math.abs(r1.stops.indexOf(intersection) - r1.stops.indexOf(from));
+                  const d2 = Math.abs(r2.stops.indexOf(to) - r2.stops.indexOf(intersection));
+                  transferFound = { r1: r1.bus, r2: r2.bus, via: intersection, dist: d1 + d2 };
+                  break;
+                }
+              }
+            }
+          }
+          if (transferFound) break;
+        }
+
+        if (transferFound) {
+          minStations = transferFound.dist;
+          distanceKm = minStations * 0.65;
+          let finalFare = Math.max(0.40, 0.60 * (currentPlans[plan].multiplier)); // Fixed fare for transfer trips
+          
+          setResult({
+            fare: finalFare.toFixed(2),
+            distance: distanceKm.toFixed(2),
+            stations: minStations,
+            route: `${transferFound.r1} ➔ ${transferFound.r2}`,
+            transfer: transferFound.via
+          });
+        } else {
+          setResult({ error: 'Bu istiqamətdə birbaşa və ya keçidli marşrut tapılmadı.' });
+        }
       }
     }
 
     // Alternative logic (Refined)
-    const currentFare = result ? parseFloat(result.fare) : 0;
+    const currentFare = result?.fare ? parseFloat(result.fare) : 0;
     if (type === 'metro' && currentFare > 0.40) {
       const altBus = busRoutes.find(r => r.stops.includes(from) && r.stops.includes(to));
       if (altBus) {
@@ -279,7 +343,7 @@ export default function FareCalculator() {
             </div>
 
             <div className={styles.results}>
-              {result ? (
+              {result && !result.error ? (
                 <div className={styles.resultDisplay}>
                   <div className={styles.routeBadge}>
                     {type === 'metro' ? <MdDirectionsSubway /> : <MdDirectionsBus />}
@@ -300,6 +364,13 @@ export default function FareCalculator() {
                     </div>
                   </div>
 
+                  {result.transfer && (
+                    <div className={styles.transferAlert}>
+                      <FiActivity />
+                      <span><strong>{result.transfer}</strong> dayanacağında keçid edin.</span>
+                    </div>
+                  )}
+
                   {alternative && (
                     <div className={styles.alternativeCard}>
                       <div className={styles.altHeader}>
@@ -311,6 +382,11 @@ export default function FareCalculator() {
                       </p>
                     </div>
                   )}
+                </div>
+              ) : result?.error ? (
+                <div className={styles.errorDisplay}>
+                  <FiAlertTriangle />
+                  <p>{result.error}</p>
                 </div>
               ) : (
                 <div className={styles.placeholder}>
