@@ -13,11 +13,20 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     console.log("Current API URL:", import.meta.env.VITE_API_URL);
     const token = localStorage.getItem('token');
+    
+    // Safety timeout: Never stay in loading for more than 10s
+    const safetyTimeout = setTimeout(() => {
+      setLoading(false);
+    }, 10000);
+
     if (token) {
-      checkAdmin(token);
+      checkAdmin(token).finally(() => clearTimeout(safetyTimeout));
     } else {
       setLoading(false);
+      clearTimeout(safetyTimeout);
     }
+
+    return () => clearTimeout(safetyTimeout);
   }, []);
 
   const checkAdmin = async (token) => {
