@@ -58,7 +58,7 @@ ul { list-style: none; }
 .text-primary { color: $primary; }
 .text-secondary { color: $secondary-light; }
 .text-gradient {
-  background: linear-gradient(135deg, $primary, $primary-light);
+  background: $gradient-primary;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -82,7 +82,7 @@ ul { list-style: none; }
 
     &:hover {
       transform: translateY(-2px);
-      box-shadow: 0 0 40px rgba(159, 199, 60, 0.5);
+      box-shadow: 0 0 40px rgba($primary, 0.5);
     }
   }
 
@@ -130,6 +130,10 @@ ul { list-style: none; }
   line-height: 1.1;
   margin-bottom: $space-4;
   font-family: $font-title;
+  background: $gradient-primary;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .section-subtitle {
@@ -151,8 +155,8 @@ ul { list-style: none; }
 }
 
 @keyframes pulse-glow {
-  0%, 100% { box-shadow: 0 0 20px rgba(159,199,60,0.3); }
-  50%       { box-shadow: 0 0 50px rgba(159,199,60,0.6); }
+  0%, 100% { box-shadow: 0 0 20px rgba($primary, 0.3); }
+  50%       { box-shadow: 0 0 50px rgba($primary, 0.6); }
 }
 
 @keyframes float {

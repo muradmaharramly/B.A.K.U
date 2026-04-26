@@ -52,7 +52,16 @@
     flex-direction: column;
     gap: 2px;
     .label { font-size: 10px; color: $gray-500; text-transform: uppercase; letter-spacing: 1.2px; font-weight: 700; }
-    .value { font-size: $font-size-xl; font-weight: 800; color: $white; font-family: $font-title; line-height: 1; }
+    .value {
+      font-size: $font-size-xl;
+      font-weight: 800;
+      font-family: $font-title;
+      line-height: 1;
+      background: $gradient-primary;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
   }
 }
 

@@ -23,8 +23,11 @@
   h2 {
     font-size: $font-size-lg;
     font-weight: 700;
-    color: $white;
     font-family: $font-title;
+    background: $gradient-primary;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
 }
 

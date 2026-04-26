@@ -59,10 +59,13 @@
   h1 {
     font-size: 32px;
     font-weight: 900;
-    color: $white;
     letter-spacing: 4px;
     margin-bottom: 8px;
     font-family: $font-title;
+    background: $gradient-primary;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
 
   p {

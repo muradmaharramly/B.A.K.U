@@ -119,6 +119,8 @@
 .nodeAction {
   background: none; border: none; color: $primary; font-size: 12px; font-weight: 700; cursor: pointer;
   display: flex; align-items: center; gap: 4px;
+  transition: all 0.2s ease;
+  &:hover { color: $white; text-shadow: 0 0 10px rgba($primary, 0.5); }
 }
 
 .nodeGlow { position: absolute; inset: 0; pointer-events: none; }

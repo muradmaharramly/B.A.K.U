@@ -40,10 +40,10 @@
   margin-bottom: $space-4;
 
   .highlight {
-    background: linear-gradient(135deg, $primary, $primary-light);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    background: $gradient-primary;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
   }
 }
 

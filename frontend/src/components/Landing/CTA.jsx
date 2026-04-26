@@ -11,7 +11,7 @@ export default function CTA() {
           <div className={styles.badge}>
             <RiRocketLine /> B.A.K.U Transit Ecosystem
           </div>
-          <h2 className={styles.title}>İctimai Nəqliyyatın Gələcəyinə Qoşul!</h2>
+          <h2 className={styles.title}>İctimai <span className={styles.highlight}>Nəqliyyatın Gələcəyinə</span> Qoşul!</h2>
           <p className={styles.desc}>
             Məsafəyə əsaslanan ödəniş sistemi ilə daha ədalətli və rahat səyahət et. 
             İndi qeydiyyatdan keç və B.A.K.U-nun üstünlüklərindən yararlanmağa başla.
