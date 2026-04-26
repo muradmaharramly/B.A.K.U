@@ -85,21 +85,21 @@ export default function Dashboard() {
           <div className={styles.statIcon}><FiUsers /></div>
           <div className={styles.statData}>
             <span className={styles.label}>Cəmi Sərnişin (Gündəlik)</span>
-            <span className={styles.value}>{stats.daily_passengers.toLocaleString()}</span>
+            <span className={styles.value}>{(stats.daily_passengers || 0).toLocaleString()}</span>
           </div>
         </div>
         <div className={styles.statItem}>
           <div className={styles.statIcon}><FiActivity /></div>
           <div className={styles.statData}>
             <span className={styles.label}>Xalis Gəlir (Bugün)</span>
-            <span className={styles.value}>₼{stats.daily_revenue.toFixed(2)}</span>
+            <span className={styles.value}>₼{(stats.daily_revenue || 0).toFixed(2)}</span>
           </div>
         </div>
         <div className={styles.statItem}>
           <div className={styles.statIcon}><FiServer /></div>
           <div className={styles.statData}>
             <span className={styles.label}>Cəmi İstifadəçi</span>
-            <span className={styles.value}>{stats.total_users}</span>
+            <span className={styles.value}>{(stats.total_users || 0).toLocaleString()}</span>
           </div>
         </div>
       </div>
