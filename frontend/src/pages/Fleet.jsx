@@ -101,20 +101,20 @@ export default function Fleet() {
                   <td><span className={styles.unitId}>{unit.id}</span></td>
                   <td>{unit.route_number}</td>
                   <td>
-                    <span className={`${styles.statusBadge} ${styles[statusInfo.class]}`}>
+                    <span className={`${styles.statusBadge} ${styles[(statusInfo.class || 'intransit').toLowerCase()]}`}>
                       {statusInfo.label}
                     </span>
                   </td>
                   <td>
                     <div className={styles.progressWrapper}>
-                      <div className={styles.progressBar} style={{ width: `${unit.load_percent}%` }}></div>
-                      <span>{unit.load_percent}%</span>
+                      <div className={styles.progressBar} style={{ width: `${unit.load_percent || 0}%` }}></div>
+                      <span>{unit.load_percent || 0}%</span>
                     </div>
                   </td>
-                  <td>{unit.current_location}</td>
+                  <td>{unit.current_location || 'Naməlum'}</td>
                   <td>
-                    <span className={`${styles.healthText} ${styles[unit.health_status.toLowerCase()]}`}>
-                      {healthLabel}
+                    <span className={`${styles.healthText} ${styles[(unit.health_status || 'Optimal').toLowerCase()]}`}>
+                      {healthLabel || 'Optimal'}
                     </span>
                   </td>
                   <td>
