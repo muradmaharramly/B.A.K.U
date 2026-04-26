@@ -1,6 +1,6 @@
 import { FiTwitter, FiLinkedin, FiGithub, FiMail } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
-import logo from '../assets/B.A.K.U-logo.png';
+import logo from '../assets/baku-logo.png';
 import styles from './Footer.module.scss';
 
 export default function Footer() {

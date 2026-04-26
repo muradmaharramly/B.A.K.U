@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { FaBars, FaTimes } from 'react-icons/fa';
-import logo from '../assets/B.A.K.U-logo.png';
+import logo from '../assets/baku-logo.png';
 import styles from './Navbar.module.scss';
 
 export default function Navbar() {
