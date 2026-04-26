@@ -6,12 +6,57 @@ const pool = require('../db/pool');
 router.get('/settings/pricing', async (req, res) => {
   try {
     const result = await pool.query('SELECT value FROM system_settings WHERE key = $1', ['pricing_plans']);
-    if (result.rows.length === 0) {
-      return res.status(404).json({ error: 'Pricing settings not found' });
+    
+    if (result.rows.length > 0) {
+      return res.json(result.rows[0].value);
     }
-    res.json(result.rows[0].value);
+
+    // Smart Fallback: If DB is empty, return defaults instead of 404
+    const defaultPricing = {
+      plans: {
+        standard: { label: 'Standart', multiplier: 1.0 },
+        family: { label: 'Ailə', multiplier: 0.8 },
+        tourist: { label: 'Turist', multiplier: 0.9 }
+      },
+      metro_tiers: [
+        { count: 1, fare: 0.40 }, { range: [6, 7], fare: 0.65 }, { min: 10, fare: 0.75 }
+      ],
+      bus_tiers: [
+        { range: [0, 1.5], fare: 0.40 }, { range: [8.1, 10], fare: 0.65 }, { min: 16.1, fare: 0.80 }
+      ]
+    };
+    res.json(defaultPricing);
   } catch (err) {
     res.status(500).json({ error: 'Server error' });
+  }
+});
+
+// Google Maps Real Distance Calculation
+router.get('/transit/distance', async (req, res) => {
+  const { from, to } = req.query;
+  const apiKey = process.env.GOOGLE_MAPS_API_KEY;
+
+  if (!from || !to) return res.status(400).json({ error: 'Missing parameters' });
+  if (!apiKey) return res.status(500).json({ error: 'Google Maps API key not configured' });
+
+  try {
+    const axios = require('axios');
+    // We append "Baku, Azerbaijan" to ensure high accuracy for local stops
+    const url = `https://maps.googleapis.com/maps/api/distancematrix/json?origins=${encodeURIComponent(from + ', Baku, Azerbaijan')}&destinations=${encodeURIComponent(to + ', Baku, Azerbaijan')}&key=${apiKey}`;
+    
+    const response = await axios.get(url);
+    const data = response.data;
+
+    if (data.status === 'OK' && data.rows[0].elements[0].status === 'OK') {
+      const distanceMeters = data.rows[0].elements[0].distance.value;
+      const distanceKm = distanceMeters / 1000;
+      res.json({ distanceKm });
+    } else {
+      res.status(404).json({ error: 'Distance could not be calculated' });
+    }
+  } catch (err) {
+    console.error('Google Maps API Error:', err.message);
+    res.status(500).json({ error: 'Failed to fetch distance from Google' });
   }
 });
 const authMiddleware = require('../middleware/authMiddleware');
