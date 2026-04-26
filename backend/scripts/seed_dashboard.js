@@ -25,31 +25,58 @@ const logs = [
 const nodes = [
   { id: 'NODE-01', name: 'Bakı Mərkəzi Rele', status: 'onlayn', uptime: '142g 4s', load_percent: 12, type: 'Əsas', ip_address: '192.168.1.1' },
   { id: 'NODE-02', name: 'Nizami Sektor Qovşağı', status: 'onlayn', uptime: '45g 12s', load_percent: 45, type: 'Kənari', ip_address: '192.168.4.12' },
-  { id: 'NODE-03', name: 'Xətai Məlumat Qovşağı', status: 'gözləmədə', uptime: '12g 1s', load_percent: 2, type: 'Ehtiyat', ip_address: '10.0.0.5' },
-  { id: 'NODE-04', name: 'Sumqayıt Bağlantısı', status: 'onlayn', uptime: '88g 19s', load_percent: 68, type: 'Kənari', ip_address: '172.16.0.44' },
-  { id: 'NODE-05', name: 'Gəncə Giriş Qapısı', status: 'oflayn', uptime: '0g 0s', load_percent: 0, type: 'Kənari', ip_address: '192.168.10.1' }
+  { id: 'NODE-03', name: 'Xətai Məlumat Qovşağı', status: 'gözləmədə', uptime: '12g 1s', load_percent: 2, type: 'Ehtiyat', ip_address: '10.0.0.5' }
 ];
 
 const fleet = [
-  { id: 'BUS-101', route_number: 'R78', status: 'In Transit', load_percent: 65, current_location: 'Nizami küç.', health_status: 'Optimal' },
-  { id: 'BUS-102', route_number: 'R140', status: 'Maintenance', load_percent: 0, current_location: 'Depo A', health_status: 'Warning' },
-  { id: 'BUS-103', route_number: 'M2', status: 'In Transit', load_percent: 40, current_location: 'Xətai', health_status: 'Optimal' },
-  { id: 'BUS-104', route_number: 'R78', status: 'Delayed', load_percent: 85, current_location: 'Azneft meyd.', health_status: 'Critical' },
-  { id: 'BUS-105', route_number: 'R140', status: 'In Transit', load_percent: 20, current_location: '8km', health_status: 'Optimal' }
-];
-
-const defaultSettings = [
-  { key: 'currency', value: JSON.stringify({ code: 'azn', symbol: '₼', label: 'Azərbaycan Manatı' }) },
-  { key: 'language', value: JSON.stringify({ code: 'az', label: 'Azərbaycan dili' }) },
-  { key: 'logRetention', value: JSON.stringify({ days: 90 }) }
+  { id: 'BUS-101', route_number: '#140E', status: 'In Transit', load_percent: 65, current_location: 'Nizami küç.', health_status: 'Optimal' },
+  { id: 'BUS-102', route_number: '#5', status: 'Maintenance', load_percent: 0, current_location: 'Depo A', health_status: 'Warning' },
+  { id: 'BUS-103', route_number: '#88', status: 'In Transit', load_percent: 40, current_location: 'Xətai', health_status: 'Optimal' }
 ];
 
 async function seed() {
   try {
     console.log('Connecting to DB...');
     
-    // Create tables if they don't exist
+    // Create ALL core tables
     await pool.query(`
+      CREATE TABLE IF NOT EXISTS users (
+          id SERIAL PRIMARY KEY,
+          full_name VARCHAR(100) NOT NULL,
+          email VARCHAR(100) UNIQUE NOT NULL,
+          tier VARCHAR(20) DEFAULT 'citizen',
+          social_category VARCHAR(20) DEFAULT 'standard',
+          balance DECIMAL(10,2) DEFAULT 0.00,
+          negative_limit DECIMAL(10,2) DEFAULT -2.00,
+          created_at TIMESTAMPTZ DEFAULT NOW()
+      );
+      CREATE TABLE IF NOT EXISTS cards (
+          id SERIAL PRIMARY KEY,
+          user_id INTEGER REFERENCES users(id),
+          card_number VARCHAR(20) UNIQUE NOT NULL,
+          status VARCHAR(20) DEFAULT 'active',
+          created_at TIMESTAMPTZ DEFAULT NOW()
+      );
+      CREATE TABLE IF NOT EXISTS trips (
+          id SERIAL PRIMARY KEY,
+          user_id INTEGER REFERENCES users(id),
+          card_id INTEGER REFERENCES cards(id),
+          route_id INTEGER,
+          status VARCHAR(20) DEFAULT 'active',
+          distance_km DECIMAL(5,2),
+          fare DECIMAL(5,2),
+          start_time TIMESTAMPTZ DEFAULT NOW(),
+          end_time TIMESTAMPTZ
+      );
+      CREATE TABLE IF NOT EXISTS transactions (
+          id SERIAL PRIMARY KEY,
+          user_id INTEGER REFERENCES users(id),
+          card_id INTEGER REFERENCES cards(id),
+          amount DECIMAL(10,2) NOT NULL,
+          type VARCHAR(20) NOT NULL,
+          description TEXT,
+          created_at TIMESTAMPTZ DEFAULT NOW()
+      );
       CREATE TABLE IF NOT EXISTS system_logs (
           id SERIAL PRIMARY KEY,
           level VARCHAR(20) NOT NULL,
@@ -75,17 +102,42 @@ async function seed() {
           load_percent INTEGER DEFAULT 0,
           current_location VARCHAR(255),
           health_status VARCHAR(20) NOT NULL DEFAULT 'Optimal',
-          created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-          updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
-      );
-      CREATE TABLE IF NOT EXISTS system_settings (
-          key VARCHAR(50) PRIMARY KEY,
-          value JSONB NOT NULL,
-          updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+          created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
       );
     `);
 
-    console.log('Tables created. Seeding logs...');
+    console.log('Tables ready. Seeding Users & Cards...');
+    const userRes = await pool.query(`
+      INSERT INTO users (full_name, email, balance, social_category) 
+      VALUES ('Əli Vəliyev', 'ali@baku.az', 15.50, 'standard') 
+      ON CONFLICT (email) DO UPDATE SET balance = EXCLUDED.balance 
+      RETURNING id
+    `);
+    const userId = userRes.rows[0].id;
+
+    const cardRes = await pool.query(`
+      INSERT INTO cards (user_id, card_number) 
+      VALUES ($1, '9904001234567890') 
+      ON CONFLICT (card_number) DO NOTHING 
+      RETURNING id
+    `, [userId]);
+    const cardId = cardRes.rows[0]?.id || 1;
+
+    console.log('Seeding Transactions & Stats...');
+    await pool.query(`
+      INSERT INTO transactions (user_id, card_id, amount, type, description) VALUES 
+      ($1, $2, -0.40, 'fare', 'Trip #140E'),
+      ($1, $2, -0.60, 'fare', 'Trip #5'),
+      ($1, $2, -0.40, 'fare', 'Metro Trip')
+    `, [userId, cardId]);
+
+    await pool.query(`
+      INSERT INTO trips (user_id, card_id, status, distance_km, fare) VALUES 
+      ($1, $2, 'completed', 3.5, 0.40),
+      ($1, $2, 'active', 1.2, 0.00)
+    `, [userId, cardId]);
+
+    console.log('Seeding logs...');
     for (const log of logs) {
       await pool.query(`INSERT INTO system_logs (level, category, message, source) VALUES ($1, $2, $3, $4)`, 
         [log.level, log.category, log.message, log.source]);
@@ -103,13 +155,7 @@ async function seed() {
         [unit.id, unit.route_number, unit.status, unit.load_percent, unit.current_location, unit.health_status]);
     }
 
-    console.log('Seeding settings...');
-    for (const s of defaultSettings) {
-      await pool.query(`INSERT INTO system_settings (key, value) VALUES ($1, $2) ON CONFLICT (key) DO UPDATE SET value = EXCLUDED.value`, 
-        [s.key, s.value]);
-    }
-
-    console.log('Seed completed successfully!');
+    console.log('Seed completed successfully! Dashboard data is now live.');
   } catch (error) {
     console.error('Error seeding data:', error);
   } finally {
