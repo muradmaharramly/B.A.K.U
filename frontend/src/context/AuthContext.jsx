@@ -11,6 +11,7 @@ export const AuthProvider = ({ children }) => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    console.log("Current API URL:", import.meta.env.VITE_API_URL);
     const token = localStorage.getItem('token');
     if (token) {
       checkAdmin(token);

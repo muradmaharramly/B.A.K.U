@@ -31,7 +31,7 @@ export default function Login() {
             <FiShield />
           </div>
           <h1>B.A.K.U</h1>
-          <p>Administrativ Giriş Qapısı</p>
+          <p>Administrativ Giriş</p>
         </div>
 
         {error && <div className={styles.errorMsg}>{error}</div>}
