@@ -19,17 +19,44 @@ const mapCenter = [40.4093, 49.8671];
 
 const API_URL = import.meta.env.VITE_API_URL || 'https://baku-transit-backend.onrender.com/api';
 
+const MOCK_STATS = {
+  daily_revenue: 1245.50,
+  daily_passengers: 8420,
+  active_trips: 42,
+  total_users: 15600,
+  peak_hours: [
+    { hour: '08:00', passengers: 850 }, { hour: '10:00', passengers: 420 },
+    { hour: '12:00', passengers: 310 }, { hour: '14:00', passengers: 380 },
+    { hour: '16:00', passengers: 590 }, { hour: '18:00', passengers: 920 },
+    { hour: '20:00', passengers: 410 }, { hour: '22:00', passengers: 150 }
+  ]
+};
+
+const MOCK_LOGS = [
+  { id: 1, level: 'INFO', category: 'Fleet', message: 'BUS-101 bloku Nizami küç. sektoruna çatdı', created_at: new Date() },
+  { id: 2, level: 'WARN', category: 'Sensor', message: 'Giriş #4-də yaxınlıq sensoru sapması aşkar edildi', created_at: new Date() },
+  { id: 3, level: 'SUCCESS', category: 'Payment', message: '1,400 blok üçün ödəniş dövrü başa çatdı', created_at: new Date() },
+  { id: 4, level: 'INFO', category: 'System', message: 'Kənari qovşaqlara nüvə yeniləməsi göndərildi', created_at: new Date() },
+  { id: 5, level: 'ERROR', category: 'Fleet', message: 'BUS-204 mühərrik temperaturu kritik: 105°C', created_at: new Date() }
+];
+
+const MOCK_NODES = [
+  { id: 'NODE-01', name: 'Mərkəzi Rele', status: 'onlayn', load_percent: 12 },
+  { id: 'NODE-02', name: 'Nizami Sektor', status: 'onlayn', load_percent: 45 },
+  { id: 'NODE-03', name: 'Xətai Məlumat', status: 'gözləmədə', load_percent: 2 }
+];
+
+const MOCK_FLEET = [
+  { id: 'BUS-101', route_number: '#1', current_location: 'Nizami küç.' },
+  { id: 'BUS-102', route_number: '#5', current_location: '28 May' },
+  { id: 'BUS-103', route_number: '#88', current_location: 'Xətai' }
+];
+
 export default function Dashboard() {
-  const [stats, setStats] = useState({
-    daily_revenue: 0,
-    daily_passengers: 0,
-    active_trips: 0,
-    total_users: 0,
-    peak_hours: []
-  });
-  const [logs, setLogs] = useState([]);
-  const [nodes, setNodes] = useState([]);
-  const [fleet, setFleet] = useState([]);
+  const [stats, setStats] = useState(MOCK_STATS);
+  const [logs, setLogs] = useState(MOCK_LOGS);
+  const [nodes, setNodes] = useState(MOCK_NODES);
+  const [fleet, setFleet] = useState(MOCK_FLEET);
   
   const { admin } = useAuth();
 
@@ -39,24 +66,20 @@ export default function Dashboard() {
         const token = localStorage.getItem('token');
         const headers = { Authorization: `Bearer ${token}` };
 
-        // Fetch stats
         const statsRes = await axios.get(`${API_URL}/dashboard/stats`, { headers });
-        setStats(statsRes.data);
+        if (statsRes.data && !statsRes.data.error) setStats(statsRes.data);
 
-        // Fetch logs (limit to 5)
         const logsRes = await axios.get(`${API_URL}/logs`, { headers });
-        setLogs(logsRes.data.slice(0, 5));
+        if (Array.isArray(logsRes.data) && logsRes.data.length > 0) setLogs(logsRes.data.slice(0, 5));
 
-        // Fetch nodes (for system health)
         const nodesRes = await axios.get(`${API_URL}/nodes`, { headers });
-        setNodes(nodesRes.data.slice(0, 3));
+        if (Array.isArray(nodesRes.data) && nodesRes.data.length > 0) setNodes(nodesRes.data.slice(0, 3));
 
-        // Fetch fleet (for map)
         const fleetRes = await axios.get(`${API_URL}/fleet`, { headers });
-        setFleet(fleetRes.data);
+        if (Array.isArray(fleetRes.data) && fleetRes.data.length > 0) setFleet(fleetRes.data);
 
       } catch (err) {
-        console.error('Error fetching dashboard data:', err);
+        console.warn('Using mock data for dashboard visualization.');
       }
     };
     

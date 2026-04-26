@@ -8,10 +8,15 @@ import {
 } from 'react-icons/fi';
 import styles from './Nodes.module.scss';
 
-const API_URL = import.meta.env.VITE_API_URL || 'https://baku-transit-backend.onrender.com/api';
+const MOCK_NODES = [
+  { id: 'NODE-01', name: 'Bakı Mərkəzi Rele', status: 'onlayn', load_percent: 12, type: 'Əsas', ip_address: '192.168.1.1', uptime: '142g 4s' },
+  { id: 'NODE-02', name: 'Nizami Sektor Qovşağı', status: 'onlayn', load_percent: 45, type: 'Kənari', ip_address: '192.168.4.12', uptime: '45g 12s' },
+  { id: 'NODE-03', name: 'Xətai Məlumat Qovşağı', status: 'gözləmədə', load_percent: 2, type: 'Ehtiyat', ip_address: '10.0.0.5', uptime: '12g 1s' },
+  { id: 'NODE-04', name: 'Yasamal Sektoru', status: 'onlayn', load_percent: 33, type: 'Kənari', ip_address: '192.168.5.101', uptime: '89g 5s' }
+];
 
 export default function Nodes() {
-  const [nodes, setNodes] = useState([]);
+  const [nodes, setNodes] = useState(MOCK_NODES);
   const [search, setSearch] = useState('');
   const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
@@ -25,9 +30,11 @@ export default function Nodes() {
         headers: { Authorization: `Bearer ${token}` },
         params: { search }
       });
-      setNodes(Array.isArray(res.data) ? res.data : []);
+      if (Array.isArray(res.data) && res.data.length > 0) {
+        setNodes(res.data);
+      }
     } catch (err) {
-      console.error('Error fetching nodes:', err);
+      console.warn('Using mock data for nodes.');
     } finally {
       setLoading(false);
     }

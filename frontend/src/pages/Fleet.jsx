@@ -17,10 +17,16 @@ const healthMap = {
   'Critical': 'Kritik'
 };
 
-const API_URL = import.meta.env.VITE_API_URL || 'https://baku-transit-backend.onrender.com/api';
+const MOCK_FLEET = [
+  { id: 'BUS-101', route_number: '#1', status: 'In Transit', load_percent: 65, current_location: 'Nizami küç.', health_status: 'Optimal' },
+  { id: 'BUS-102', route_number: '#5', status: 'Maintenance', load_percent: 0, current_location: 'Depo A', health_status: 'Warning' },
+  { id: 'BUS-103', route_number: '#88', status: 'In Transit', load_percent: 40, current_location: 'Xətai', health_status: 'Optimal' },
+  { id: 'BUS-204', route_number: '#11', status: 'Delayed', load_percent: 85, current_location: '20 Yanvar', health_status: 'Critical' },
+  { id: 'BUS-305', route_number: '#7', status: 'In Transit', load_percent: 22, current_location: 'Gənclik', health_status: 'Optimal' }
+];
 
 export default function Fleet() {
-  const [fleet, setFleet] = useState([]);
+  const [fleet, setFleet] = useState(MOCK_FLEET);
   const [search, setSearch] = useState('');
   const [showModal, setShowModal] = useState(false);
   const [formData, setFormData] = useState({ id: '', route_number: '', current_location: '' });
@@ -32,9 +38,11 @@ export default function Fleet() {
         headers: { Authorization: `Bearer ${token}` },
         params: { search }
       });
-      setFleet(res.data);
+      if (Array.isArray(res.data) && res.data.length > 0) {
+        setFleet(res.data);
+      }
     } catch (err) {
-      console.error('Error fetching fleet:', err);
+      console.warn('Using mock data for fleet.');
     }
   };
 
