@@ -116,7 +116,7 @@ export default function Dashboard() {
             </div>
             <div className={styles.chartWrapper}>
               <ResponsiveContainer width="100%" height="100%">
-                <AreaChart data={stats.peak_hours}>
+                <AreaChart data={stats.peak_hours || []}>
                   <defs>
                     <linearGradient id="colorCount" x1="0" y1="0" x2="0" y2="1">
                       <stop offset="5%" stopColor="#9FC73C" stopOpacity={0.8}/>
@@ -196,7 +196,7 @@ export default function Dashboard() {
                 url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
               />
-              {fleet.map((bus, i) => (
+              {(fleet || []).map((bus, i) => (
                 <CircleMarker 
                   key={bus.id} 
                   center={getMockPosition(i)} 
@@ -222,13 +222,13 @@ export default function Dashboard() {
           <div className={styles.systemHealth}>
             <h3>Qovşaq Statusu</h3>
             <div className={styles.healthList}>
-              {nodes.map(node => (
+              {(nodes || []).map(node => (
                 <div key={node.id} className={styles.healthItem}>
                   <span>{node.name}</span>
                   <span className={styles.status} style={{ color: node.status === 'onlayn' ? '#9FC73C' : '#e53e3e' }}>{node.status}</span>
                 </div>
               ))}
-              {nodes.length === 0 && <span style={{color: '#627d98'}}>Qovşaq tapılmadı.</span>}
+              {(!nodes || nodes.length === 0) && <span style={{color: '#627d98'}}>Qovşaq tapılmadı.</span>}
             </div>
           </div>
 
@@ -237,7 +237,7 @@ export default function Dashboard() {
               <h3>Son Fəaliyyət Jurnalları</h3>
             </div>
             <div className={styles.logList}>
-              {logs.map((log) => (
+              {(logs || []).map((log) => (
                 <div key={log.id} className={`${styles.logItem} ${styles[log.level.toLowerCase()]}`}>
                   <div className={styles.logIcon}>
                     {log.level === 'INFO' && <FiTrendingUp />}
