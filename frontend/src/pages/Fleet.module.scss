@@ -176,13 +176,15 @@
   transition: all 0.3s ease;
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 10px;
   text-transform: uppercase;
   letter-spacing: 0.5px;
   
   &:hover {
     transform: translateY(-3px);
-    box-shadow: 0 10px 25px rgba($primary, 0.3);
+    box-shadow: 0 10px 30px rgba($primary, 0.5);
+    filter: brightness(1.1);
   }
 }
 

@@ -272,18 +272,21 @@
 
   .cancelBtn {
     background: transparent;
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     color: $white;
-    &:hover {  border: 1px solid rgba(229, 229, 229, 0.879); }
+    &:hover {  
+      background: rgba(255, 255, 255, 0.05);
+      border-color: rgba(255, 255, 255, 0.2); 
+    }
   }
 
   .confirmBtn {
-    background: transparent;
-    border: 1px solid rgb(127, 4, 4);
-    color: rgb(127, 4, 4);;
+    background: $gradient-primary;
+    border: none;
+    color: $secondary-dark;
     &:hover { 
-       border: 1px solid rgb(232, 27, 27);;
-       color: rgb(232, 27, 27);
+       transform: translateY(-2px);
+       box-shadow: 0 5px 15px rgba($primary, 0.4);
      }
   }
 }

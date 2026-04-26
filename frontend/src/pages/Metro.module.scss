@@ -150,20 +150,20 @@
   }
 
   .detailsBtn {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    color: $white;
+    background: $gradient-primary;
+    border: none;
+    color: $secondary-dark;
     padding: 8px 20px;
     border-radius: 10px;
     font-size: 12px;
     font-weight: 800;
     cursor: pointer;
-    transition: all 0.2s;
+    transition: all 0.3s ease;
 
     &:hover {
-      background: $white;
-      color: $secondary-dark;
-      transform: scale(1.05);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba($primary, 0.4);
+      filter: brightness(1.1);
     }
   }
 }
