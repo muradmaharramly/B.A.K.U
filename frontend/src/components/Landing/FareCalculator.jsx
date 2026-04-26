@@ -121,6 +121,7 @@ export default function FareCalculator() {
         }
       }
     } else {
+      // Advanced Bus Logic with Google Maps Real Distance
       const findDirectBus = (start, end) => {
         let best = null;
         busRoutes.forEach(r => {
@@ -147,10 +148,22 @@ export default function FareCalculator() {
           let finalFare = Math.max(0.40, baseFare * currentPlans[plan].multiplier);
           let maxLimit = plan === 'family' ? 0.65 : 0.80;
           if (finalFare > maxLimit) finalFare = maxLimit;
-          setResult({ fare: finalFare.toFixed(2), distance: distanceKm.toFixed(2), stations: direct.dist, route: `Avtobus ${direct.bus}` });
+          setResult({ 
+            fare: finalFare.toFixed(2), 
+            distance: distanceKm.toFixed(2), 
+            stations: direct.dist, 
+            route: `Avtobus ${direct.bus}`,
+            isGoogle: true 
+          });
         } catch (err) {
           distanceKm = direct.dist * 0.65;
-          setResult({ fare: '0.40', distance: distanceKm.toFixed(2), stations: direct.dist, route: `Avtobus ${direct.bus} (Təxmini)` });
+          setResult({ 
+            fare: '0.40', 
+            distance: distanceKm.toFixed(2), 
+            stations: direct.dist, 
+            route: `Avtobus ${direct.bus}`,
+            isGoogle: false 
+          });
         }
       } else {
         let transfer = null;
@@ -265,6 +278,7 @@ export default function FareCalculator() {
                   <div className={styles.routeBadge}>
                     {type === 'metro' ? <MdDirectionsSubway /> : <MdDirectionsBus />}
                     <span>Xətt: {result.route}</span>
+                    {result.isGoogle && <div className={styles.googleBadge} title="Real Google Maps məsafəsi">Live</div>}
                   </div>
                   <div className={styles.mainFare}>
                     <span className={styles.currency}>₼</span>
