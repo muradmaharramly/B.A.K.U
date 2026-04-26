@@ -20,7 +20,7 @@
     "react-router-dom": "^7.14.2",
     "react-toastify": "^11.1.0",
     "recharts": "^3.8.1",
-    "sass": "^1.99.0"
+    "sass": "^1.77.8"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
