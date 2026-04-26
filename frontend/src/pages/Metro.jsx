@@ -13,6 +13,8 @@ const hexToRgb = (hex) => {
   return `${r}, ${g}, ${b}`;
 };
 
+const API_URL = import.meta.env.VITE_API_URL || 'https://baku-transit-backend.onrender.com/api';
+
 export default function Metro() {
   const [lines, setLines] = useState([]);
   const [expandedLine, setExpandedLine] = useState(null);

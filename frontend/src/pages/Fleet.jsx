@@ -17,6 +17,8 @@ const healthMap = {
   'Critical': 'Kritik'
 };
 
+const API_URL = import.meta.env.VITE_API_URL || 'https://baku-transit-backend.onrender.com/api';
+
 export default function Fleet() {
   const [fleet, setFleet] = useState([]);
   const [search, setSearch] = useState('');
@@ -26,7 +28,7 @@ export default function Fleet() {
   const fetchFleet = async () => {
     try {
       const token = localStorage.getItem('token');
-      const res = await axios.get(`${import.meta.env.VITE_API_URL}/fleet`, {
+      const res = await axios.get(`${API_URL}/fleet`, {
         headers: { Authorization: `Bearer ${token}` },
         params: { search }
       });
@@ -47,7 +49,7 @@ export default function Fleet() {
     e.preventDefault();
     try {
       const token = localStorage.getItem('token');
-      await axios.post(`${import.meta.env.VITE_API_URL}/fleet`, formData, {
+      await axios.post(`${API_URL}/fleet`, formData, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setShowModal(false);

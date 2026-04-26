@@ -7,6 +7,8 @@ import {
 } from 'react-icons/fi';
 import styles from './Logs.module.scss';
 
+const API_URL = import.meta.env.VITE_API_URL || 'https://baku-transit-backend.onrender.com/api';
+
 export default function Logs() {
   const [logs, setLogs] = useState([]);
   const [search, setSearch] = useState('');
@@ -21,7 +23,7 @@ export default function Logs() {
       if (filterLevel === 'Xəbərdarlıq') backendLevel = 'WARN';
       if (filterLevel === 'Xəta') backendLevel = 'ERROR';
       
-      const res = await axios.get(`${import.meta.env.VITE_API_URL}/logs`, {
+      const res = await axios.get(`${API_URL}/logs`, {
         headers: { Authorization: `Bearer ${token}` },
         params: { search, level: backendLevel }
       });

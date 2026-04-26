@@ -8,6 +8,8 @@ import {
 } from 'react-icons/fi';
 import styles from './Nodes.module.scss';
 
+const API_URL = import.meta.env.VITE_API_URL || 'https://baku-transit-backend.onrender.com/api';
+
 export default function Nodes() {
   const [nodes, setNodes] = useState([]);
   const [search, setSearch] = useState('');

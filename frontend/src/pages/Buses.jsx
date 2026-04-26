@@ -6,6 +6,8 @@ import { FaBusAlt } from "react-icons/fa";
 import CustomSelect from '../components/Common/CustomSelect';
 import styles from './Buses.module.scss';
 
+const API_URL = import.meta.env.VITE_API_URL || 'https://baku-transit-backend.onrender.com/api';
+
 export default function Buses() {
   const [allRoutes, setAllRoutes] = useState([]);
   const [routesByOperator, setRoutesByOperator] = useState({});
@@ -16,7 +18,7 @@ export default function Buses() {
   useEffect(() => {
     const fetchRoutes = async () => {
       try {
-        const res = await axios.get(`${import.meta.env.VITE_API_URL}/routes`);
+        const res = await axios.get(`${API_URL}/routes`);
         const buses = res.data.filter(r => r.route_type === 'bus');
         setAllRoutes(buses);
         groupRoutes(buses, 'all');

@@ -13,6 +13,63 @@ const pool = new Pool({
   ssl: { rejectUnauthorized: false }
 });
 
+const busRoutes = [
+  { "bus": "1", "stops": ["28 May", "Sahil", "Azneft", "Bayraq Meydanı", "20-ci Sahə"] },
+  { "bus": "2", "stops": ["Avtovağzal", "Biləcəri", "20 Yanvar", "28 May", "Dərnəgül"] },
+  { "bus": "3", "stops": ["Dərnəgül", "Nərimanov", "Gənclik", "Sahil", "Badamdar"] },
+  { "bus": "5", "stops": ["Nərimanov", "Gənclik", "28 May", "Sahil", "20-ci Sahə"] },
+  { "bus": "6", "stops": ["Əhmədli", "Xalqlar Dostluğu", "Neftçilər", "Qara Qarayev", "Koroğlu"] },
+  { "bus": "7A", "stops": ["Azadlıq prospekti", "Gənclik", "28 May", "Sahil", "İçərişəhər"] },
+  { "bus": "8", "stops": ["Həzi Aslanov", "Əhmədli", "Xalqlar Dostluğu", "Neftçilər", "Koroğlu"] },
+  { "bus": "9", "stops": ["Nərimanov", "Gənclik", "28 May", "Sahil", "Bayıl"] },
+  { "bus": "10", "stops": ["Nərimanov", "Gənclik", "Elmlər Akademiyası", "Yasamal", "Yeni Yasamal"] },
+  { "bus": "11", "stops": ["28 May", "Nərimanov", "Koroğlu", "Neftçilər", "Həzi Aslanov"] },
+  { "bus": "13", "stops": ["Dərnəgül", "Azadlıq prospekti", "Gənclik", "28 May", "Sahil"] },
+  { "bus": "14", "stops": ["Xətai", "28 May", "Nizami", "Elmlər Akademiyası", "İnşaatçılar"] },
+  { "bus": "15", "stops": ["Neftçilər", "Qara Qarayev", "Koroğlu", "Nərimanov", "Gənclik"] },
+  { "bus": "16", "stops": ["Həzi Aslanov", "Əhmədli", "Xalqlar Dostluğu", "Neftçilər", "Koroğlu"] },
+  { "bus": "17", "stops": ["Yeni Yasamal", "Elmlər Akademiyası", "Nizami", "28 May", "Nərimanov"] },
+  { "bus": "18", "stops": ["Sahil", "İçərişəhər", "Bayıl", "Badamdar", "20-ci Sahə"] },
+  { "bus": "19", "stops": ["Nərimanov", "Gənclik", "28 May", "Nizami", "Elmlər Akademiyası"] },
+  { "bus": "20", "stops": ["Nizami", "28 May", "Gənclik", "Nərimanov", "Koroğlu"] },
+  { "bus": "21", "stops": ["Dərnəgül", "Nərimanov", "Gənclik", "28 May", "Sahil"] },
+  { "bus": "22", "stops": ["Xətai", "28 May", "Nizami", "Elmlər Akademiyası", "20 Yanvar"] },
+  { "bus": "24", "stops": ["Əhmədli", "Xalqlar Dostluğu", "Neftçilər", "Qara Qarayev", "Koroğlu"] },
+  { "bus": "26", "stops": ["Nərimanov", "Gənclik", "28 May", "Sahil", "Bayıl"] },
+  { "bus": "28", "stops": ["Dərnəgül", "Azadlıq prospekti", "Gənclik", "28 May", "Sahil"] },
+  { "bus": "30", "stops": ["Avtovağzal", "20 Yanvar", "Nizami", "28 May", "Nərimanov"] },
+  { "bus": "32", "stops": ["Həzi Aslanov", "Əhmədli", "Xalqlar Dostluğu", "Neftçilər", "Koroğlu"] },
+  { "bus": "35", "stops": ["Nərimanov", "Gənclik", "28 May", "Sahil", "İçərişəhər"] },
+  { "bus": "36", "stops": ["Elmlər Akademiyası", "İnşaatçılar", "20 Yanvar", "Memar Əcəmi", "Nəsimi"] },
+  { "bus": "37", "stops": ["Nərimanov", "Koroğlu", "Qara Qarayev", "Neftçilər", "Xalqlar Dostluğu"] },
+  { "bus": "38", "stops": ["Xətai", "28 May", "Gənclik", "Nərimanov", "Koroğlu"] },
+  { "bus": "41", "stops": ["Yeni Yasamal", "Elmlər Akademiyası", "Nizami", "28 May", "Gənclik"] },
+  { "bus": "44", "stops": ["Neftçilər", "Qara Qarayev", "Koroğlu", "Nərimanov", "Gənclik"] },
+  { "bus": "49", "stops": ["Dərnəgül", "Azadlıq prospekti", "Gənclik", "28 May", "Sahil"] },
+  { "bus": "50", "stops": ["Nərimanov", "Gənclik", "28 May", "Sahil", "Bayıl"] },
+  { "bus": "52", "stops": ["Əhmədli", "Xalqlar Dostluğu", "Neftçilər", "Qara Qarayev", "Koroğlu"] },
+  { "bus": "53", "stops": ["Xətai", "28 May", "Nizami", "Elmlər Akademiyası", "İnşaatçılar"] },
+  { "bus": "60", "stops": ["Memar Əcəmi", "Nəsimi", "Azadlıq prospekti", "Dərnəgül", "Nərimanov"] },
+  { "bus": "61", "stops": ["Nərimanov", "Gənclik", "28 May", "Sahil", "İçərişəhər"] },
+  { "bus": "65", "stops": ["Dərnəgül", "Azadlıq prospekti", "Gənclik", "28 May", "Sahil"] },
+  { "bus": "67", "stops": ["Həzi Aslanov", "Əhmədli", "Xalqlar Dostluğu", "Neftçilər", "Qara Qarayev"] },
+  { "bus": "70", "stops": ["Nizami", "28 May", "Gənclik", "Nərimanov", "Koroğlu"] },
+  { "bus": "79", "stops": ["Dərnəgül", "Nərimanov", "Gənclik", "28 May", "Sahil"] },
+  { "bus": "81", "stops": ["Elmlər Akademiyası", "İnşaatçılar", "20 Yanvar", "Memar Əcəmi", "Nəsimi"] },
+  { "bus": "85", "stops": ["Nərimanov", "Gənclik", "28 May", "Sahil", "Bayıl"] },
+  { "bus": "88", "stops": ["Dərnəgül", "Azadlıq prospekti", "28 May", "Sahil", "20-ci Sahə"] },
+  { "bus": "90", "stops": ["Həzi Aslanov", "Əhmədli", "Xalqlar Dostluğu", "Neftçilər", "Qara Qarayev"] },
+  { "bus": "96", "stops": ["Nərimanov", "Koroğlu", "Qara Qarayev", "Neftçilər", "Xalqlar Dostluğu"] },
+  { "bus": "125", "stops": ["Binəqədi", "Dərnəgül", "Azadlıq prospekti", "Gənclik", "28 May"] },
+  { "bus": "135", "stops": ["Avtovağzal", "20 Yanvar", "Memar Əcəmi", "Nəsimi", "Azadlıq prospekti"] }
+];
+
+const metroRoutes = [
+  { "name": "Qırmızı Xətt", "stops": ["İçərişəhər", "Sahil", "28 May", "Gənclik", "Nəriman Nərimanov", "Bakmil", "Ulduz", "Koroğlu", "Qara Qarayev", "Neftçilər", "Xalqlar Dostluğu", "Əhmədli", "Həzi Aslanov"] },
+  { "name": "Yaşıl Xətt", "stops": ["Xətai", "28 May", "Nizami", "Elmlər Akademiyası", "İnşaatçılar", "20 Yanvar", "Memar Əcəmi", "Nəsimi", "Azadlıq prospekti", "Dərnəgül"] },
+  { "name": "Bənövşəyi Xətt", "stops": ["Xocəsən", "Avtovağzal", "Memar Əcəmi", "8 Noyabr"] }
+];
+
 const logs = [
   { level: 'INFO', category: 'Fleet', message: 'BUS-101 bloku Nizami küç. sektoruna çatdı', source: 'GPS-ALPHA' },
   { level: 'WARN', category: 'Sensor', message: 'Giriş #4-də yaxınlıq sensoru sapması aşkar edildi', source: 'NODE-02' },
@@ -38,8 +95,49 @@ async function seed() {
   try {
     console.log('Connecting to DB...');
     
+    // Drop existing tables for a clean seed
+    await pool.query(`
+      DROP TABLE IF EXISTS route_stops CASCADE;
+      DROP TABLE IF EXISTS trips CASCADE;
+      DROP TABLE IF EXISTS transactions CASCADE;
+      DROP TABLE IF EXISTS routes CASCADE;
+      DROP TABLE IF EXISTS stops CASCADE;
+      DROP TABLE IF EXISTS operators CASCADE;
+      DROP TABLE IF EXISTS cards CASCADE;
+      DROP TABLE IF EXISTS users CASCADE;
+      DROP TABLE IF EXISTS system_logs CASCADE;
+      DROP TABLE IF EXISTS nodes CASCADE;
+      DROP TABLE IF EXISTS fleet_units CASCADE;
+    `);
+
     // Create ALL core tables
     await pool.query(`
+      CREATE TABLE IF NOT EXISTS operators (
+          id SERIAL PRIMARY KEY,
+          name VARCHAR(100) UNIQUE NOT NULL,
+          type VARCHAR(20) NOT NULL
+      );
+      CREATE TABLE IF NOT EXISTS routes (
+          id SERIAL PRIMARY KEY,
+          operator_id INTEGER REFERENCES operators(id),
+          route_number VARCHAR(20) UNIQUE NOT NULL,
+          route_type VARCHAR(20) NOT NULL,
+          path_coordinates JSONB,
+          created_at TIMESTAMPTZ DEFAULT NOW()
+      );
+      CREATE TABLE IF NOT EXISTS stops (
+          id SERIAL PRIMARY KEY,
+          name VARCHAR(100) UNIQUE NOT NULL,
+          is_metro BOOLEAN DEFAULT FALSE,
+          lat DECIMAL(10,8),
+          lng DECIMAL(11,8)
+      );
+      CREATE TABLE IF NOT EXISTS route_stops (
+          route_id INTEGER REFERENCES routes(id),
+          stop_id INTEGER REFERENCES stops(id),
+          stop_order INTEGER,
+          PRIMARY KEY (route_id, stop_id)
+      );
       CREATE TABLE IF NOT EXISTS users (
           id SERIAL PRIMARY KEY,
           full_name VARCHAR(100) NOT NULL,
@@ -61,7 +159,7 @@ async function seed() {
           id SERIAL PRIMARY KEY,
           user_id INTEGER REFERENCES users(id),
           card_id INTEGER REFERENCES cards(id),
-          route_id INTEGER,
+          route_id INTEGER REFERENCES routes(id),
           status VARCHAR(20) DEFAULT 'active',
           distance_km DECIMAL(5,2),
           fare DECIMAL(5,2),
@@ -106,7 +204,36 @@ async function seed() {
       );
     `);
 
-    console.log('Tables ready. Seeding Users & Cards...');
+    console.log('Tables ready. Seeding Operators...');
+    await pool.query(`INSERT INTO operators (name, type) VALUES ('BakuBus', 'bus'), ('Bakı Metropoliteni', 'metro') ON CONFLICT DO NOTHING`);
+    const busOpRes = await pool.query("SELECT id FROM operators WHERE name = 'BakuBus'");
+    const metroOpRes = await pool.query("SELECT id FROM operators WHERE name = 'Bakı Metropoliteni'");
+    const busOpId = busOpRes.rows[0].id;
+    const metroOpId = metroOpRes.rows[0].id;
+
+    console.log('Seeding Bus Routes & Stops...');
+    for (const r of busRoutes) {
+      const routeRes = await pool.query(`INSERT INTO routes (operator_id, route_number, route_type) VALUES ($1, $2, 'bus') ON CONFLICT (route_number) DO UPDATE SET operator_id = EXCLUDED.operator_id RETURNING id`, [busOpId, r.bus]);
+      const routeId = routeRes.rows[0].id;
+      for (let i = 0; i < r.stops.length; i++) {
+        const stopRes = await pool.query(`INSERT INTO stops (name, is_metro) VALUES ($1, FALSE) ON CONFLICT (name) DO UPDATE SET is_metro = FALSE RETURNING id`, [r.stops[i]]);
+        const stopId = stopRes.rows[0].id;
+        await pool.query(`INSERT INTO route_stops (route_id, stop_id, stop_order) VALUES ($1, $2, $3) ON CONFLICT DO NOTHING`, [routeId, stopId, i]);
+      }
+    }
+
+    console.log('Seeding Metro Routes & Stops...');
+    for (const r of metroRoutes) {
+      const routeRes = await pool.query(`INSERT INTO routes (operator_id, route_number, route_type, path_coordinates) VALUES ($1, $2, 'metro', $3) ON CONFLICT (route_number) DO UPDATE SET operator_id = EXCLUDED.operator_id RETURNING id`, [metroOpId, r.name, JSON.stringify({ name: r.name, color: r.name.includes('Qırmızı') ? '#ef4444' : r.name.includes('Yaşıl') ? '#10b981' : '#8b5cf6' })]);
+      const routeId = routeRes.rows[0].id;
+      for (let i = 0; i < r.stops.length; i++) {
+        const stopRes = await pool.query(`INSERT INTO stops (name, is_metro) VALUES ($1, TRUE) ON CONFLICT (name) DO UPDATE SET is_metro = TRUE RETURNING id`, [r.stops[i]]);
+        const stopId = stopRes.rows[0].id;
+        await pool.query(`INSERT INTO route_stops (route_id, stop_id, stop_order) VALUES ($1, $2, $3) ON CONFLICT DO NOTHING`, [routeId, stopId, i]);
+      }
+    }
+
+    console.log('Seeding Users & Cards...');
     const userRes = await pool.query(`
       INSERT INTO users (full_name, email, balance, social_category) 
       VALUES ('Əli Vəliyev', 'ali@baku.az', 15.50, 'standard') 
@@ -132,9 +259,9 @@ async function seed() {
     `, [userId, cardId]);
 
     await pool.query(`
-      INSERT INTO trips (user_id, card_id, status, distance_km, fare) VALUES 
-      ($1, $2, 'completed', 3.5, 0.40),
-      ($1, $2, 'active', 1.2, 0.00)
+      INSERT INTO trips (user_id, card_id, route_id, status, distance_km, fare) VALUES 
+      ($1, $2, 1, 'completed', 3.5, 0.40),
+      ($1, $2, 2, 'active', 1.2, 0.00)
     `, [userId, cardId]);
 
     console.log('Seeding logs...');
@@ -155,7 +282,7 @@ async function seed() {
         [unit.id, unit.route_number, unit.status, unit.load_percent, unit.current_location, unit.health_status]);
     }
 
-    console.log('Seed completed successfully! Dashboard data is now live.');
+    console.log('Seed completed successfully! Full Transit Network is now live.');
   } catch (error) {
     console.error('Error seeding data:', error);
   } finally {
