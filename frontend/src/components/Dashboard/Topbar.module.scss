@@ -282,13 +282,14 @@
   }
 
   .confirmBtn {
-    background: $gradient-primary;
-    border: none;
-    color: $secondary-dark;
-    &:hover { 
-       transform: translateY(-2px);
-       box-shadow: 0 5px 15px rgba($primary, 0.4);
-     }
+    background: transparent;
+    border: 1px solid rgb(148, 6, 6);
+    color: rgb(148, 6, 6);
+    &:hover {  
+      background: rgba(255, 255, 255, 0.05);
+      border-color: rgb(208, 6, 6); 
+      color: rgb(208, 6, 6);
+    }
   }
 }
 
