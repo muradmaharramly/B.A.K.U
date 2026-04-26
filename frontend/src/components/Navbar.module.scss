@@ -45,7 +45,10 @@
     object-fit: contain;
   }
 
-  .accent { color: $primary; }
+  .accent { background: $gradient-primary;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;}
 }
 
 .links {
