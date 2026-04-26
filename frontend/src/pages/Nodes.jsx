@@ -21,11 +21,11 @@ export default function Nodes() {
     setLoading(true);
     try {
       const token = localStorage.getItem('token');
-      const res = await axios.get(`${import.meta.env.VITE_API_URL}/nodes`, {
+      const res = await axios.get(`${API_URL}/nodes`, {
         headers: { Authorization: `Bearer ${token}` },
         params: { search }
       });
-      setNodes(res.data);
+      setNodes(Array.isArray(res.data) ? res.data : []);
     } catch (err) {
       console.error('Error fetching nodes:', err);
     } finally {
@@ -44,7 +44,7 @@ export default function Nodes() {
     e.preventDefault();
     try {
       const token = localStorage.getItem('token');
-      await axios.post(`${import.meta.env.VITE_API_URL}/nodes`, formData, {
+      await axios.post(`${API_URL}/nodes`, formData, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setShowModal(false);
@@ -76,7 +76,7 @@ export default function Nodes() {
       </div>
 
       <div className={styles.nodesGrid}>
-        {nodes.map((node) => (
+        {(Array.isArray(nodes) ? nodes : []).map((node) => (
           <div key={node.id} className={`${styles.nodeCard} ${styles[node.status === 'onlayn' ? 'online' : node.status === 'oflayn' ? 'offline' : 'standby']}`}>
             <div className={styles.nodeHeader}>
               <div className={styles.nodeIdentity}>

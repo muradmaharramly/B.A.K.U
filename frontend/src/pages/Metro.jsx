@@ -23,8 +23,8 @@ export default function Metro() {
   useEffect(() => {
     const fetchLines = async () => {
       try {
-        const res = await axios.get(`${import.meta.env.VITE_API_URL}/metro/lines`);
-        setLines(res.data);
+        const res = await axios.get(`${API_URL}/metro/lines`);
+        setLines(Array.isArray(res.data) ? res.data : []);
       } catch (err) {
         console.error('Error fetching metro lines:', err);
       } finally {
@@ -45,7 +45,7 @@ export default function Metro() {
       </div>
 
       <div className={styles.fleetGrid}>
-        {lines.map((line) => (
+        {(Array.isArray(lines) ? lines : []).map((line) => (
           <div key={line.id} className={styles.unitCard} style={{ color: line.color }}>
             <div className={styles.cardHeader}>
               <div className={styles.unitInfo}>
@@ -86,7 +86,7 @@ export default function Metro() {
               <div className={styles.stationsList}>
                 <h4>Stansiyalar</h4>
                 <div className={styles.stationsScroll}>
-                  {line.stations.map((s, idx) => (
+                  {(Array.isArray(line.stations) ? line.stations : []).map((s, idx) => (
                     <div key={s.id} className={styles.stationItem}>
                       <span className={styles.dot} style={{ background: line.color }}></span>
                       <span className={styles.stationName}>{s.name}</span>
