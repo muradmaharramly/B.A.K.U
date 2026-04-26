@@ -1,6 +1,19 @@
 const express = require('express');
 const router = express.Router();
 const pool = require('../db/pool');
+
+// Public Settings - Pricing & Plans
+router.get('/settings/pricing', async (req, res) => {
+  try {
+    const result = await pool.query('SELECT value FROM system_settings WHERE key = $1', ['pricing_plans']);
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: 'Pricing settings not found' });
+    }
+    res.json(result.rows[0].value);
+  } catch (err) {
+    res.status(500).json({ error: 'Server error' });
+  }
+});
 const authMiddleware = require('../middleware/authMiddleware');
 
 // ─── PROTECTED ROUTES ────────────────────────────────────────────────────────

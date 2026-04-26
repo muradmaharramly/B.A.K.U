@@ -2,22 +2,28 @@ require('dotenv').config();
 const pool = require('../db/pool');
 
 const pricingData = {
-  standard: {
-    name: "Standart Hesab",
-    description: "Fərdi istifadəçilər üçün çevik məsafə əsaslı ödəniş.",
-    base_fare: 0.20,
-    per_station: 0.05,
-    min_fare: 0.40,
-    benefits: ["Limitsiz keçid imkanı", "Real-vaxt izləmə", "Rəqəmsal pul kisəsi"]
+  plans: {
+    standard: { label: 'Standart', multiplier: 1.0, description: "Fərdi istifadəçilər üçün çevik məsafə əsaslı ödəniş." },
+    family: { label: 'Ailə', multiplier: 0.8, description: "Ailə üzvləri üçün 20% endirimli vahid balans." },
+    tourist: { label: 'Turist', multiplier: 0.9, description: "Turistlər üçün özəl 10% endirimli tariflər." }
   },
-  family: {
-    name: "Ailə Hesabı",
-    description: "Ailə üzvləri üçün ortaq balans və xüsusi endirimli tariflər.",
-    base_fare: 0.15,
-    per_station: 0.04,
-    min_fare: 0.40,
-    benefits: ["5 nəfərə qədər üzv", "20% endirimli gediş", "Vahid ailə balansı"]
-  }
+  metro_tiers: [
+    { count: 1, fare: 0.40 },
+    { count: 2, fare: 0.45 },
+    { count: 3, fare: 0.50 },
+    { count: 4, fare: 0.55 },
+    { count: 5, fare: 0.60 },
+    { range: [6, 7], fare: 0.65 },
+    { range: [8, 9], fare: 0.70 },
+    { min: 10, fare: 0.75 }
+  ],
+  bus_tiers: [
+    { range: [0, 3], fare: 0.40 },
+    { range: [4, 6], fare: 0.50 },
+    { range: [7, 10], fare: 0.60 },
+    { range: [11, 15], fare: 0.70 },
+    { min: 16, fare: 0.80 }
+  ]
 };
 
 async function seedPricing() {

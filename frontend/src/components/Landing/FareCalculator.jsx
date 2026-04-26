@@ -5,11 +5,7 @@ import CustomDropdown from './CustomDropdown';
 import { busRoutes, metroRoutes } from './transportData';
 import styles from './FareCalculator.module.scss';
 
-const plans = {
-  standard: { label: 'Standart', multiplier: 1.0, base: 0.20, perStation: 0.05, max: 1.20 },
-  family: { label: 'Ailə', multiplier: 0.8, base: 0.15, perStation: 0.04, max: 0.90 },
-  tourist: { label: 'Turist', multiplier: 0.9, base: 0.18, perStation: 0.045, max: 1.00 }
-};
+import axios from 'axios';
 
 export default function FareCalculator() {
   const [type, setType] = useState('metro');
@@ -18,6 +14,26 @@ export default function FareCalculator() {
   const [to, setTo] = useState('');
   const [result, setResult] = useState(null);
   const [alternative, setAlternative] = useState(null);
+  const [pricing, setPricing] = useState(null);
+
+  // Fetch Pricing Data on mount
+  useEffect(() => {
+    const fetchPricing = async () => {
+      try {
+        const res = await axios.get(`${import.meta.env.VITE_API_URL}/settings/pricing`);
+        setPricing(res.data);
+      } catch (err) {
+        console.error("Failed to fetch pricing:", err);
+      }
+    };
+    fetchPricing();
+  }, []);
+
+  const currentPlans = pricing?.plans || {
+    standard: { label: 'Standart', multiplier: 1.0 },
+    family: { label: 'Ailə', multiplier: 0.8 },
+    tourist: { label: 'Turist', multiplier: 0.9 }
+  };
 
   // Get unique stops based on transport type
   const getStops = () => {
@@ -96,17 +112,17 @@ export default function FareCalculator() {
       minStations = findMetroPath(from, to);
       foundRouteName = "Metro Şəbəkəsi";
       
-      // Metro Tier Logic
-      let fare = 0.40;
-      if (minStations === 2) fare = 0.45;
-      else if (minStations === 3) fare = 0.50;
-      else if (minStations === 4) fare = 0.55;
-      else if (minStations === 5) fare = 0.60;
-      else if (minStations >= 6 && minStations <= 7) fare = 0.65;
-      else if (minStations >= 8 && minStations <= 9) fare = 0.70;
-      else if (minStations >= 10) fare = 0.75;
+      // Dynamic Metro Tier Logic from DB
+      let fare = 0.40; // Default
+      if (pricing?.metro_tiers) {
+        for (const tier of pricing.metro_tiers) {
+          if (tier.count === minStations) { fare = tier.fare; break; }
+          if (tier.range && minStations >= tier.range[0] && minStations <= tier.range[1]) { fare = tier.fare; break; }
+          if (tier.min && minStations >= tier.min) { fare = tier.fare; break; }
+        }
+      }
 
-      const p = plans[plan];
+      const p = currentPlans[plan];
       const finalFare = fare * p.multiplier;
 
       setResult({
@@ -128,14 +144,18 @@ export default function FareCalculator() {
       });
 
       if (foundRouteName) {
-        distanceKm = minStations * 2.2; // Avg km per bus stop
-        let fare = 0.40;
-        if (distanceKm >= 4 && distanceKm <= 6) fare = 0.50;
-        else if (distanceKm >= 7 && distanceKm <= 10) fare = 0.60;
-        else if (distanceKm >= 11 && distanceKm <= 15) fare = 0.70;
-        else if (distanceKm > 15) fare = 0.80;
+        distanceKm = minStations * 2.2; 
+        
+        // Dynamic Bus Tier Logic from DB
+        let fare = 0.40; // Default
+        if (pricing?.bus_tiers) {
+          for (const tier of pricing.bus_tiers) {
+            if (tier.range && distanceKm >= tier.range[0] && distanceKm <= tier.range[1]) { fare = tier.fare; break; }
+            if (tier.min && distanceKm >= tier.min) { fare = tier.fare; break; }
+          }
+        }
 
-        const p = plans[plan];
+        const p = currentPlans[plan];
         const finalFare = fare * p.multiplier;
 
         setResult({
@@ -219,7 +239,7 @@ export default function FareCalculator() {
               <div className={styles.field}>
                 <label><FiTag /> Sizin Paket</label>
                 <div className={styles.planSelect}>
-                  {Object.entries(plans).map(([key, p]) => (
+                  {Object.entries(currentPlans).map(([key, p]) => (
                     <button 
                       key={key}
                       className={plan === key ? styles.activePlan : ''}
