@@ -74,7 +74,7 @@ export default function Metro() {
             <div className={styles.metrics}>
               <div className={styles.metric}>
                 <FiActivity />
-                <span>{Math.floor(Math.random() * 20) + 10} Qatar Hərəkətdə</span>
+                <span>{Math.floor(Math.random() * 5) + 10} Qatar Hərəkətdə</span>
               </div>
               <div className={styles.metric}>
                 <FiClock />
