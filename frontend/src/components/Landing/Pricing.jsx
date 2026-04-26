@@ -14,7 +14,7 @@ const tiers = [
   },
   {
     name: 'Ailə Hesabı',
-    minFare: '₼0.30',
+    minFare: '₼0.40',
     maxFare: '₼0.65',
     rate: '₼0.04 / km',
     discount: '20%',

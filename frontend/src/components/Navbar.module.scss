@@ -45,7 +45,7 @@
     object-fit: contain;
   }
 
-  .accent { background: $gradient-primary;
+  .accent { background: linear-gradient(90deg,#cfff31, #03C1AC);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;}

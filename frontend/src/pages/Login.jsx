@@ -30,7 +30,7 @@ export default function Login() {
           <div className={styles.logoBox}>
             <FiShield />
           </div>
-          <h1>B.A.K.U</h1>
+          <h1>B.<span className={styles.accent}>A</span>.K.<span className={styles.accent}>U</span></h1>
           <p>Administrativ Giriş</p>
         </div>
 
