@@ -78,28 +78,28 @@ export default function Dashboard() {
           <div className={styles.statIcon}><FaBusSimple /></div>
           <div className={styles.statData}>
             <span className={styles.label}>Canlı Donanma</span>
-            <span className={styles.value}>{fleet.length || stats.active_trips} / 150</span>
+            <span className={styles.value}>{(fleet?.length || stats?.active_trips || 0)} / 150</span>
           </div>
         </div>
         <div className={styles.statItem}>
           <div className={styles.statIcon}><FiUsers /></div>
           <div className={styles.statData}>
             <span className={styles.label}>Cəmi Sərnişin (Gündəlik)</span>
-            <span className={styles.value}>{(stats.daily_passengers || 0).toLocaleString()}</span>
+            <span className={styles.value}>{(stats?.daily_passengers || 0).toLocaleString()}</span>
           </div>
         </div>
         <div className={styles.statItem}>
           <div className={styles.statIcon}><FiActivity /></div>
           <div className={styles.statData}>
             <span className={styles.label}>Xalis Gəlir (Bugün)</span>
-            <span className={styles.value}>₼{(stats.daily_revenue || 0).toFixed(2)}</span>
+            <span className={styles.value}>₼{(stats?.daily_revenue || 0).toFixed(2)}</span>
           </div>
         </div>
         <div className={styles.statItem}>
           <div className={styles.statIcon}><FiServer /></div>
           <div className={styles.statData}>
             <span className={styles.label}>Cəmi İstifadəçi</span>
-            <span className={styles.value}>{(stats.total_users || 0).toLocaleString()}</span>
+            <span className={styles.value}>{(stats?.total_users || 0).toLocaleString()}</span>
           </div>
         </div>
       </div>
@@ -116,7 +116,7 @@ export default function Dashboard() {
             </div>
             <div className={styles.chartWrapper}>
               <ResponsiveContainer width="100%" height="100%">
-                <AreaChart data={stats.peak_hours || []}>
+                <AreaChart data={Array.isArray(stats?.peak_hours) ? stats.peak_hours : []}>
                   <defs>
                     <linearGradient id="colorCount" x1="0" y1="0" x2="0" y2="1">
                       <stop offset="5%" stopColor="#9FC73C" stopOpacity={0.8}/>
@@ -196,7 +196,7 @@ export default function Dashboard() {
                 url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
               />
-              {(fleet || []).map((bus, i) => (
+              {(Array.isArray(fleet) ? fleet : []).map((bus, i) => (
                 <CircleMarker 
                   key={bus.id} 
                   center={getMockPosition(i)} 
@@ -222,13 +222,13 @@ export default function Dashboard() {
           <div className={styles.systemHealth}>
             <h3>Qovşaq Statusu</h3>
             <div className={styles.healthList}>
-              {(nodes || []).map(node => (
+              {(Array.isArray(nodes) ? nodes : []).map(node => (
                 <div key={node.id} className={styles.healthItem}>
                   <span>{node.name}</span>
                   <span className={styles.status} style={{ color: node.status === 'onlayn' ? '#9FC73C' : '#e53e3e' }}>{node.status}</span>
                 </div>
               ))}
-              {(!nodes || nodes.length === 0) && <span style={{color: '#627d98'}}>Qovşaq tapılmadı.</span>}
+              {(!Array.isArray(nodes) || nodes.length === 0) && <span style={{color: '#627d98'}}>Qovşaq tapılmadı.</span>}
             </div>
           </div>
 
@@ -237,7 +237,7 @@ export default function Dashboard() {
               <h3>Son Fəaliyyət Jurnalları</h3>
             </div>
             <div className={styles.logList}>
-              {(logs || []).map((log) => (
+              {(Array.isArray(logs) ? logs : []).map((log) => (
                 <div key={log.id} className={`${styles.logItem} ${styles[log.level.toLowerCase()]}`}>
                   <div className={styles.logIcon}>
                     {log.level === 'INFO' && <FiTrendingUp />}
@@ -251,7 +251,7 @@ export default function Dashboard() {
                   </div>
                 </div>
               ))}
-              {logs.length === 0 && <span style={{color: '#627d98'}}>Jurnal tapılmadı.</span>}
+              {(!Array.isArray(logs) || logs.length === 0) && <span style={{color: '#627d98'}}>Jurnal tapılmadı.</span>}
             </div>
           </div>
         </div>
