@@ -1,5 +1,6 @@
-import { FiCompass, FiTwitter, FiLinkedin, FiGithub, FiMail } from 'react-icons/fi';
+import { FiTwitter, FiLinkedin, FiGithub, FiMail } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
+import logo from '../assets/B.A.K.U-logo.png';
 import styles from './Footer.module.scss';
 
 export default function Footer() {
@@ -11,7 +12,7 @@ export default function Footer() {
         <div className={styles.main}>
           <div className={styles.brand}>
             <Link to="/" className={styles.logo}>
-              <span className={styles.logoIcon}><FiCompass /></span>
+              <img src={logo} alt="B.A.K.U Logo" className={styles.logoImg} />
               <span>B.<span className={styles.accent}>A</span>.K.<span className={styles.accent}>U</span></span>
             </Link>
             <p className={styles.desc}>

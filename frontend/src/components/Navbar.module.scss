@@ -38,13 +38,10 @@
   font-family: $font-title;
   letter-spacing: 1px;
 
-  .logoIcon {
-    width: 36px; height: 36px;
-    background: $gradient-primary;
-    border-radius: $radius-sm;
-    display: flex; align-items: center; justify-content: center;
-    font-size: $font-size-base;
-    color: $secondary-dark;
+  .logoImg {
+    width: 35px;
+    height: auto;
+    object-fit: contain;
   }
 
   .accent { color: $primary; }

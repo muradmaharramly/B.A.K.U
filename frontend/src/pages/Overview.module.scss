@@ -75,6 +75,9 @@
 .chartSection {
   @extend .card;
   .sectionHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     margin-bottom: $space-8;
     h3 { font-size: 11px; color: $gray-500; text-transform: uppercase; letter-spacing: 2px; font-weight: 800; }
   }
@@ -164,10 +167,10 @@
   &:last-child { border: none; }
 
   .logIcon { margin-top: 3px; font-size: 15px; }
-  &.info .logIcon { color: $primary; }
-  &.warning .logIcon { color: #ffa502; }
-  &.error .logIcon { color: #ff4757; }
-  &.success .logIcon { color: #2ecc71; }
+  &.info .logIcon, &.INFO .logIcon { color: $primary; }
+  &.warning .logIcon, &.WARN .logIcon { color: #ffa502; }
+  &.error .logIcon, &.ERROR .logIcon { color: #ff4757; }
+  &.success .logIcon, &.SUCCESS .logIcon { color: #2ecc71; }
 
   .logContent {
     p { font-size: 13px; line-height: 1.5; color: $gray-200; font-weight: 500; }
@@ -230,3 +233,121 @@
 
 @keyframes pulse { 0% { transform: scale(1); opacity: 1; } 100% { transform: scale(2.5); opacity: 0; } }
 @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.2; } }
+
+// ─── Two‑column layout ────────────────────────────────────────────────────────
+.dashboardLayout {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: $space-6;
+
+  @media (max-width: 1200px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.mainCol, .rightCol {
+  display: flex;
+  flex-direction: column;
+  gap: $space-6;
+}
+
+// ─── Chart header extras ──────────────────────────────────────────────────────
+.chartLegend {
+  display: flex;
+  gap: $space-5;
+  align-items: center;
+}
+
+.legendItem {
+  display: flex;
+  align-items: center;
+  gap: $space-2;
+  font-size: 11px;
+  color: $gray-500;
+  font-weight: 600;
+}
+
+.dotBus {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: $primary;
+  display: inline-block;
+}
+
+.dotMetro {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: #5e81f4;
+  display: inline-block;
+}
+
+// ─── Route congestion cards ───────────────────────────────────────────────────
+.quickActions {
+  @extend .card;
+
+  h3 {
+    font-size: 11px;
+    color: $gray-500;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 800;
+    margin-bottom: $space-5;
+  }
+}
+
+.actionGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: $space-4;
+
+  @media (max-width: 900px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.routeCard {
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 12px;
+  padding: $space-4;
+  transition: border-color 0.25s, background 0.25s;
+
+  &:hover {
+    background: rgba(255,255,255,0.04);
+    border-color: rgba($primary, 0.25);
+  }
+}
+
+.rHeader {
+  display: flex;
+  align-items: center;
+  gap: $space-3;
+  margin-bottom: $space-4;
+  padding-bottom: $space-3;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+
+.rIcon {
+  width: 32px; height: 32px;
+  background: rgba($primary, 0.08);
+  border: 1px solid rgba($primary, 0.15);
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  color: $primary;
+  font-size: 14px;
+}
+
+.rNumber {
+  font-size: 13px;
+  font-weight: 800;
+  color: $white;
+  font-family: $font-title;
+}
+
+.rDetails {
+  display: flex;
+  flex-direction: column;
+  gap: $space-3;
+}
+
+.normal { color: $primary; font-weight: 700; font-size: 11px; }

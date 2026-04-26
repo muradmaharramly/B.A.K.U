@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { FiSearch, FiBell, FiUser, FiLogOut, FiCheckCircle, FiAlertTriangle, FiInfo } from 'react-icons/fi';
 import { PiUserCircleFill } from "react-icons/pi";
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import styles from './Topbar.module.scss';
 
@@ -12,6 +13,7 @@ const notifications = [
 
 export default function Topbar({ title }) {
   const { logout } = useAuth();
+  const navigate = useNavigate();
   const [showLogoutModal, setShowLogoutModal] = useState(false);
 
   return (
@@ -55,7 +57,12 @@ export default function Topbar({ title }) {
             </div>
           </div>
           
-          <div className={styles.profile}>
+          <div 
+            className={styles.profile}
+            onClick={() => navigate('/dashboard/settings')}
+            style={{ cursor: 'pointer' }}
+            title="Tənzimləmələrə keç"
+          >
             <div className={styles.userInfo}>
               <span className={styles.role}>Sistem Nəzarətçisi</span>
             </div>

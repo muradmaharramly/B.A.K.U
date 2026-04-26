@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { FaBus, FaBars, FaTimes } from 'react-icons/fa';
+import { FaBars, FaTimes } from 'react-icons/fa';
+import logo from '../assets/B.A.K.U-logo.png';
 import styles from './Navbar.module.scss';
 
 export default function Navbar() {
@@ -28,7 +29,7 @@ export default function Navbar() {
     <nav className={`${styles.navbar} ${scrolled ? styles.scrolled : ''}`}>
       <div className={styles.container}>
         <Link to="/" className={styles.logo}>
-          <span className={styles.logoIcon}><FaBus /></span>
+          <img src={logo} alt="B.A.K.U Logo" className={styles.logoImg} />
           <span>B.<span className={styles.accent}>A</span>.K.<span className={styles.accent}>U</span></span>
         </Link>
 
