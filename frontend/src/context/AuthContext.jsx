@@ -3,6 +3,9 @@ import axios from 'axios';
 
 const AuthContext = createContext();
 
+// Fail-safe API URL: Use environment variable or fallback to production Render URL
+const API_URL = import.meta.env.VITE_API_URL || 'https://baku-transit-backend.onrender.com/api';
+
 export const useAuth = () => useContext(AuthContext);
 
 export const AuthProvider = ({ children }) => {
@@ -30,7 +33,7 @@ export const AuthProvider = ({ children }) => {
 
   const checkAdmin = async (token) => {
     try {
-      const res = await axios.get(`${import.meta.env.VITE_API_URL}/auth/me`, {
+      const res = await axios.get(`${API_URL}/auth/me`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setAdmin(res.data);
@@ -45,7 +48,7 @@ export const AuthProvider = ({ children }) => {
   const login = async (username, password) => {
     setError(null);
     try {
-      const res = await axios.post(`${import.meta.env.VITE_API_URL}/auth/login`, { username, password });
+      const res = await axios.post(`${API_URL}/auth/login`, { username, password });
       localStorage.setItem('token', res.data.token);
       setAdmin(res.data.admin);
       return true;

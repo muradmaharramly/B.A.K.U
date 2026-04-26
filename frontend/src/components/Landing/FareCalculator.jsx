@@ -4,8 +4,9 @@ import { MdDirectionsBus, MdDirectionsSubway } from 'react-icons/md';
 import CustomDropdown from './CustomDropdown';
 import { busRoutes, metroRoutes } from './transportData';
 import styles from './FareCalculator.module.scss';
-
 import axios from 'axios';
+
+const API_URL = import.meta.env.VITE_API_URL || 'https://baku-transit-backend.onrender.com/api';
 
 export default function FareCalculator() {
   const [type, setType] = useState('metro');
@@ -21,7 +22,7 @@ export default function FareCalculator() {
     let isMounted = true;
     const fetchPricing = async () => {
       try {
-        const res = await axios.get(`${import.meta.env.VITE_API_URL}/settings/pricing`);
+        const res = await axios.get(`${API_URL}/settings/pricing`);
         if (isMounted) setPricing(res.data);
       } catch (err) {
         // No need to spam console if backend handles the fallback
@@ -136,7 +137,7 @@ export default function FareCalculator() {
       const direct = findDirectBus(from, to);
       if (direct) {
         try {
-          const distRes = await axios.get(`${import.meta.env.VITE_API_URL}/transit/distance?from=${encodeURIComponent(from)}&to=${encodeURIComponent(to)}`);
+          const distRes = await axios.get(`${API_URL}/transit/distance?from=${encodeURIComponent(from)}&to=${encodeURIComponent(to)}`);
           distanceKm = distRes.data.distanceKm;
           let baseFare = 0.40;
           if (pricing?.bus_tiers) {

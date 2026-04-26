@@ -17,6 +17,8 @@ import styles from './Overview.module.scss';
 
 const mapCenter = [40.4093, 49.8671];
 
+const API_URL = import.meta.env.VITE_API_URL || 'https://baku-transit-backend.onrender.com/api';
+
 export default function Dashboard() {
   const [stats, setStats] = useState({
     daily_revenue: 0,
@@ -38,19 +40,19 @@ export default function Dashboard() {
         const headers = { Authorization: `Bearer ${token}` };
 
         // Fetch stats
-        const statsRes = await axios.get(`${import.meta.env.VITE_API_URL}/dashboard/stats`, { headers });
+        const statsRes = await axios.get(`${API_URL}/dashboard/stats`, { headers });
         setStats(statsRes.data);
 
         // Fetch logs (limit to 5)
-        const logsRes = await axios.get(`${import.meta.env.VITE_API_URL}/logs`, { headers });
+        const logsRes = await axios.get(`${API_URL}/logs`, { headers });
         setLogs(logsRes.data.slice(0, 5));
 
         // Fetch nodes (for system health)
-        const nodesRes = await axios.get(`${import.meta.env.VITE_API_URL}/nodes`, { headers });
+        const nodesRes = await axios.get(`${API_URL}/nodes`, { headers });
         setNodes(nodesRes.data.slice(0, 3));
 
         // Fetch fleet (for map)
-        const fleetRes = await axios.get(`${import.meta.env.VITE_API_URL}/fleet`, { headers });
+        const fleetRes = await axios.get(`${API_URL}/fleet`, { headers });
         setFleet(fleetRes.data);
 
       } catch (err) {
