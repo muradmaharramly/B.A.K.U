@@ -11,7 +11,7 @@ export default function Sidebar() {
     { icon: <FiGrid />, label: 'Ümumi Baxış', path: '/dashboard' },
     { icon: <FaBusAlt />, label: 'Avtobuslar', path: '/dashboard/buses' },
     { icon: <MdDirectionsSubway />, label: 'Metrolar', path: '/dashboard/metro' },
-    { icon: <FiCompass />, label: 'Donanma İdarəetmə', path: '/dashboard/fleet' },
+    { icon: <FiCompass />, label: 'Təchizat', path: '/dashboard/fleet' },
     { icon: <FiActivity />, label: 'Analitika', path: '/dashboard/analytics' },
     { icon: <FiClock />, label: 'Sistem Jurnalları', path: '/dashboard/logs' },
     { icon: <FiServer />, label: 'Qovşaqlar', path: '/dashboard/nodes' },

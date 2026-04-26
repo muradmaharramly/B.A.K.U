@@ -349,4 +349,135 @@ router.get('/users/:id/transactions', async (req, res) => {
   }
 });
 
+// ─── LOGS ─────────────────────────────────────────────────────────────────────
+router.get('/logs', async (req, res) => {
+  try {
+    const { level, search } = req.query;
+    let query = 'SELECT * FROM system_logs';
+    const params = [];
+    let conditions = [];
+
+    if (level && level !== 'Hamısı') {
+      params.push(level);
+      conditions.push(`level = $${params.length}`);
+    }
+    if (search) {
+      params.push(`%${search}%`);
+      conditions.push(`(message ILIKE $${params.length} OR category ILIKE $${params.length} OR source ILIKE $${params.length})`);
+    }
+
+    if (conditions.length > 0) {
+      query += ' WHERE ' + conditions.join(' AND ');
+    }
+    query += ' ORDER BY created_at DESC LIMIT 100';
+
+    const { rows } = await pool.query(query, params);
+    res.json(rows);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// ─── NODES ────────────────────────────────────────────────────────────────────
+router.get('/nodes', async (req, res) => {
+  try {
+    const { search } = req.query;
+    let query = 'SELECT * FROM nodes';
+    const params = [];
+    if (search) {
+      params.push(`%${search}%`);
+      query += ` WHERE id ILIKE $1 OR name ILIKE $1 OR ip_address ILIKE $1`;
+    }
+    query += ' ORDER BY id';
+    const { rows } = await pool.query(query, params);
+    res.json(rows);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+router.post('/nodes', async (req, res) => {
+  try {
+    const { id, name, type, ip_address } = req.body;
+    const { rows } = await pool.query(
+      `INSERT INTO nodes (id, name, type, ip_address) VALUES ($1, $2, $3, $4) RETURNING *`,
+      [id, name, type, ip_address]
+    );
+    res.json(rows[0]);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// ─── FLEET ────────────────────────────────────────────────────────────────────
+router.get('/fleet', async (req, res) => {
+  try {
+    const { search } = req.query;
+    let query = 'SELECT * FROM fleet_units';
+    const params = [];
+    if (search) {
+      params.push(`%${search}%`);
+      query += ` WHERE id ILIKE $1 OR route_number ILIKE $1`;
+    }
+    query += ' ORDER BY id';
+    const { rows } = await pool.query(query, params);
+    res.json(rows);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+router.post('/fleet', async (req, res) => {
+  try {
+    const { id, route_number, current_location } = req.body;
+    const { rows } = await pool.query(
+      `INSERT INTO fleet_units (id, route_number, current_location) VALUES ($1, $2, $3) RETURNING *`,
+      [id, route_number, current_location]
+    );
+    res.json(rows[0]);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// ─── SETTINGS ─────────────────────────────────────────────────────────────────
+router.get('/settings', async (req, res) => {
+  try {
+    const { rows } = await pool.query('SELECT * FROM system_settings');
+    const settingsObj = {};
+    rows.forEach(r => {
+      settingsObj[r.key] = r.value;
+    });
+    res.json(settingsObj);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+router.put('/settings', async (req, res) => {
+  try {
+    const settings = req.body; // Expecting { key1: value1, key2: value2 }
+    const client = await pool.connect();
+    try {
+      await client.query('BEGIN');
+      for (const [key, value] of Object.entries(settings)) {
+        await client.query(
+          `INSERT INTO system_settings ("key", "value") VALUES ($1, $2) ON CONFLICT ("key") DO UPDATE SET "value" = EXCLUDED."value", updated_at = NOW()`,
+          [key, JSON.stringify(value)]
+        );
+      }
+      await client.query('COMMIT');
+      res.json({ message: 'Settings updated successfully' });
+    } catch (err) {
+      await client.query('ROLLBACK');
+      throw err;
+    } finally {
+      client.release();
+    }
+  } catch (err) {
+    console.error('PUT /settings Error:', err.message, err.stack);
+    res.status(500).json({ error: err.message });
+  }
+});
+
 module.exports = router;

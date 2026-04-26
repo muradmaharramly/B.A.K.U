@@ -15,32 +15,7 @@ import { MapContainer, TileLayer, CircleMarker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import styles from './Overview.module.scss';
 
-const ridershipData = [
-  { time: '06:00', count: 1200 },
-  { time: '08:00', count: 4500 },
-  { time: '10:00', count: 3200 },
-  { time: '12:00', count: 2800 },
-  { time: '14:00', count: 3100 },
-  { time: '16:00', count: 5200 },
-  { time: '18:00', count: 6800 },
-  { time: '20:00', count: 2400 },
-];
-
-const systemLogs = [
-  { id: 1, type: 'info', msg: 'Sektor 4: Marşrut tezliyi pik saat üçün optimallaşdırıldı', time: '14:23' },
-  { id: 2, type: 'warning', msg: 'Texniki Baxış Xəbərdarlığı: B-201 bloku sensor sapması', time: '14:15' },
-  { id: 3, type: 'success', msg: 'Toplu ödəniş sinxronizasiyası: 12,402 əməliyyat emal edildi', time: '13:00' },
-  { id: 4, type: 'error', msg: 'Kritik: Verilənlər bazası 3-cü qovşaq bağlantısı kəsildi', time: '12:45' },
-  { id: 5, type: 'info', msg: 'Donanmaya yeni SIM keçid protokolu tətbiq edildi', time: '10:30' },
-];
-
 const mapCenter = [40.4093, 49.8671];
-const mockBuses = [
-  { id: 1, pos: [40.41, 49.86], name: '#5 Nərimanov' },
-  { id: 2, pos: [40.39, 49.88], name: '#88 Dərnəgül' },
-  { id: 3, pos: [40.42, 49.85], name: '#18 Koroğlu' },
-  { id: 4, pos: [40.38, 49.87], name: '#65 Azadlıq' },
-];
 
 export default function Dashboard() {
   const [stats, setStats] = useState({
@@ -50,24 +25,52 @@ export default function Dashboard() {
     total_users: 0,
     peak_hours: []
   });
+  const [logs, setLogs] = useState([]);
+  const [nodes, setNodes] = useState([]);
+  const [fleet, setFleet] = useState([]);
+  
   const { admin } = useAuth();
 
   useEffect(() => {
-    const fetchStats = async () => {
+    const fetchDashboardData = async () => {
       try {
         const token = localStorage.getItem('token');
-        const res = await axios.get(`${import.meta.env.VITE_API_URL}/dashboard/stats`, {
-          headers: { Authorization: `Bearer ${token}` }
-        });
-        setStats(res.data);
+        const headers = { Authorization: `Bearer ${token}` };
+
+        // Fetch stats
+        const statsRes = await axios.get(`${import.meta.env.VITE_API_URL}/dashboard/stats`, { headers });
+        setStats(statsRes.data);
+
+        // Fetch logs (limit to 5)
+        const logsRes = await axios.get(`${import.meta.env.VITE_API_URL}/logs`, { headers });
+        setLogs(logsRes.data.slice(0, 5));
+
+        // Fetch nodes (for system health)
+        const nodesRes = await axios.get(`${import.meta.env.VITE_API_URL}/nodes`, { headers });
+        setNodes(nodesRes.data.slice(0, 3));
+
+        // Fetch fleet (for map)
+        const fleetRes = await axios.get(`${import.meta.env.VITE_API_URL}/fleet`, { headers });
+        setFleet(fleetRes.data);
+
       } catch (err) {
-        console.error('Error fetching dashboard stats:', err);
+        console.error('Error fetching dashboard data:', err);
       }
     };
-    fetchStats();
-    const interval = setInterval(fetchStats, 30000); // Update every 30s
+    
+    fetchDashboardData();
+    const interval = setInterval(fetchDashboardData, 30000); // Update every 30s
     return () => clearInterval(interval);
   }, []);
+
+  // Parse location string to generic lat/lng for visualization if needed, or use mock spread around mapCenter
+  const getMockPosition = (index) => {
+    // Generate slight offset from map center to simulate fleet spread
+    const offsetLat = (Math.random() - 0.5) * 0.05;
+    const offsetLng = (Math.random() - 0.5) * 0.05;
+    return [mapCenter[0] + offsetLat, mapCenter[1] + offsetLng];
+  };
+
   return (
     <DashboardLayout title="Sistem Performansına Ümumi Baxış">
       <div className={styles.statsGrid}>
@@ -75,7 +78,7 @@ export default function Dashboard() {
           <div className={styles.statIcon}><FaBusSimple /></div>
           <div className={styles.statData}>
             <span className={styles.label}>Canlı Donanma</span>
-            <span className={styles.value}>{stats.active_trips} / 150</span>
+            <span className={styles.value}>{fleet.length || stats.active_trips} / 150</span>
           </div>
         </div>
         <div className={styles.statItem}>
@@ -101,72 +104,82 @@ export default function Dashboard() {
         </div>
       </div>
 
-      <div className={styles.layoutGrid}>
-        <div className={styles.leftCol}>
+      <div className={styles.dashboardLayout}>
+        <div className={styles.mainCol}>
           <div className={styles.chartSection}>
             <div className={styles.sectionHeader}>
-              <h3>Şəbəkə Sərnişin Axını</h3>
+              <h3>Sərnişin Yükü (Son 24 Saat)</h3>
+              <div className={styles.chartLegend}>
+                <span className={styles.legendItem}><span className={styles.dotBus}></span>Avtobus</span>
+                <span className={styles.legendItem}><span className={styles.dotMetro}></span>Metro</span>
+              </div>
             </div>
             <div className={styles.chartWrapper}>
-              <ResponsiveContainer width="100%" height={300}>
-                <AreaChart data={stats.peak_hours.length > 0 ? stats.peak_hours : ridershipData}>
+              <ResponsiveContainer width="100%" height="100%">
+                <AreaChart data={stats.peak_hours}>
                   <defs>
                     <linearGradient id="colorCount" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="#9FC73C" stopOpacity={0.2}/>
+                      <stop offset="5%" stopColor="#9FC73C" stopOpacity={0.8}/>
                       <stop offset="95%" stopColor="#9FC73C" stopOpacity={0}/>
                     </linearGradient>
                   </defs>
-                  <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.03)" vertical={false} />
-                  <XAxis dataKey={stats.peak_hours.length > 0 ? "hour" : "time"} stroke="#627d98" fontSize={11} tickLine={false} axisLine={false} />
-                  <YAxis stroke="#627d98" fontSize={11} tickLine={false} axisLine={false} />
+                  <CartesianGrid strokeDasharray="3 3" stroke="#2D3748" vertical={false} />
+                  <XAxis dataKey="hour" stroke="#A0AEC0" tick={{fill: '#A0AEC0'}} tickLine={false} axisLine={false} />
+                  <YAxis stroke="#A0AEC0" tick={{fill: '#A0AEC0'}} tickLine={false} axisLine={false} />
                   <Tooltip 
-                    contentStyle={{ background: '#0a0a0f', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '8px' }}
-                    itemStyle={{ color: '#9FC73C', fontSize: '12px' }}
+                    contentStyle={{ backgroundColor: '#1A202C', border: '1px solid #2D3748', borderRadius: '8px', color: '#fff' }}
+                    itemStyle={{ color: '#9FC73C' }}
                   />
-                  <Area type="monotone" dataKey={stats.peak_hours.length > 0 ? "passengers" : "count"} stroke="#9FC73C" strokeWidth={1.5} fillOpacity={1} fill="url(#colorCount)" />
+                  <Area type="monotone" dataKey="passengers" stroke="#9FC73C" strokeWidth={3} fillOpacity={1} fill="url(#colorCount)" />
                 </AreaChart>
               </ResponsiveContainer>
             </div>
           </div>
 
-          <div className={styles.transitSection}>
-            <div className={styles.sectionHeader}>
-              <h3>Marşrut Performansı</h3>
-            </div>
-            <div className={styles.transitGrid}>
-              <div className={styles.transitCard}>
-                <div className={styles.cardHeader}>
-                  <FiTruck />
-                  <span>Avtobus Xətləri</span>
+          <div className={styles.quickActions}>
+            <h3>Aktiv Marşrut Tıxacları</h3>
+            <div className={styles.actionGrid}>
+              <div className={styles.routeCard}>
+                <div className={styles.rHeader}>
+                  <div className={styles.rIcon}><FaBusSimple /></div>
+                  <span className={styles.rNumber}>#140E</span>
                 </div>
-                <div className={styles.cardBody}>
+                <div className={styles.rDetails}>
                   <div className={styles.routeItem}>
-                    <span>#5 Nərimanov</span>
-                    <span className={styles.onTime}>Dəqiq</span>
+                    <span>H. Aslanov m.</span>
+                    <span className={styles.busy}>Yüksək Yük</span>
                   </div>
                   <div className={styles.routeItem}>
-                    <span>#88 Dərnəgül</span>
-                    <span className={styles.busy}>Yüklənib</span>
-                  </div>
-                  <div className={styles.routeItem}>
-                    <span>#18 Koroğlu</span>
-                    <span className={styles.delayed}>Gecikir</span>
+                    <span>Mərdəkan Qəs.</span>
+                    <span className={styles.normal}>Normal</span>
                   </div>
                 </div>
               </div>
-              <div className={styles.transitCard}>
-                <div className={styles.cardHeader}>
-                  <MdDirectionsSubway />
-                  <span>Metro Xətləri</span>
+              <div className={styles.routeCard}>
+                <div className={styles.rHeader}>
+                  <div className={styles.rIcon}><FaBusSimple /></div>
+                  <span className={styles.rNumber}>#5</span>
                 </div>
-                <div className={styles.cardBody}>
+                <div className={styles.rDetails}>
                   <div className={styles.routeItem}>
-                    <span>Qırmızı Xətt</span>
-                    <span className={styles.onTime}>Aktiv</span>
+                    <span>Nərimanov m.</span>
+                    <span className={styles.normal}>Normal</span>
                   </div>
                   <div className={styles.routeItem}>
-                    <span>Yaşıl Xətt</span>
-                    <span className={styles.onTime}>Aktiv</span>
+                    <span>28 May m.</span>
+                    <span className={styles.busy}>Kritik</span>
+                  </div>
+                </div>
+              </div>
+              <div className={styles.routeCard}>
+                <div className={styles.rHeader}>
+                  <div className={styles.rIcon}><MdDirectionsSubway /></div>
+                  <span className={styles.rNumber}>M1</span>
+                </div>
+                <div className={styles.rDetails}>
+                  <div className={styles.routeItem}>
+                    <span>Qırmızı Xətt</span>
+                    <span className={styles.normal}>Gecikmə: 2 dəq</span>
                   </div>
                   <div className={styles.routeItem}>
                     <span>Bənövşəyi Xətt</span>
@@ -183,17 +196,17 @@ export default function Dashboard() {
                 url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
               />
-              {mockBuses.map(bus => (
+              {fleet.map((bus, i) => (
                 <CircleMarker 
                   key={bus.id} 
-                  center={bus.pos} 
+                  center={getMockPosition(i)} 
                   radius={8} 
                   fillColor="#9FC73C" 
                   color="#111" 
                   weight={2} 
                   fillOpacity={1}
                 >
-                  <Popup>{bus.name}</Popup>
+                  <Popup>{bus.route_number} - {bus.current_location}</Popup>
                 </CircleMarker>
               ))}
             </MapContainer>
@@ -209,18 +222,13 @@ export default function Dashboard() {
           <div className={styles.systemHealth}>
             <h3>Qovşaq Statusu</h3>
             <div className={styles.healthList}>
-              <div className={styles.healthItem}>
-                <span>GPS Alfa</span>
-                <span className={styles.status}>Aktiv</span>
-              </div>
-              <div className={styles.healthItem}>
-                <span>Ödəniş Releləri</span>
-                <span className={styles.status}>Aktiv</span>
-              </div>
-              <div className={styles.healthItem}>
-                <span>Sektor 4 Analitikası</span>
-                <span className={styles.status}>Aktiv</span>
-              </div>
+              {nodes.map(node => (
+                <div key={node.id} className={styles.healthItem}>
+                  <span>{node.name}</span>
+                  <span className={styles.status} style={{ color: node.status === 'onlayn' ? '#9FC73C' : '#e53e3e' }}>{node.status}</span>
+                </div>
+              ))}
+              {nodes.length === 0 && <span style={{color: '#627d98'}}>Qovşaq tapılmadı.</span>}
             </div>
           </div>
 
@@ -229,20 +237,21 @@ export default function Dashboard() {
               <h3>Son Fəaliyyət Jurnalları</h3>
             </div>
             <div className={styles.logList}>
-              {systemLogs.map((log) => (
-                <div key={log.id} className={`${styles.logItem} ${styles[log.type]}`}>
+              {logs.map((log) => (
+                <div key={log.id} className={`${styles.logItem} ${styles[log.level.toLowerCase()]}`}>
                   <div className={styles.logIcon}>
-                    {log.type === 'info' && <FiTrendingUp />}
-                    {log.type === 'warning' && <FiAlertTriangle />}
-                    {log.type === 'error' && <FiAlertTriangle />}
-                    {log.type === 'success' && <FiCheckCircle />}
+                    {log.level === 'INFO' && <FiTrendingUp />}
+                    {log.level === 'WARN' && <FiAlertTriangle />}
+                    {log.level === 'ERROR' && <FiAlertTriangle />}
+                    {log.level === 'SUCCESS' && <FiCheckCircle />}
                   </div>
                   <div className={styles.logContent}>
-                    <p>{log.msg}</p>
-                    <span className={styles.time}>{log.time}</span>
+                    <p>{log.message}</p>
+                    <span className={styles.time}>{new Date(log.created_at).toLocaleTimeString()}</span>
                   </div>
                 </div>
               ))}
+              {logs.length === 0 && <span style={{color: '#627d98'}}>Jurnal tapılmadı.</span>}
             </div>
           </div>
         </div>

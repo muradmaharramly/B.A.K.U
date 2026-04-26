@@ -123,6 +123,47 @@ CREATE TABLE IF NOT EXISTS vouchers (
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
+-- System Logs
+CREATE TABLE IF NOT EXISTS system_logs (
+    id SERIAL PRIMARY KEY,
+    level VARCHAR(20) NOT NULL,
+    category VARCHAR(50) NOT NULL,
+    message TEXT NOT NULL,
+    source VARCHAR(50),
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+-- Network Nodes
+CREATE TABLE IF NOT EXISTS nodes (
+    id VARCHAR(50) PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    status VARCHAR(20) NOT NULL DEFAULT 'onlayn',
+    uptime VARCHAR(50),
+    load_percent INTEGER DEFAULT 0,
+    type VARCHAR(50) NOT NULL,
+    ip_address VARCHAR(45),
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+-- Fleet Units (Hardware tracking)
+CREATE TABLE IF NOT EXISTS fleet_units (
+    id VARCHAR(50) PRIMARY KEY,
+    route_number VARCHAR(20) NOT NULL,
+    status VARCHAR(50) NOT NULL DEFAULT 'In Transit',
+    load_percent INTEGER DEFAULT 0,
+    current_location VARCHAR(255),
+    health_status VARCHAR(20) NOT NULL DEFAULT 'Optimal',
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+-- System Settings
+CREATE TABLE IF NOT EXISTS system_settings (
+    key VARCHAR(50) PRIMARY KEY,
+    value JSONB NOT NULL,
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
 -- -----------------------------------------------
 -- SEED DATA
 -- -----------------------------------------------

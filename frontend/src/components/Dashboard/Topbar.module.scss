@@ -226,7 +226,8 @@
 }
 
 .modal {
-  background: #0d0d12;
+  bbackground: #1113185a;
+  backdrop-filter: blur(20px);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 20px;
   padding: $space-8;
@@ -259,19 +260,28 @@
     border-radius: 12px;
     font-weight: 700;
     font-size: $font-size-sm;
-    transition: all 0.2s;
-  }
+    transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+}
 
   .cancelBtn {
-    background: rgba(255, 255, 255, 0.05);
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.05);
     color: $white;
-    &:hover { background: rgba(255, 255, 255, 0.1); }
+    &:hover {  border: 1px solid rgba(229, 229, 229, 0.879); }
   }
 
   .confirmBtn {
-    background: #ff5f5f;
-    color: $white;
-    &:hover { background: #ff4444; transform: scale(1.02); }
+    background: transparent;
+    border: 1px solid rgb(127, 4, 4);
+    color: rgb(127, 4, 4);;
+    &:hover { 
+       border: 1px solid rgb(232, 27, 27);;
+       color: rgb(232, 27, 27);
+     }
   }
 }
 
