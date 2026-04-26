@@ -43,7 +43,7 @@ const ProtectedRoute = ({ children }) => {
             fontSize: '0.8rem'
           }}
         >
-          İptal et və Geri Qayıt
+          Ləğv et və Geri Qayıt
         </button>
       </div>
     );
